@@ -3019,6 +3019,7 @@ public class UserDAO {
         }
         return objFinalResponse.toString();
     }
+
     public String getListingTypes(int nCategory, String strTid) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("listingtypes.details.query", "SELECT * FROM listing_type where category=?");
         ResultSet rs = null;
@@ -4498,11 +4499,32 @@ public class UserDAO {
         return -1;
     }
 
-    public int propertyRequestInfo(String userId, String emailId, String mobile, String agentIds, String transId) throws SQLException, Exception {
+    public int propertyRequestInfo(String userId, String emailId, String mobile, String agentIds, int nPropertyId, String transId) throws SQLException, Exception {
         int nRes = -1;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        String insertQuery = ConfigUtil.getProperty("insert.request.info.query", "insert into aqarabia.request_info(user_id,email_id,mobile,agent_id,property_id) values(?,?,?,?,?)");
         try {
             ArrayList<AgentInfo> agentList = (ArrayList) getAgentList(agentIds);
+            objConn = DBConnection.getInstance().getConnection();
             for (AgentInfo agentList1 : agentList) {
+                try {
+                    if (objConn != null) {
+
+                        pstmt = objConn.prepareStatement(insertQuery);
+
+                        pstmt.setString(1, userId);
+                        pstmt.setString(2, emailId);
+                        pstmt.setString(3, mobile);
+                        pstmt.setInt(4, agentList1.getAgentId());
+                        pstmt.setInt(5, nPropertyId);
+                        pstmt.executeUpdate();
+                    }
+                } catch (Exception e) {
+                    logger.error("Got exception while adding request info into database , ex => " + Utilities.getStackTrace(e));
+                } finally {
+                    dbconnection.closeConnection(null, pstmt, null);
+                }
                 String requestInfoContent = requestInfoMailContent;
                 requestInfoContent = requestInfoContent.replaceAll("\\$\\(mobile\\)", mobile);
                 requestInfoContent = requestInfoContent.replaceAll("\\$\\(email\\)", emailId);
@@ -4517,12 +4539,15 @@ public class UserDAO {
             logger.error(" Got Exception while getActiveHomesCountAgainistToAgent" + Utilities.getStackTrace(e));
             throw new Exception(e);
         } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(null, pstmt, objConn);
+            }
         }
         return nRes;
     }
 
     public List<AgentInfo> getAgentList(String agentIds) {
-        String insertQuery = ConfigUtil.getProperty("get.agent.list.by.agentids", "SELECT u.email,u.phone FROM aqarabia.agent_details ad,aqarabia.users u WHERE ad.user_id=u.id AND ad.id IN ");
+        String insertQuery = ConfigUtil.getProperty("get.agent.list.by.agentids", "SELECT ad.id,u.email,u.phone FROM aqarabia.agent_details ad,aqarabia.users u WHERE ad.user_id=u.id AND ad.id IN ");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
         Connection objConn = null;
@@ -4535,6 +4560,7 @@ public class UserDAO {
                 rs = pstmt.executeQuery();
                 while (rs.next()) {
                     AgentInfo info = new AgentInfo();
+                    info.setAgentId(rs.getInt("id"));
                     info.setEmail(rs.getString("email"));
                     info.setMobile(rs.getString("phone"));
                     agentList.add(info);

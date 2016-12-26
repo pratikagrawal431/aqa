@@ -10,7 +10,7 @@ package com.beans;
  * @author pavankumar.g
  */
 public class AgentInfo {
-    
+    private int agentId;
     private String email;
     private String mobile;
 
@@ -30,9 +30,17 @@ public class AgentInfo {
         this.mobile = mobile;
     }
 
+    public int getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(int agentId) {
+        this.agentId = agentId;
+    }
+
     @Override
     public String toString() {
-        return "AgentInfo{" + "email=" + email + ", mobile=" + mobile + '}';
+        return "AgentInfo{" + "agentId=" + agentId + ", email=" + email + ", mobile=" + mobile + '}';
     }
     
 }

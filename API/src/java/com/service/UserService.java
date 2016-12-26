@@ -344,8 +344,8 @@ public class UserService {
     public String agentSearch(int minPrice, int maxPrice, String location, int agentType, String keywords, String propertyExpertise, String agentSpecialty, String languages, String transId) throws SQLException, Exception {
         return objUserDAO.agentSearch(minPrice, maxPrice, location, agentType, keywords, propertyExpertise, agentSpecialty, languages, transId);
     }
-    public int propertyRequestInfo(String userId,String emailId,String mobile,String agentIds, String transId) throws SQLException, Exception {
-        return objUserDAO.propertyRequestInfo(userId, emailId, mobile, agentIds, transId);
+    public int propertyRequestInfo(String userId,String emailId,String mobile,String agentIds, int nPropertyId,String transId) throws SQLException, Exception {
+        return objUserDAO.propertyRequestInfo(userId, emailId, mobile, agentIds,nPropertyId, transId);
     }
 
     public String agentList(String transId, int nAgentId, int nPropertyId) throws SQLException, Exception {
