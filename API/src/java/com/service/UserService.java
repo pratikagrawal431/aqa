@@ -309,6 +309,9 @@ public class UserService {
     public String getPropertyTypes(int nCategory, String transId) throws SQLException, Exception {
         return objUserDAO.getPropertyTypes(nCategory, transId);
     }
+    public String getListingTypes(int nCategory, String transId) throws SQLException, Exception {
+        return objUserDAO.getListingTypes(nCategory, transId);
+    }
 
     public String getPropertyTypesAdmin(String transId) throws SQLException, Exception {
         return objUserDAO.getPropertyTypesAdmin(transId);

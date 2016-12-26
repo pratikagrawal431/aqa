@@ -73,7 +73,10 @@ public class PropertyController {
             }
 
             String objPropertyType = objUserService.getPropertyTypes(category, transId);
+            String objListingType = objUserService.getListingTypes(category, transId);
             model.addObject("objPropertyType", objPropertyType);
+            model.addObject("objListingType", objListingType);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,6 +97,19 @@ public class PropertyController {
         }
 
         return objPropertyType;
+
+    }
+    @RequestMapping(value = "/getListingTypes", method = RequestMethod.GET)
+    public String getListingTypes(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat) {
+        String transId = UUID.randomUUID().toString();
+        String objListingType = null;
+        try {
+            objListingType = objUserService.getListingTypes(nCat, transId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return objListingType;
 
     }
 

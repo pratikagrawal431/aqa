@@ -1315,7 +1315,7 @@ public class UserDAO {
                     property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                     property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
                     property.put(Constants.dateAvailable, rs.getTimestamp("date_available") + "");
-                    property.put(Constants.createdOn, rs.getTimestamp("created_on") + "");
+                    property.put(Constants.createdOn, Utilities.getDate(rs.getDate("created_on")));
                     property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                     property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                     property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
@@ -2927,7 +2927,7 @@ public class UserDAO {
                         property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                         property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
                         property.put(Constants.dateAvailable, rs.getTimestamp("date_available") + "");
-                        property.put(Constants.createdOn, rs.getTimestamp("created_on") + "");
+                        property.put(Constants.createdOn, Utilities.getDate(rs.getDate("created_on")));
                         property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                         property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                         property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
@@ -3003,6 +3003,46 @@ public class UserDAO {
                     propertyArray.put(property);
                 }
                 objRequest.put("propertyTypes", propertyArray);
+                objFinalResponse.put("response", objRequest);
+
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while getUserDetails" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while getUserDetails" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(rs, pstmt, objConn);
+            }
+        }
+        return objFinalResponse.toString();
+    }
+    public String getListingTypes(int nCategory, String strTid) throws SQLException, Exception {
+        String query = ConfigUtil.getProperty("listingtypes.details.query", "SELECT * FROM listing_type where category=?");
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        JSONObject objFinalResponse = new JSONObject();
+        try {
+
+            JSONObject objRequest = new JSONObject();
+            objRequest.put("code", "1000");
+            objRequest.put("transid", strTid);
+            objConn = DBConnection.getInstance().getConnection();
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(query);
+                pstmt.setInt(1, nCategory);
+                rs = pstmt.executeQuery();
+                JSONArray listingTypeArray = new JSONArray();
+                while (rs.next()) {
+                    JSONObject property = new JSONObject();
+                    property.put(Constants.id, rs.getInt("id"));
+                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    listingTypeArray.put(property);
+                }
+                objRequest.put("listingTypes", listingTypeArray);
                 objFinalResponse.put("response", objRequest);
 
             }

@@ -322,9 +322,9 @@
                                 <div class="Property-select">
                                     <select id="listingType" name="listingType">
                                         <option value="">-- Select Type --</option>
-                                        <option value="1">Resale</option>
+<!--                                        <option value="1">Resale</option>
                                         <option value="2">New Construction</option>
-                                        <option value="3">Foreclosure</option>
+                                        <option value="3">Foreclosure</option>-->
                                     </select>
                                 </div><!--Property-select-->
                             </div><!--group price-->
@@ -812,7 +812,7 @@
                             <p id="Laundry1">--</p>    
                         </div><!--col-sm-10--><div class="col-sm-4 top-buffer2">
                             <p class="Details-heading">Listing Type</p> 
-                            <p id="ListingType1">--</p>    
+                            <p id="listingType1">--</p>    
                         </div><!--col-sm-10--><div class="col-sm-4 top-buffer2">
                             <p class="Details-heading">Developer</p> 
                             <p id="Developer1">--</p>    
@@ -923,6 +923,30 @@
                         'value': rec.id,
                         'text': rec.name
                     }).appendTo('#propertyType');
+                    //  $("#content").append('<h1>'+rec.Id+'</h1>'+'<p>'rec.Title+'</p>'+'<span>'+rec.url+'</span>').slideDown('slow');
+                })
+
+            }
+        });
+    }
+    
+    function loadListingType(nCat) {
+        $.ajax({
+            url: "getListingTypes?nCat=" + nCat,
+            type: "GET",
+            dataType: "json",
+            async: false,
+            contentType: "application/json",
+            success: function (response)
+            {
+                console.log(response.response.listingTypes);
+                response = response.response.listingTypes;
+                $.each(response, function (idx, rec) {
+//                        alert(rec.propertyTypes.toString());
+                    $('<option/>', {
+                        'value': rec.id,
+                        'text': rec.name
+                    }).appendTo('#listingType');
                     //  $("#content").append('<h1>'+rec.Id+'</h1>'+'<p>'rec.Title+'</p>'+'<span>'+rec.url+'</span>').slideDown('slow');
                 })
 
@@ -1768,6 +1792,7 @@
                 }
                 $("input[name=category]").val([obj.category]);
                 loadPrpertyType([obj.category]);
+//               
                 if (obj.propertyType != 0) {
                     ptype = obj.propertyType;
 
@@ -1782,6 +1807,24 @@
                                                                                                         }
                                                                                                                         })
                 }
+                
+                loadListingType([obj.category]);
+                
+                 if (obj.listingType != 0) {
+                    ltype = obj.listingType;
+
+                    $("#listingType").val(ltype);
+                    console.log(objProperty);
+                    objProperty = $.parseJSON('${objListingType}');
+                    console.log(objProperty);
+                     $.each(objProperty.response.listingTypes, function (idx, rec) {
+                         //alert(rec.id);
+                                                if(ltype==rec.id){
+                                                                               $("#listingType1").text(rec.name);
+                                                                                                        }
+                                                                                                                        })
+                }
+                
                 $("#beds").val(obj.beds);
                 $("#beds1").text(obj.beds);
                 $("#baths").val(obj.bath);
@@ -1838,17 +1881,8 @@
                         $("input[name=seismic][value='" + i + "']").prop("checked", true);
                     }
                 }
-
-                if (obj.listingType != '' && obj.listingType != undefined) {
-                    $("#listingType").val(obj.listingType);
-                    if (obj.listingType == 1) {
-                        $("#ListingType1").text("Resale");
-                    } else if (obj.listingType == 2) {
-                        $("#ListingType1").text("New Construction");
-                    } else if (obj.listingType == 3) {
-                        $("#ListingType1").text("Foreclosure");
-                    }
-                }
+                
+               
 
                 if (furnished == 1) {
                     $('#furnished').prop('checked', true);
