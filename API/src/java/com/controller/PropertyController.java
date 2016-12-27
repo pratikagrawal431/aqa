@@ -19,6 +19,7 @@ import static com.common.ResponseCodes.ServiceErrorCodes.INVALID_EMAILID;
 import static com.common.ResponseCodes.ServiceErrorCodes.INVALID_JSON;
 import static com.common.ResponseCodes.ServiceErrorCodes.INVALID_MOBILE_NUMBER;
 import static com.common.ResponseCodes.ServiceErrorCodes.INVALID_PROPERTY_CATEGORY;
+import static com.common.ResponseCodes.ServiceErrorCodes.INVALID_PROPERTY_ID;
 import static com.common.ResponseCodes.ServiceErrorCodes.SUCCESS;
 import static com.common.ResponseCodes.ServiceErrorCodes.INVALID_RADIUS;
 import static com.common.ResponseCodes.ServiceErrorCodes.LATITUDE_AND_LONGITUDE_IS_MANDATORY;
@@ -73,7 +74,10 @@ public class PropertyController {
             }
 
             String objPropertyType = objUserService.getPropertyTypes(category, transId);
+            String objListingType = objUserService.getListingTypes(category, transId);
             model.addObject("objPropertyType", objPropertyType);
+            model.addObject("objListingType", objListingType);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,6 +98,20 @@ public class PropertyController {
         }
 
         return objPropertyType;
+
+    }
+
+    @RequestMapping(value = "/getListingTypes", method = RequestMethod.GET)
+    public String getListingTypes(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat) {
+        String transId = UUID.randomUUID().toString();
+        String objListingType = null;
+        try {
+            objListingType = objUserService.getListingTypes(nCat, transId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return objListingType;
 
     }
 
@@ -643,7 +661,7 @@ public class PropertyController {
             User bean = (User) session.getAttribute("useradmin");
             if (bean.getUser_id() != null) {
                 model.setViewName("mortagesettinglist");
-               // String response = objUserService.getMortgageDetails(strTid);
+                // String response = objUserService.getMortgageDetails(strTid);
                 // model.addObject("mortgagedetails", response);
             } else {
                 return new RedirectView("", true);
@@ -865,6 +883,7 @@ public class PropertyController {
             @RequestParam(value = "emailId", defaultValue = "") String emailId,
             @RequestParam(value = "mobile", defaultValue = "") String mobile,
             @RequestParam(value = "agentIds", defaultValue = "") String agentIds,
+            @RequestParam(value = "propertyId", defaultValue = "0") int nPropertyId,
             HttpSession httpSession) {
 
         String transId = UUID.randomUUID().toString();
@@ -878,7 +897,10 @@ public class PropertyController {
             if (StringUtils.isBlank(agentIds)) {
                 return Utilities.prepareReponse(INVALID_AGENT_ID.getCode(), INVALID_AGENT_ID.DESC(), transId);
             }
-            int nRes = objUserService.propertyRequestInfo(userId, emailId, mobile, agentIds, transId);
+            if (nPropertyId <= 0) {
+                return Utilities.prepareReponse(INVALID_PROPERTY_ID.getCode(), INVALID_PROPERTY_ID.DESC(), transId);
+            }
+            int nRes = objUserService.propertyRequestInfo(userId, emailId, mobile, agentIds, nPropertyId, transId);
             if (nRes == 0) {
                 return Utilities.prepareReponse(SUCCESS.getCode(), SUCCESS.DESC(), transId);
             }

@@ -17,6 +17,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
@@ -33,6 +34,23 @@ public class Utilities {
 
     private static final Logger logger = Logger.getLogger(Utilities.class);
     private static Gson gson = new Gson();
+    public static SimpleDateFormat sdfYYYYDDMM = new SimpleDateFormat("yyyy-MM-dd");
+
+    public static final ThreadLocal<SimpleDateFormat> sdfYYYYDDMMThreadLocal = new ThreadLocal<SimpleDateFormat>() {
+
+        @Override
+        protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("yyyy-MM-dd");
+        }
+
+    };
+
+    public static String getDate(String strDate) {
+        return sdfYYYYDDMMThreadLocal.get().format(new java.util.Date(strDate));
+    }
+    public static String getDate(Date date) {
+        return sdfYYYYDDMMThreadLocal.get().format(date);
+    }
 
     public static Properties loadFile(String fileName) {
         InputStream is = null;
@@ -250,35 +268,30 @@ public class Utilities {
 
         return finalKeyword;
     }
-    
+
     public static double calculateMonthlyPayment(int loanAmount, int termInYears, double interestRate) {
-       
-      // Convert interest rate into a decimal
-      // eg. 6.5% = 0.065
-       
-      interestRate /= 100.0;
-       
-      // Monthly interest rate 
-      // is the yearly rate divided by 12
-       
-      double monthlyRate = interestRate / 12.0;
-       
-      // The length of the term in months 
-      // is the number of years times 12
-       
-      int termInMonths = termInYears * 12;
-       
-      // Calculate the monthly payment
-      // Typically this formula is provided so 
-      // we won't go into the details
-       
-      // The Math.pow() method is used calculate values raised to a power
-       
-      double monthlyPayment = 
-         (loanAmount*monthlyRate) / 
-            (1-Math.pow(1+monthlyRate, -termInMonths));
-       
-      return monthlyPayment;
-   }
-    
+
+        // Convert interest rate into a decimal
+        // eg. 6.5% = 0.065
+        interestRate /= 100.0;
+
+        // Monthly interest rate 
+        // is the yearly rate divided by 12
+        double monthlyRate = interestRate / 12.0;
+
+        // The length of the term in months 
+        // is the number of years times 12
+        int termInMonths = termInYears * 12;
+
+        // Calculate the monthly payment
+        // Typically this formula is provided so 
+        // we won't go into the details
+        // The Math.pow() method is used calculate values raised to a power
+        double monthlyPayment
+                = (loanAmount * monthlyRate)
+                / (1 - Math.pow(1 + monthlyRate, -termInMonths));
+
+        return monthlyPayment;
+    }
+
 }
