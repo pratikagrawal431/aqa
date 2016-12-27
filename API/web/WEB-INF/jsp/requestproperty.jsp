@@ -41,6 +41,7 @@
                 anchorArray = anchorArray + "<a class='Draft-name' title='" + rowData.email + "' href='#'>" + rowData.email + "</a>";
                 anchorArray = anchorArray + "<p class='Draft-for'> <b>userId:</b> " + rowData.userId + "<br />";
                 anchorArray = anchorArray + "<b>Mobile:</b> " + rowData.mobile + "</p>";
+                anchorArray = anchorArray + "<b>Date:</b> " + rowData.datetime + "</p>";
                 anchorArray = anchorArray + "</div></div>";
                 anchorArray = anchorArray + "<div class='col-sm-3 text-center'><a href='showproperty?id=" + rowData.propertyId + "'><input type='button' class='btn-edit' value='View Details' /></a> </div>";
                 anchorArray = anchorArray + "</div><hr>";

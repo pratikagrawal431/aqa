@@ -983,7 +983,7 @@
 //          //  $("#3").attr("aria-expanded","true");
 //        }
 
-        $("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+        $("#datepicker").datepicker({dateFormat: 'DD,dd MM yy'});
         $("#activateproperty").click(function () {
             // alert($("#id").val());
             activateProperty($("#id").val());
@@ -1774,7 +1774,7 @@
                 }
 
                 if (obj.dateAvailable != "" && obj.dateAvailable != "null") {
-                    date = obj.dateAvailable.split(" ")[0];
+                    date = obj.dateAvailable;
                     $("#datepicker").val(date);
                     $("#datepicker1").text(date);
                 }

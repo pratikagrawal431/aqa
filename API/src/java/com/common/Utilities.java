@@ -17,6 +17,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -48,6 +49,7 @@ public class Utilities {
     public static String getDate(String strDate) {
         return sdfYYYYDDMMThreadLocal.get().format(new java.util.Date(strDate));
     }
+
     public static String getDate(Date date) {
         return sdfYYYYDDMMThreadLocal.get().format(date);
     }
@@ -113,6 +115,36 @@ public class Utilities {
         final PrintWriter printWriter = new PrintWriter(result);
         aThrowable.printStackTrace(printWriter);
         return result.toString();
+    }
+
+    public static String getDateFromStringRiyadh(String dateInString) {
+        try {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("E,dd MMM yyyy");
+            // String dateInString = "2016-12-21 08:37:37.253";
+            Date newdate = sdf.parse(dateInString);
+            return dateFormat.format(newdate);
+
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String getDateFromString(String dateInString) {
+        try {
+
+            SimpleDateFormat sdf = new SimpleDateFormat("E,dd MMM yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            // String dateInString = "2016-12-21 08:37:37.253";
+            Date newdate = sdf.parse(dateInString);
+            return dateFormat.format(newdate);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     public static int toInt(String strValue, int nDefValue) {

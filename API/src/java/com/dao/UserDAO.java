@@ -325,7 +325,7 @@ public class UserDAO {
         return status;
     }
 
-     public int currencySettings(CurrencyBean mortgageSettings, String id) throws SQLException, Exception {
+    public int currencySettings(CurrencyBean mortgageSettings, String id) throws SQLException, Exception {
         ResultSet rs = null;
         PreparedStatement pstmt = null;
         Connection objConn = null;
@@ -336,12 +336,12 @@ public class UserDAO {
             if (objConn != null) {
 
                 if (StringUtils.isNotBlank(mortgageSettings.getCurrency())) {
-                    updateMortgageSettings = updateMortgageSettings + " SET currency='" + mortgageSettings.getCurrency()+"'";
+                    updateMortgageSettings = updateMortgageSettings + " SET currency='" + mortgageSettings.getCurrency() + "'";
                 }
                 if (StringUtils.isNotBlank(mortgageSettings.getMul_fact())) {
-                    updateMortgageSettings = updateMortgageSettings + " ,multiplication_factor='" + mortgageSettings.getMul_fact()+"'";
+                    updateMortgageSettings = updateMortgageSettings + " ,multiplication_factor='" + mortgageSettings.getMul_fact() + "'";
                 }
-               
+
                 updateMortgageSettings = updateMortgageSettings + " where id=" + id;
                 pstmt = objConn.prepareStatement(updateMortgageSettings);
                 status = pstmt.executeUpdate();
@@ -1812,7 +1812,7 @@ public class UserDAO {
                     property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
                     property.put(Constants.status, rs.getInt("status"));
                     property.put("sell_in_months", rs.getInt("sell_in_months"));
-                    property.put(Constants.createdOn, rs.getTimestamp("created_on") + "");
+                    property.put(Constants.createdOn, Utilities.getDateFromStringRiyadh(rs.getTimestamp("created_on") + ""));
 
                     property.put("comments", rs.getInt("comments"));
 
@@ -2011,7 +2011,7 @@ public class UserDAO {
                     property.put(Constants.mobile, Utilities.nullToEmpty(rs.getString("mobile")));
                     property.put(Constants.email, Utilities.nullToEmpty(rs.getString("email_id")));
                     property.put(Constants.propertyId, Utilities.nullToEmpty(rs.getString("property_id")));
-
+                    property.put(Constants.datetime, Utilities.getDateFromStringRiyadh(Utilities.nullToEmpty(rs.getString("date"))));
                     propertyArray.put(property);
                 }
 
@@ -2110,7 +2110,8 @@ public class UserDAO {
                     property.put("country", Utilities.nullToEmpty(rs.getString("country")));
                     property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                     property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
-                    property.put(Constants.dateAvailable, rs.getTimestamp("date_available") + "");
+
+                    property.put(Constants.dateAvailable, Utilities.getDateFromStringRiyadh(rs.getTimestamp("date_available") + ""));
                     property.put(Constants.createdOn, rs.getTimestamp("created_on") + "");
                     property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                     property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
@@ -2575,7 +2576,8 @@ public class UserDAO {
                         updateString = updateString + ",price=" + property.getPrice();
                     }
                     if (property.getDateAvailable() != null) {
-                        Timestamp ts = Timestamp.valueOf(property.getDateAvailable() + " 00:00:00");
+
+                        Timestamp ts = Timestamp.valueOf(Utilities.getDateFromString(property.getDateAvailable()) + " 00:00:00");
                         updateString = updateString + ",date_available='" + ts + "'";
 
                     }
@@ -4157,7 +4159,8 @@ public class UserDAO {
         }
         return response.toString();
     }
- public String getCurrencyDetails(String strTid, String id) throws SQLException, Exception {
+
+    public String getCurrencyDetails(String strTid, String id) throws SQLException, Exception {
         String userdetailsquery = ConfigUtil.getProperty("mortgage.info.query", "SELECT * from currency_converter where id=?");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -4737,7 +4740,7 @@ public class UserDAO {
         return agentList;
     }
 
-      public int currencysettinglistCount(String strTid) throws SQLException, Exception {
+    public int currencysettinglistCount(String strTid) throws SQLException, Exception {
         String userdetailsquery = ConfigUtil.getProperty("mortagesettinglist.count.query", "SELECT count(*) as count FROM currency_converter");
         ResultSet rs = null;
         PreparedStatement pstmt = null;

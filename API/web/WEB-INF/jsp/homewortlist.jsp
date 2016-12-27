@@ -86,7 +86,7 @@
             anchorArray = anchorArray + "</div><!--row-->";
                         anchorArray = anchorArray + "<div class='row'>";
                 anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
-                date1=rowData.createdOn.substring(0, 10);
+                date1=rowData.createdOn;
                     anchorArray = anchorArray + "<span style='color:#4c4c4c;'>Request Date:</span> <span id='bath'>"+date1+"</span>";
                anchorArray = anchorArray + " </div><!--col-sm-6-->";
             anchorArray = anchorArray + "</div><!--row-->";
