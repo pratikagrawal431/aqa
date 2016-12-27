@@ -41,7 +41,7 @@
 
                     <div class="row">
                         <div class="col-sm-3 top-buffer3">
-                            <input type="submit" class="signupbutton" id="mortgagesettings" value="Save">
+                            <input type="submit" class="signupbutton" id="mortgagesettings" value="Update">
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
 

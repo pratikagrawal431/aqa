@@ -323,7 +323,7 @@
                         //  alert($(this).val());
                         jsonArr[$(this).attr("name")] = $(this).val();
                     });
-                    down = $("#Down_payment1").val() + " $ " + $("#Down_payment2").val() + " %"
+                    down = $("#Down_payment1").val() + " SAR " + $("#Down_payment2").val() + " %"
                     creditscore = $("#creditscore").val();
                     ggcnan = "No";
                     if ($('#ggcnan').is(':checked')) {

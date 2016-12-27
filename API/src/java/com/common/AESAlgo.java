@@ -24,7 +24,7 @@ public class AESAlgo {
 
     public static void main(String[] args) {
         try {
-            System.out.println("args = " + decrypt("UQxhknYjnMHrVQU7nV15JQ=="));
+            System.out.println("args = " + decrypt("dGJtIoP6npxcjtvWuGd7Cg=="));
             System.out.println("args = " + decrypt("UQxhknYjnMHrVQU7nV15JQ=="));
         } catch (Exception ex) {
             Logger.getLogger(AESAlgo.class.getName()).log(Level.SEVERE, null, ex);

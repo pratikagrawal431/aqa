@@ -9,6 +9,7 @@ package com.controller;
  *
  * @author chhavikumar.b
  */
+import com.beans.CurrencyBean;
 import com.beans.LoginRequestBean;
 import com.beans.MortgageSettings;
 import com.beans.UserPasswordBean;
@@ -248,6 +249,27 @@ public class UserController {
             mortgageSettings = Utilities.fromJson(strJSON, MortgageSettings.class);
            
             int nUpdated = objUserService.mortgageSettings(mortgageSettings,id);
+            if (nUpdated >= 1) {
+                return Utilities.prepareReponse(SUCCESS.getCode(), SUCCESS.DESC(), transId);
+            }else{
+                return Utilities.prepareReponse(MORTGAGE_INFO_UPDATE_FAILED.getCode(), MORTGAGE_INFO_UPDATE_FAILED.DESC(), transId);
+            }
+        } catch (JsonSyntaxException je) {
+            return Utilities.prepareReponse(INVALID_JSON.getCode(), INVALID_JSON.DESC(), transId);
+        } catch (Exception e) {
+            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+        }
+    }
+
+    @RequestMapping(value = "/updatecurrencyinfo", method = RequestMethod.POST, produces = {"application/json"})
+    public String updatecurrencyinfo(@RequestBody String strJSON, HttpSession httpSession, @RequestParam(value = "id") String id) {
+        CurrencyBean mortgageSettings = null;
+        String strResponse = null;
+        String transId = UUID.randomUUID().toString();
+        try {
+            mortgageSettings = Utilities.fromJson(strJSON, CurrencyBean.class);
+           
+            int nUpdated = objUserService.currencySettings(mortgageSettings,id);
             if (nUpdated >= 1) {
                 return Utilities.prepareReponse(SUCCESS.getCode(), SUCCESS.DESC(), transId);
             }else{

@@ -606,6 +606,48 @@ public class PropertyController {
         return model;
 
     }
+    
+    @RequestMapping(value = "/requestproperty", method = RequestMethod.GET)
+    public Object requestproperty(HttpServletRequest request) {
+
+        ModelAndView model = new ModelAndView();
+        HttpSession session = request.getSession();
+        if (session.getAttribute("useradmin") != null) {
+            model.setViewName("requestproperty");
+        } else {
+            return new RedirectView("", true);
+        }
+
+        return model;
+
+    }
+    
+     @RequestMapping(value = "/requestinfolist", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
+    public String requestinfolist(@RequestParam("page") int page,
+            @RequestParam("rows") int endIndex, HttpServletRequest request) {
+        String strTid = UUID.randomUUID().toString();
+        try {
+            int fromIndex = 0;
+            if (page > 0) {
+                fromIndex = (page - 1) * endIndex;
+            }
+            HttpSession session = request.getSession();
+            User userResponse = (User) session.getAttribute("useradmin");
+            JSONObject json = new JSONObject();
+            JSONArray obj = objUserService.getRequestInfoList(strTid, fromIndex, endIndex, userResponse.getAgentId());
+            json.put("total", objUserService.getrequestinfolistCount(strTid, userResponse.getAgentId()));
+            json.put("page", page);
+            json.put("records", obj.length());
+            json.put("rows", obj);
+            return json.toString();
+        } catch (JsonSyntaxException e) {
+            logger.error(e);
+            return Utilities.prepareReponse(INVALID_JSON.getCode(), INVALID_JSON.DESC(), strTid);
+        } catch (Exception e) {
+            logger.error(e);
+            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+        }
+    }
 
     @RequestMapping(value = "/agentlist", method = RequestMethod.GET)
     public Object agentlist(HttpServletRequest request) {
@@ -661,6 +703,26 @@ public class PropertyController {
             User bean = (User) session.getAttribute("useradmin");
             if (bean.getUser_id() != null) {
                 model.setViewName("mortagesettinglist");
+                // String response = objUserService.getMortgageDetails(strTid);
+                // model.addObject("mortgagedetails", response);
+            } else {
+                return new RedirectView("", true);
+            }
+        } else {
+            return new RedirectView("", true);
+        }
+        return model;
+    }
+
+     @RequestMapping(value = "/currenysettingdet", method = RequestMethod.GET)
+    public Object currenysettingdet(HttpServletRequest request) throws Exception {
+        String strTid = UUID.randomUUID().toString();
+        ModelAndView model = new ModelAndView();
+        HttpSession session = request.getSession();
+        if (session.getAttribute("useradmin") != null) {
+            User bean = (User) session.getAttribute("useradmin");
+            if (bean.getUser_id() != null) {
+                model.setViewName("currencysettings");
                 // String response = objUserService.getMortgageDetails(strTid);
                 // model.addObject("mortgagedetails", response);
             } else {
@@ -911,5 +973,25 @@ public class PropertyController {
         } catch (Exception e) {
             return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         }
+    }
+    
+        @RequestMapping(value = "/currenysettingedit", method = RequestMethod.GET)
+    public Object currenysetting(HttpServletRequest request, @RequestParam(value = "id", required = false) String id) throws Exception {
+        String strTid = UUID.randomUUID().toString();
+        ModelAndView model = new ModelAndView();
+        HttpSession session = request.getSession();
+        if (session.getAttribute("useradmin") != null) {
+            User bean = (User) session.getAttribute("useradmin");
+            if (bean.getUser_id() != null) {
+                model.setViewName("currencyedit");
+                String response = objUserService.getCurrencyDetails(strTid, id);
+                model.addObject("currencydet", response);
+            } else {
+                return new RedirectView("", true);
+            }
+        } else {
+            return new RedirectView("", true);
+        }
+        return model;
     }
 }

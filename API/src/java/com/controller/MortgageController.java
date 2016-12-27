@@ -183,5 +183,29 @@ public class MortgageController {
             return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
         }
     }
-
+ @RequestMapping(value = "/currencysettinglist", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
+    public String currencysettinglist(@RequestParam("page") int page,
+            @RequestParam("rows") int endIndex) {
+        String strTid = UUID.randomUUID().toString();
+        String strResult = null;
+        try {
+            int fromIndex = 0;
+            if (page > 0) {
+                fromIndex = (page - 1) * endIndex;
+            }
+            JSONObject json = new JSONObject();
+            JSONArray obj = objUserService.currencysettinglist(strTid, fromIndex, endIndex);
+            json.put("total", objUserService.currencysettinglistCount(strTid));
+            json.put("page", page);
+            json.put("records", obj.length());
+            json.put("rows", obj);
+            return json.toString();
+        } catch (JsonSyntaxException e) {
+            logger.error(e);
+            return Utilities.prepareReponse(INVALID_JSON.getCode(), INVALID_JSON.DESC(), strTid);
+        } catch (Exception e) {
+            logger.error(e);
+            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+        }
+    }
 }

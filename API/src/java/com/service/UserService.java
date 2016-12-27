@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.service;
-
+import com.beans.CurrencyBean;
 import com.beans.LoginRequestBean;
 import com.beans.MortgageSettings;
 import com.beans.PropertyBean;
@@ -103,7 +103,16 @@ public class UserService {
             return -1;
         }
     }
+    public int currencySettings(CurrencyBean mortgageSettigs,String id) {
+        try {
+            return objUserDAO.currencySettings(mortgageSettigs,id);
+        } catch (Exception e) {
+            logger.error("Exception in addUserDetails(),ex:" + e.getMessage(), e);
+            return -1;
+        }
+    }
 
+    
     public User adminLoginDetails(LoginRequestBean reqBean, String strTid) {
         int isUpdated = 0;
         User user = new User();
@@ -235,6 +244,14 @@ public class UserService {
         return objUserDAO.mortagesettinglist(transId, fromIndex, endIndex);
     }
     
+       public int currencysettinglistCount(String transId) throws SQLException, Exception {
+        return objUserDAO.currencysettinglistCount(transId);
+    }
+
+    public JSONArray currencysettinglist(String transId, int fromIndex, int endIndex) throws SQLException, Exception {
+        return objUserDAO.currencysettinglist(transId, fromIndex, endIndex);
+    }
+    
     public int getHomeWorthlistListCount(String transId,String searchstr) throws SQLException, Exception {
         return objUserDAO.getHomeWorthlistListCount(transId,searchstr);
     }
@@ -244,6 +261,14 @@ public class UserService {
 
     public int getMortgageListCount(String transId) throws SQLException, Exception {
         return objUserDAO.getMortgagelistCount(transId);
+    }
+    
+    public JSONArray getRequestInfoList(String strTid, int fromIndex, int endIndex, String agentId) throws SQLException, Exception {
+        return objUserDAO.getRequestInfoList(strTid, fromIndex, endIndex, agentId);
+    }
+
+    public int getrequestinfolistCount(String transId,String agentId) throws SQLException, Exception {
+        return objUserDAO.getrequestinfolistCount(transId,agentId);
     }
 
     public JSONArray adminAgentList(String transId, int fromIndex, int endIndex) throws SQLException, Exception {
@@ -264,6 +289,8 @@ public class UserService {
     
      public String getMortgageDetails(String strTid,String id) throws SQLException, Exception {
         return objUserDAO.getMortgageDetails( strTid,id);
+    }  public String getCurrencyDetails(String strTid,String id) throws SQLException, Exception {
+        return objUserDAO.getCurrencyDetails( strTid,id);
     }
 
     public String getAgentProfileDetailsByAgentId(int id, String strTid) throws SQLException, Exception {

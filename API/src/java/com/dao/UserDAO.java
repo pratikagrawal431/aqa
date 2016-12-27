@@ -6,6 +6,7 @@
 package com.dao;
 
 import com.beans.AgentInfo;
+import com.beans.CurrencyBean;
 import com.beans.LoginRequestBean;
 import com.beans.MortgageSettings;
 import com.beans.PropertyBean;
@@ -304,6 +305,43 @@ public class UserDAO {
                 if (mortgageSettings.getNoOfYears() > 0) {
                     updateMortgageSettings = updateMortgageSettings + ",no_of_years=" + mortgageSettings.getNoOfYears();
                 }
+                updateMortgageSettings = updateMortgageSettings + " where id=" + id;
+                pstmt = objConn.prepareStatement(updateMortgageSettings);
+                status = pstmt.executeUpdate();
+
+            }
+
+        } catch (SQLException sqle) {
+            logger.error("updateAgentDetails() : Got SQLException " + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle.getMessage());
+        } catch (Exception e) {
+            logger.error("updateAgentDetails() Got Exception : " + Utilities.getStackTrace(e));
+            throw new Exception(e.getMessage());
+        } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(rs, pstmt, objConn);
+            }
+        }
+        return status;
+    }
+
+     public int currencySettings(CurrencyBean mortgageSettings, String id) throws SQLException, Exception {
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        int status = -1;
+        String updateMortgageSettings = "update currency_converter";
+        try {
+            objConn = dbconnection.getConnection();
+            if (objConn != null) {
+
+                if (StringUtils.isNotBlank(mortgageSettings.getCurrency())) {
+                    updateMortgageSettings = updateMortgageSettings + " SET currency='" + mortgageSettings.getCurrency()+"'";
+                }
+                if (StringUtils.isNotBlank(mortgageSettings.getMul_fact())) {
+                    updateMortgageSettings = updateMortgageSettings + " ,multiplication_factor='" + mortgageSettings.getMul_fact()+"'";
+                }
+               
                 updateMortgageSettings = updateMortgageSettings + " where id=" + id;
                 pstmt = objConn.prepareStatement(updateMortgageSettings);
                 status = pstmt.executeUpdate();
@@ -1707,11 +1745,11 @@ public class UserDAO {
         return count;
     }
 
-    public int getHomeWorthlistListCount(String strTid,String searchstr) throws SQLException, Exception {
+    public int getHomeWorthlistListCount(String strTid, String searchstr) throws SQLException, Exception {
         String userdetailsquery = ConfigUtil.getProperty("homeworthlist.count.query", "SELECT count(*) as count FROM home_worth");
-      
-        if(StringUtils.isNotBlank(searchstr)){
-            userdetailsquery=userdetailsquery+" WHERE NAME LIKE \"%"+searchstr+"%\" OR address LIKE \"%"+searchstr+"%\" OR email LIKE \"%"+searchstr+"%\" OR mobile LIKE \"%"+searchstr+"%\" ";
+
+        if (StringUtils.isNotBlank(searchstr)) {
+            userdetailsquery = userdetailsquery + " WHERE NAME LIKE \"%" + searchstr + "%\" OR address LIKE \"%" + searchstr + "%\" OR email LIKE \"%" + searchstr + "%\" OR mobile LIKE \"%" + searchstr + "%\" ";
         }
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -1741,12 +1779,12 @@ public class UserDAO {
         return count;
     }
 
-    public JSONArray getHomeWorthlistList(String strTid, int fromIndex, int endIndex,String searchstr) throws SQLException, Exception {
+    public JSONArray getHomeWorthlistList(String strTid, int fromIndex, int endIndex, String searchstr) throws SQLException, Exception {
         String userdetailsquery = ConfigUtil.getProperty("homeworthlist.query", "SELECT * FROM home_worth");
-        if(StringUtils.isNotBlank(searchstr)){
-            userdetailsquery=userdetailsquery+" WHERE NAME LIKE \"%"+searchstr+"%\" OR address LIKE \"%"+searchstr+"%\" OR email LIKE \"%"+searchstr+"%\" OR mobile LIKE \"%"+searchstr+"%\" ";
+        if (StringUtils.isNotBlank(searchstr)) {
+            userdetailsquery = userdetailsquery + " WHERE NAME LIKE \"%" + searchstr + "%\" OR address LIKE \"%" + searchstr + "%\" OR email LIKE \"%" + searchstr + "%\" OR mobile LIKE \"%" + searchstr + "%\" ";
         }
-       userdetailsquery=userdetailsquery+" ORDER BY created_on desc";
+        userdetailsquery = userdetailsquery + " ORDER BY created_on desc";
         userdetailsquery = userdetailsquery + " LIMIT " + fromIndex + "," + endIndex;
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -1827,7 +1865,7 @@ public class UserDAO {
     }
 
     public JSONArray mortagesettinglist(String strTid, int fromIndex, int endIndex) throws SQLException, Exception {
-        String userdetailsquery = ConfigUtil.getProperty("mortagesettinglist.query", "SELECT * FROM mortgage_master_info ORDER BY created_on desc");
+        String userdetailsquery = ConfigUtil.getProperty("mortagesettinglist.query", "SELECT * FROM mortgage_master_info ORDER BY id asc");
         userdetailsquery = userdetailsquery + " LIMIT " + fromIndex + "," + endIndex;
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -1925,6 +1963,84 @@ public class UserDAO {
         int count = 0;
         try {
 
+            objConn = DBConnection.getInstance().getConnection();
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(mortgagedetailsquery);
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while getMortgagelistCount" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while getMortgagelistCount" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(rs, pstmt, objConn);
+            }
+        }
+        return count;
+    }
+
+    public JSONArray getRequestInfoList(String strTid, int fromIndex, int endIndex, String agentId) throws SQLException, Exception {
+        String mortgagedetailsquery = ConfigUtil.getProperty("mortagagelist.query", "SELECT * FROM request_info");
+
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        JSONArray propertyArray = new JSONArray();
+        if (StringUtils.isNotBlank(agentId)) {
+            mortgagedetailsquery = mortgagedetailsquery + " where agent_id=" + agentId;
+        }
+        mortgagedetailsquery = mortgagedetailsquery + " ORDER BY id desc";
+        mortgagedetailsquery = mortgagedetailsquery + " LIMIT " + fromIndex + "," + endIndex;
+        try {
+            objConn = DBConnection.getInstance().getConnection();
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(mortgagedetailsquery);
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    JSONObject property = new JSONObject();
+
+                    property.put(Constants.id, rs.getString(Constants.id));
+                    property.put(Constants.userId, Utilities.nullToEmpty(rs.getString("user_id")));
+                    property.put(Constants.mobile, Utilities.nullToEmpty(rs.getString("mobile")));
+                    property.put(Constants.email, Utilities.nullToEmpty(rs.getString("email_id")));
+                    property.put(Constants.propertyId, Utilities.nullToEmpty(rs.getString("property_id")));
+
+                    propertyArray.put(property);
+                }
+
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while getHomeWorthlistList" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while getHomeWorthlistList" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(rs, pstmt, objConn);
+            }
+        }
+        return propertyArray;
+    }
+
+    public int getrequestinfolistCount(String strTid, String agentId) throws SQLException, Exception {
+        String mortgagedetailsquery = ConfigUtil.getProperty("mortagagelist.count.query", "SELECT count(*) as count FROM request_info");
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        int count = 0;
+        try {
+
+            if (StringUtils.isNotBlank(agentId)) {
+                mortgagedetailsquery = mortgagedetailsquery + " where agent_id=" + agentId;
+            }
             objConn = DBConnection.getInstance().getConnection();
             if (objConn != null) {
                 pstmt = objConn.prepareStatement(mortgagedetailsquery);
@@ -4041,6 +4157,39 @@ public class UserDAO {
         }
         return response.toString();
     }
+ public String getCurrencyDetails(String strTid, String id) throws SQLException, Exception {
+        String userdetailsquery = ConfigUtil.getProperty("mortgage.info.query", "SELECT * from currency_converter where id=?");
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        JSONObject response = new JSONObject();
+        try {
+
+            objConn = DBConnection.getInstance().getConnection();
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(userdetailsquery);
+                pstmt.setString(1, id);
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    response.put("currency", rs.getString("currency") + "");
+                    response.put("multiplication_factor", rs.getString("multiplication_factor"));
+//                    response.put("city", rs.getString("city"));
+                    return response.toString();
+                }
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while getMortgageDetails" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while getMortgageDetails" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(rs, pstmt, objConn);
+            }
+        }
+        return response.toString();
+    }
 
     public String getAgentProfileDetailsById(int agentId, String strTid) throws SQLException, Exception {
         String userdetailsquery = ConfigUtil.getProperty("agent.details.query", "SELECT u.firstname,ag.company,u.email,u.phone,u.city,u.state,u.password,ag.agent_type,ag.agent_specialty,ag.languages,ag.property_expertise,ag.certifications,ag.keywords,ag.description FROM agent_details ag,users u WHERE ag.user_id=u.id AND u.id=?");
@@ -4586,6 +4735,74 @@ public class UserDAO {
             }
         }
         return agentList;
+    }
+
+      public int currencysettinglistCount(String strTid) throws SQLException, Exception {
+        String userdetailsquery = ConfigUtil.getProperty("mortagesettinglist.count.query", "SELECT count(*) as count FROM currency_converter");
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        int count = 0;
+        try {
+
+            objConn = DBConnection.getInstance().getConnection();
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(userdetailsquery);
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("count");
+                }
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while mortagesettinglistCount" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while currency_converter" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(rs, pstmt, objConn);
+            }
+        }
+        return count;
+    }
+
+    public JSONArray currencysettinglist(String strTid, int fromIndex, int endIndex) throws SQLException, Exception {
+        String userdetailsquery = ConfigUtil.getProperty("mortagesettinglist.query", "SELECT * FROM currency_converter ORDER BY id asc");
+        userdetailsquery = userdetailsquery + " LIMIT " + fromIndex + "," + endIndex;
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        JSONArray propertyArray = new JSONArray();
+
+        try {
+
+            objConn = DBConnection.getInstance().getConnection();
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(userdetailsquery);
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    JSONObject property = new JSONObject();
+                    property.put(Constants.id, rs.getString(Constants.id));
+                    property.put("multiplication_factor", Utilities.nullToEmpty(rs.getString("multiplication_factor")));
+                    property.put("currency", Utilities.nullToEmpty(rs.getString("currency")));
+                    propertyArray.put(property);
+                }
+
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while mortagesettinglist" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while mortagesettinglist" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(rs, pstmt, objConn);
+            }
+        }
+        return propertyArray;
     }
 
 }
