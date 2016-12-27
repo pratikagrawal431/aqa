@@ -2,7 +2,7 @@
 
 <div class="container container-topMargin">
     <h3 class="Draft-heading"> Home Worth </h1>
-    <div style="margin-left: 800px;margin-top: 20px" class="row"><input type="text" id="homeworth" placeholder="Serach"/></div>
+    <div style="margin-left: 800px;margin-top: 20px;" class="row"><input style="padding: 5px;margin-left: -15px;" type="text" id="homeworth" placeholder="Search"/></div>
     <hr>
         
         <div id="ctl00_cph_divWorkAreaContent" style="overflow: hidden;" ></div>
