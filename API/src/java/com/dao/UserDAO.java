@@ -1707,8 +1707,12 @@ public class UserDAO {
         return count;
     }
 
-    public int getHomeWorthlistListCount(String strTid) throws SQLException, Exception {
+    public int getHomeWorthlistListCount(String strTid,String searchstr) throws SQLException, Exception {
         String userdetailsquery = ConfigUtil.getProperty("homeworthlist.count.query", "SELECT count(*) as count FROM home_worth");
+      
+        if(StringUtils.isNotBlank(searchstr)){
+            userdetailsquery=userdetailsquery+" WHERE NAME LIKE \"%"+searchstr+"%\" OR address LIKE \"%"+searchstr+"%\" OR email LIKE \"%"+searchstr+"%\" OR mobile LIKE \"%"+searchstr+"%\" ";
+        }
         ResultSet rs = null;
         PreparedStatement pstmt = null;
         Connection objConn = null;
@@ -1737,8 +1741,12 @@ public class UserDAO {
         return count;
     }
 
-    public JSONArray getHomeWorthlistList(String strTid, int fromIndex, int endIndex) throws SQLException, Exception {
-        String userdetailsquery = ConfigUtil.getProperty("homeworthlist.query", "SELECT * FROM home_worth ORDER BY created_on desc");
+    public JSONArray getHomeWorthlistList(String strTid, int fromIndex, int endIndex,String searchstr) throws SQLException, Exception {
+        String userdetailsquery = ConfigUtil.getProperty("homeworthlist.query", "SELECT * FROM home_worth");
+        if(StringUtils.isNotBlank(searchstr)){
+            userdetailsquery=userdetailsquery+" WHERE NAME LIKE \"%"+searchstr+"%\" OR address LIKE \"%"+searchstr+"%\" OR email LIKE \"%"+searchstr+"%\" OR mobile LIKE \"%"+searchstr+"%\" ";
+        }
+       userdetailsquery=userdetailsquery+" ORDER BY created_on desc";
         userdetailsquery = userdetailsquery + " LIMIT " + fromIndex + "," + endIndex;
         ResultSet rs = null;
         PreparedStatement pstmt = null;

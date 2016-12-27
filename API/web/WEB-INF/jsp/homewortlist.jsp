@@ -2,11 +2,13 @@
 
 <div class="container container-topMargin">
     <h3 class="Draft-heading"> Home Worth </h1>
-        <hr>
+    <div style="margin-left: 800px;margin-top: 20px" class="row"><input type="text" id="homeworth" placeholder="Serach"/></div>
+    <hr>
+        
         <div id="ctl00_cph_divWorkAreaContent" style="overflow: hidden;" ></div>
         <div id="tt" style="width:auto;height:0!important"
              title="DataGrid - CardView" 
-             showFooter="true" pagination="true" data-options="singleSelect:true,page:'',url:'homeworth',method:'get',pageList: [8,16,24],pageSize: 8,layout:['list']">
+             showFooter="true" pagination="true" data-options="singleSelect:true,page:'',method:'get',pageList: [8,16,24],pageSize: 8,layout:['list']">
 
         </div> 
 
@@ -16,12 +18,20 @@
     <div class="container">
         <div class="row">
             <!--fgs sdfg s-->
+            
         </div>
     </div><!--container-->
 </footer>
 <!-- jQuery -->
 </body>
 <script>
+    $("#homeworth").keypress(function(e) {
+    if(e.which == 13) {
+       homeworth=$("#homeworth").val();
+    search(homeworth);
+    }
+});
+   
     var cardview = $.extend({}, $.fn.datagrid.defaults.view, {
         renderRow: function (target, fields, frozen, rowIndex, rowData) {
 
@@ -34,8 +44,11 @@
                 id = "rowData.id";
                 anchorArray = "<div class='row'>";
                 anchorArray = anchorArray + "<div class='col-sm-9'>";
-                anchorArray = anchorArray + "<a class='Draft-name' style='padding-left: 61px;' title='" + rowData.name + "' href='#'>" + rowData.name + "</a>";
                 //  anchorArray = anchorArray + "<p class='Draft-for'> $" + rowData.price + " " + categorytext + "</p>";
+                rowint=rowIndex+1;
+                anchorArray = anchorArray + "<a class='Draft-name' style='padding-left: 61px;' title='" + rowint + "' href='#'>" + rowint + "</a>";
+                anchorArray = anchorArray + "<a class='Draft-name' style='padding-left: 300px;' title='" + rowData.name + "' href='#'>" + rowData.name + "</a>";
+                
                 anchorArray = anchorArray + "</div>";
                 var text = "Not Contacted";
                 if (rowData.status == 1) {
@@ -71,6 +84,12 @@
                    anchorArray = anchorArray + " <span style='color:#4c4c4c;'>Mobile:</span> <span id='mobile'>"+rowData.mobile+"</span>";
                 anchorArray = anchorArray + "</div><!--col-sm-6-->";
             anchorArray = anchorArray + "</div><!--row-->";
+                        anchorArray = anchorArray + "<div class='row'>";
+                anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
+                date1=rowData.createdOn.substring(0, 10);
+                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'>Request Date:</span> <span id='bath'>"+date1+"</span>";
+               anchorArray = anchorArray + " </div><!--col-sm-6-->";
+            anchorArray = anchorArray + "</div><!--row-->";
         anchorArray = anchorArray + "</div><!--demo-->";
     anchorArray = anchorArray + "</div>";
 anchorArray = anchorArray + "</div>";
@@ -93,14 +112,17 @@ anchorArray = anchorArray + "</div>";
   $("#address").html(selectedRow.address);
   // $("#row"+rowIndex).html($("#details").html());
     }
-
+    search('');
+function search(searchstr){
     $('#tt').datagrid({
+        url:'homeworth?searchstr='+searchstr,
         view: cardview, onLoadSuccess: function (data) {
             if ($('#tt').datagrid('getRows').length == "0") {
                 $("#ctl00_cph_divWorkAreaContent").append("No Records Found");
             }
 
         }});
+    }
 </script>
 
 <!--row-->

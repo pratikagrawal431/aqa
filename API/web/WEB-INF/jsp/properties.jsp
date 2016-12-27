@@ -283,7 +283,7 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Price ($)<sup>*</sup>
+                                    Price (SAR)<sup>*</sup>
                                 </label>
                                 <!--<span class="note">per month</span>-->
                                 <input type="text" class="input-text" id="price" name="price" value="" autocomplete="off">

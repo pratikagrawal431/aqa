@@ -97,8 +97,9 @@
                             <li><a href="agentdetails">Add Agent &nbsp;|</a></li>
                             <li><a href="homewortlist">Home Worth &nbsp;|</a></li>
                             <li><a href="mortgagelist">Mortgage List &nbsp;|</a></li>
-                            <li><a href="mortgagedetails">Mortgage Settings</a></li></c:if>
-
+                            <li><a href="mortgagelist">Mortgage List &nbsp;|</a></li>
+                            <li><a href="currenysetting">Currency Settings</a></li></c:if>
+                         <li><a href="requestproperty">&nbsp;|Request Property Info</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

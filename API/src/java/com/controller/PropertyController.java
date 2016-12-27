@@ -743,7 +743,8 @@ public class PropertyController {
 
     @RequestMapping(value = "/homeworth", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
     public String homeworthlist(@RequestParam("page") int page,
-            @RequestParam("rows") int endIndex) {
+            @RequestParam("rows") int endIndex,
+            @RequestParam("searchstr") String searchstr) {
         String strTid = UUID.randomUUID().toString();
         String strResult = null;
         try {
@@ -752,8 +753,8 @@ public class PropertyController {
                 fromIndex = (page - 1) * endIndex;
             }
             JSONObject json = new JSONObject();
-            JSONArray obj = objUserService.getHomeWorthlistList(strTid, fromIndex, endIndex);
-            json.put("total", objUserService.getHomeWorthlistListCount(strTid));
+            JSONArray obj = objUserService.getHomeWorthlistList(strTid, fromIndex, endIndex,searchstr);
+            json.put("total", objUserService.getHomeWorthlistListCount(strTid,searchstr));
             json.put("page", page);
             json.put("records", obj.length());
             json.put("rows", obj);

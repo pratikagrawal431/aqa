@@ -224,8 +224,8 @@ public class UserService {
         return objUserDAO.getPropertiesListCount(transId, agent_id);
     }
 
-    public JSONArray getHomeWorthlistList(String transId, int fromIndex, int endIndex) throws SQLException, Exception {
-        return objUserDAO.getHomeWorthlistList(transId, fromIndex, endIndex);
+    public JSONArray getHomeWorthlistList(String transId, int fromIndex, int endIndex,String searchstr) throws SQLException, Exception {
+        return objUserDAO.getHomeWorthlistList(transId, fromIndex, endIndex,searchstr);
     }
     public int mortagesettinglistCount(String transId) throws SQLException, Exception {
         return objUserDAO.mortagesettinglistCount(transId);
@@ -235,8 +235,8 @@ public class UserService {
         return objUserDAO.mortagesettinglist(transId, fromIndex, endIndex);
     }
     
-    public int getHomeWorthlistListCount(String transId) throws SQLException, Exception {
-        return objUserDAO.getHomeWorthlistListCount(transId);
+    public int getHomeWorthlistListCount(String transId,String searchstr) throws SQLException, Exception {
+        return objUserDAO.getHomeWorthlistListCount(transId,searchstr);
     }
     public JSONArray getMortgageList(String transId, int fromIndex, int endIndex) throws SQLException, Exception {
         return objUserDAO.getMortgageList(transId, fromIndex, endIndex);

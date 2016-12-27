@@ -33,7 +33,10 @@
                 id = "rowData.id";
                 anchorArray = "<div class='row'>";
                 anchorArray = anchorArray + "<div class='col-sm-9'>";
-                anchorArray = anchorArray + "<a class='Draft-name' style='padding-left: 61px;' title='" + rowData.userId + "' href='#'>" + rowData.userId + "</a>";
+                 rowint=rowIndex+1;
+                anchorArray = anchorArray + "<a class='Draft-name' style='padding-left: 61px;' title='" + rowint + "' href='#'>" + rowint + "</a>";
+              
+                anchorArray = anchorArray + "<a class='Draft-name' style='padding-left: 200px;' title='" + rowData.userId + "' href='#'>" + rowData.userId + "</a>";
                 //  anchorArray = anchorArray + "<p class='Draft-for'> $" + rowData.price + " " + categorytext + "</p>";
                 anchorArray = anchorArray + "</div>";
                

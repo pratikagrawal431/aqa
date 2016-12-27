@@ -112,7 +112,7 @@
                                         <option value="5">Luxury homes</option>
                                         <option value="6">First time home buyers</option>
                                         <option value="7">Distressed properties</option>
-                                        <option value="8">Horse properties</option>
+                                        <option value="8">House properties</option>
                                         <option value="9">Probate</option>
                                         <option value="10">Staging</option>
                                         <option value="11">Relocation</option>
