@@ -51,7 +51,7 @@
                             <div class="group price top-buffer2">
                                 <label class="label">State</label>
                                 <div class="Property-select">
-                                    <select id="state" name="state" onfocus="loadstates()">
+                                    <select id="state" name="state">
                                         <option value="">-- Select One --</option>
 <!--                                        <option value="Alabama">Alabama</option>
                                         <option value="Alaska">Alaska</option>
@@ -260,11 +260,13 @@
 <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 
 <script>
+    loadstates();
     $( "#state" ).change(function() {
   //alert($("#state").val());
   loadcity($("#state").val());
 });
      function loadcity(state) {
+         $("#city option").remove();
         $.ajax({
             url: "getcities?state="+state,
             type: "GET",
@@ -338,10 +340,14 @@
         companyname = $("#companyname").val();
         email = $("#email").val();
         phone = $("#phone").val();
-        city = $("#city").val();
-        state = $("#state").val();
+       // city = $("#city").val();
+        city = $('#city option:selected').text();
+        state = $('#state option:selected').text()
+        
+       
         password = $("#password").val();
         agenttype = $("#agenttype").val();
+        
 
         agentspecialty = $("#agentspecialty").val();
         language = $("#language").val();
@@ -509,8 +515,12 @@
                 $("#name").val(obj.firstname);
                 $("#companyname").val(obj.company);
                 $("#email").val(obj.email);
-                $("#city").val(obj.city);
+              // alert(obj.city);
+               
                 $("#state").val(obj.state);
+                loadcity(obj.state);
+                 $("#city").val(obj.city);
+                //alert(obj.city);
                 $("#phone").val(obj.phone);
                 $("#password").val(obj.password);
                 $("#agenttype").val(obj.agent_type);
