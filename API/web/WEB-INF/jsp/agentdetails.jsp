@@ -298,7 +298,7 @@
             contentType: "application/json",
             success: function (response)
             {
-                console.log(response);
+                
                 response = response.response.states;
 
                 $.each(response, function (idx, rec) {

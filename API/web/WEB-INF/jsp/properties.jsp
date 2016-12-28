@@ -1814,9 +1814,9 @@
                     ltype = obj.listingType;
 
                     $("#listingType").val(ltype);
-                    console.log(objProperty);
+                    
                     objProperty = $.parseJSON('${objListingType}');
-                    console.log(objProperty);
+                    
                      $.each(objProperty.response.listingTypes, function (idx, rec) {
                          //alert(rec.id);
                                                 if(ltype==rec.id){

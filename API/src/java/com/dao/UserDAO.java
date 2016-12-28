@@ -3186,7 +3186,8 @@ public class UserDAO {
         }
         return objFinalResponse.toString();
     }
-    public String getStates( String strTid) throws SQLException, Exception {
+
+    public String getStates(String strTid) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("get.states.query", "SELECT * FROM state");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -3225,7 +3226,8 @@ public class UserDAO {
         }
         return objFinalResponse.toString();
     }
-    public String getCities( int nState , String strTid) throws SQLException, Exception {
+
+    public String getCities(int nState, String strTid) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("get.states.query", "SELECT * FROM city where state_id=?");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -4169,8 +4171,8 @@ public class UserDAO {
                     objFinalResponse.put("company", rs.getString("company"));
                     objFinalResponse.put("email", rs.getString("email"));
                     objFinalResponse.put("phone", rs.getString("phone"));
-                    objFinalResponse.put("city", rs.getString("city"));
-                    objFinalResponse.put("state", rs.getString("state"));
+                    objFinalResponse.put("city", getCityId(rs.getString("city"),objConn));
+                    objFinalResponse.put("state", getStateId(rs.getString("state"),objConn));
                     objFinalResponse.put("password", AESAlgo.decrypt(rs.getString("password")));
                     objFinalResponse.put("agent_type", rs.getInt("agent_type"));
                     objFinalResponse.put("agent_specialty", rs.getInt("agent_specialty"));
@@ -4368,6 +4370,64 @@ public class UserDAO {
             }
         }
         return objFinalResponse.toString();
+    }
+
+    public int getStateId(String state,Connection objConn) throws SQLException, Exception {
+        String query = ConfigUtil.getProperty("get.stateid.query", "SELECT * FROM state where state=?");
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        try {
+
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(query);
+                pstmt.setString(1, state);
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
+
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while getStateId" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while getStateId" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+//            if (objConn != null) {
+//                dbconnection.closeConnection(rs, pstmt, objConn);
+//            }
+        }
+        return -1;
+    }
+
+    public int getCityId(String city , Connection objConn) throws SQLException, Exception {
+        String query = ConfigUtil.getProperty("get.cityid.query", "SELECT * FROM city where city=?");
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        try {
+
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(query);
+                pstmt.setString(1, city);
+                rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
+
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while getCityId" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while getCityId" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+//            if (objConn != null) {
+//                dbconnection.closeConnection(rs, pstmt, objConn);
+//            }
+        }
+        return -1;
     }
 
     public String getpropertyCategory(String strTid) throws SQLException, Exception {
