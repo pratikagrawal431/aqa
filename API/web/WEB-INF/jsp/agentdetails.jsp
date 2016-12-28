@@ -46,26 +46,27 @@
                         </div><!--col-sm-6-->
                     </div><!--row-->
                     <div class="row">
+                        
+                        <div class="col-sm-6">
+                            <div class="group price top-buffer2">
+                                <label class="label">State</label>
+                                <div class="Property-select">
+                                    <select id="state" name="state" onfocus="loadstates()">
+                                        <option value="">-- Select One --</option>
+<!--                                        <option value="Alabama">Alabama</option>
+                                        <option value="Alaska">Alaska</option>
+                                        <option value="Arizona">Arizona</option>
+                                        <option value="Arkansas">Arkansas</option>-->
+                                    </select>
+                                </div><!--Property-select-->
+                            </div><!--group price-->
+                        </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
                                     City<sup>*</sup>
                                 </label>
                                 <input type="text" class="input-text" id="city" name="city" value="" placeholder="">
-                            </div><!--group price-->
-                        </div><!--col-sm-6-->
-                        <div class="col-sm-6">
-                            <div class="group price top-buffer2">
-                                <label class="label">State</label>
-                                <div class="Property-select">
-                                    <select id="state" name="state">
-                                        <option value="">-- Select One --</option>
-                                        <option value="Alabama">Alabama</option>
-                                        <option value="Alaska">Alaska</option>
-                                        <option value="Arizona">Arizona</option>
-                                        <option value="Arkansas">Arkansas</option>
-                                    </select>
-                                </div><!--Property-select-->
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                     </div><!--row-->
@@ -253,6 +254,30 @@
 <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 
 <script>
+    
+    
+    function loadstates() {
+        $.ajax({
+            url: "getstates",
+            type: "GET",
+            dataType: "json",
+            async: false,
+            contentType: "application/json",
+            success: function (response)
+            {
+                console.log(response);
+                response = response.response.states;
+
+                $.each(response, function (idx, rec) {
+                    $('<option/>', {
+                        'value': rec.id,
+                        'text': rec.name
+                    }).appendTo('#state');
+                })
+
+            }
+        });
+    }
 
     id = getParameterByName("id");
     if (id != "") {

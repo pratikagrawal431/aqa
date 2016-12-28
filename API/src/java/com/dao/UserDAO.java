@@ -3186,6 +3186,85 @@ public class UserDAO {
         }
         return objFinalResponse.toString();
     }
+    public String getStates( String strTid) throws SQLException, Exception {
+        String query = ConfigUtil.getProperty("get.states.query", "SELECT * FROM state");
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        JSONObject objFinalResponse = new JSONObject();
+        try {
+
+            JSONObject objRequest = new JSONObject();
+            objRequest.put("code", "1000");
+            objRequest.put("transid", strTid);
+            objConn = DBConnection.getInstance().getConnection();
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(query);
+                rs = pstmt.executeQuery();
+                JSONArray statesArray = new JSONArray();
+                while (rs.next()) {
+                    JSONObject property = new JSONObject();
+                    property.put(Constants.id, rs.getInt("id"));
+                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("state")));
+                    statesArray.put(property);
+                }
+                objRequest.put("states", statesArray);
+                objFinalResponse.put("response", objRequest);
+
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while getUserDetails" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while getUserDetails" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(rs, pstmt, objConn);
+            }
+        }
+        return objFinalResponse.toString();
+    }
+    public String getCities( int nState , String strTid) throws SQLException, Exception {
+        String query = ConfigUtil.getProperty("get.states.query", "SELECT * FROM city where state_id=?");
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        Connection objConn = null;
+        JSONObject objFinalResponse = new JSONObject();
+        try {
+
+            JSONObject objRequest = new JSONObject();
+            objRequest.put("code", "1000");
+            objRequest.put("transid", strTid);
+            objConn = DBConnection.getInstance().getConnection();
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(query);
+                pstmt.setInt(1, nState);
+                rs = pstmt.executeQuery();
+                JSONArray statesArray = new JSONArray();
+                while (rs.next()) {
+                    JSONObject property = new JSONObject();
+                    property.put(Constants.id, rs.getInt("id"));
+                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("city")));
+                    statesArray.put(property);
+                }
+                objRequest.put("cities", statesArray);
+                objFinalResponse.put("response", objRequest);
+
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while getUserDetails" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while getUserDetails" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+            if (objConn != null) {
+                dbconnection.closeConnection(rs, pstmt, objConn);
+            }
+        }
+        return objFinalResponse.toString();
+    }
 
     public String getPropertyTypesAdmin(String strTid) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("propertytype.details.query.admin", "SELECT * FROM property_type");

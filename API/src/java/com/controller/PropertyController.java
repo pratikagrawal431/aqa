@@ -115,6 +115,33 @@ public class PropertyController {
 
     }
 
+    @RequestMapping(value = "/getstates", method = RequestMethod.GET)
+    public String getStates(HttpServletRequest httpreq) {
+        String transId = UUID.randomUUID().toString();
+        String objStates = null;
+        try {
+            objStates = objUserService.getStates(transId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return objStates;
+
+    }
+
+    @RequestMapping(value = "/getcities", method = RequestMethod.GET)
+    public String getCities(HttpServletRequest httpreq, @RequestParam(value = "state", required = false) int nState) {
+        String transId = UUID.randomUUID().toString();
+        String objCities = null;
+        try {
+            objCities = objUserService.getCity(nState, transId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return objCities;
+    }
+
     @RequestMapping(value = "/activateproperty", method = RequestMethod.GET)
     public String activateProperty(@RequestParam(value = "id", required = false) int nPropertyId, HttpServletRequest httpreq, HttpSession httpSession) {
         String transId = UUID.randomUUID().toString();
@@ -606,7 +633,7 @@ public class PropertyController {
         return model;
 
     }
-    
+
     @RequestMapping(value = "/requestproperty", method = RequestMethod.GET)
     public Object requestproperty(HttpServletRequest request) {
 
@@ -621,8 +648,8 @@ public class PropertyController {
         return model;
 
     }
-    
-     @RequestMapping(value = "/requestinfolist", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
+
+    @RequestMapping(value = "/requestinfolist", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
     public String requestinfolist(@RequestParam("page") int page,
             @RequestParam("rows") int endIndex, HttpServletRequest request) {
         String strTid = UUID.randomUUID().toString();
@@ -714,7 +741,7 @@ public class PropertyController {
         return model;
     }
 
-     @RequestMapping(value = "/currenysettingdet", method = RequestMethod.GET)
+    @RequestMapping(value = "/currenysettingdet", method = RequestMethod.GET)
     public Object currenysettingdet(HttpServletRequest request) throws Exception {
         String strTid = UUID.randomUUID().toString();
         ModelAndView model = new ModelAndView();
@@ -833,8 +860,8 @@ public class PropertyController {
                 fromIndex = (page - 1) * endIndex;
             }
             JSONObject json = new JSONObject();
-            JSONArray obj = objUserService.getHomeWorthlistList(strTid, fromIndex, endIndex,searchstr);
-            json.put("total", objUserService.getHomeWorthlistListCount(strTid,searchstr));
+            JSONArray obj = objUserService.getHomeWorthlistList(strTid, fromIndex, endIndex, searchstr);
+            json.put("total", objUserService.getHomeWorthlistListCount(strTid, searchstr));
             json.put("page", page);
             json.put("records", obj.length());
             json.put("rows", obj);
@@ -974,8 +1001,8 @@ public class PropertyController {
             return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         }
     }
-    
-        @RequestMapping(value = "/currenysettingedit", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/currenysettingedit", method = RequestMethod.GET)
     public Object currenysetting(HttpServletRequest request, @RequestParam(value = "id", required = false) String id) throws Exception {
         String strTid = UUID.randomUUID().toString();
         ModelAndView model = new ModelAndView();
