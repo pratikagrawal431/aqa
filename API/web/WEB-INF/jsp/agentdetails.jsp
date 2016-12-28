@@ -63,10 +63,16 @@
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">
-                                    City<sup>*</sup>
-                                </label>
-                                <input type="text" class="input-text" id="city" name="city" value="" placeholder="">
+                                <label class="label">City*</label>
+                                <div class="Property-select">
+                                    <select id="city" name="city">
+                                        <option value="">-- Select One --</option>
+<!--                                        <option value="Alabama">Alabama</option>
+                                        <option value="Alaska">Alaska</option>
+                                        <option value="Arizona">Arizona</option>
+                                        <option value="Arkansas">Arkansas</option>-->
+                                    </select>
+                                </div><!--Property-select-->
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                     </div><!--row-->
@@ -254,7 +260,34 @@
 <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 
 <script>
-    
+    $( "#state" ).change(function() {
+  //alert($("#state").val());
+  loadcity($("#state").val());
+});
+     function loadcity(state) {
+        $.ajax({
+            url: "getcities?state="+state,
+            type: "GET",
+            dataType: "json",
+            async: false,
+            contentType: "application/json",
+            success: function (response)
+            {
+               
+                response = response.response.cities;
+
+                $.each(response, function (idx, rec) {
+                    $('<option/>', {
+                        'value': rec.id,
+                        'text': rec.name
+                    }).appendTo('#city');
+                })
+
+            }
+        });
+    }
+
+ 
     
     function loadstates() {
         $.ajax({
