@@ -3053,7 +3053,7 @@ public class UserDAO {
                         property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                         property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
                         property.put(Constants.dateAvailable, rs.getTimestamp("date_available") + "");
-                        property.put(Constants.createdOn, Utilities.getDate(rs.getDate("created_on")));
+                        property.put(Constants.createdOn, Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
                         property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                         property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                         property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
