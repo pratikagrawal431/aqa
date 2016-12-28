@@ -4342,8 +4342,8 @@ public class UserDAO {
                     objFinalResponse.put("company", rs.getString("company"));
                     objFinalResponse.put("email", rs.getString("email"));
                     objFinalResponse.put("phone", rs.getString("phone"));
-                    objFinalResponse.put("city", rs.getString("city"));
-                    objFinalResponse.put("state", rs.getString("state"));
+                    objFinalResponse.put("city", getCityId(rs.getString("city"),objConn));
+                    objFinalResponse.put("state", getStateId(rs.getString("state"),objConn));
                     objFinalResponse.put("password", AESAlgo.decrypt(rs.getString("password")));
                     objFinalResponse.put("agent_type", rs.getInt("agent_type"));
                     objFinalResponse.put("agent_specialty", rs.getInt("agent_specialty"));
