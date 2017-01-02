@@ -4746,7 +4746,7 @@ public class UserDAO {
             url = url.replaceAll("\\$\\(radius\\)", nRadius + "");
             Response response = null;
             String keywords1 = keywords;
-            for (String keyword : keywords1.split("\\|")) {
+            for (String keyword : keywords1.split("\\,")) {
                 String keywordURL = url;
                 keywordURL = keywordURL.replaceAll("\\$\\(keyword\\)", keyword);
                 response = HttpDispatchClient.getInstance().Get(keywordURL, null);
@@ -4947,4 +4947,13 @@ public class UserDAO {
         return propertyArray;
     }
 
+    public static void main(String[] args) {
+        UserDAO dao = new UserDAO();
+        try {
+            dao.neighborhoodInfo("17.2343","75.2378","19999","school,restaurents","1231sa12321");
+            
+        } catch (Exception e) {
+        }
+    }
+    
 }
