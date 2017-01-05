@@ -1179,8 +1179,8 @@ public class UserDAO {
                             property.put(Constants.petsAllowed, rs.getInt("pets_allowed"));
                             property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                             property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
-                            property.put(Constants.dateAvailable, rs.getTimestamp("date_available") + "");
-                            property.put(Constants.createdOn, rs.getTimestamp("created_on") + "");
+                            property.put(Constants.dateAvailable, rs.getString("date_available")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
+                            property.put(Constants.createdOn, rs.getString("created_on")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
                             property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                             property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                             property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
@@ -1352,8 +1352,8 @@ public class UserDAO {
                     property.put(Constants.address, Utilities.nullToEmpty(rs.getString("address")));
                     property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                     property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
-                    property.put(Constants.dateAvailable, rs.getTimestamp("date_available") + "");
-                    property.put(Constants.createdOn, Utilities.getDate(rs.getDate("created_on")));
+                    property.put(Constants.dateAvailable, rs.getString("date_available")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
+                    property.put(Constants.createdOn, rs.getString("created_on")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
                     property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                     property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                     property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
@@ -1481,8 +1481,8 @@ public class UserDAO {
                     property.put(Constants.address, Utilities.nullToEmpty(rs.getString("address")));
                     property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                     property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
-                    property.put(Constants.dateAvailable, rs.getTimestamp("date_available") + "");
-                    property.put(Constants.createdOn, rs.getTimestamp("created_on") + "");
+                    property.put(Constants.dateAvailable, rs.getString("date_available")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
+                    property.put(Constants.createdOn, rs.getString("created_on")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
                     property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                     property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                     property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
@@ -3052,8 +3052,8 @@ public class UserDAO {
                         property.put(Constants.address, Utilities.nullToEmpty(rs.getString("address")));
                         property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                         property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
-                        property.put(Constants.dateAvailable, rs.getTimestamp("date_available") + "");
-                        property.put(Constants.createdOn, Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
+                        property.put(Constants.dateAvailable, rs.getString("date_available")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
+                        property.put(Constants.createdOn, rs.getString("created_on")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
                         property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                         property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                         property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
