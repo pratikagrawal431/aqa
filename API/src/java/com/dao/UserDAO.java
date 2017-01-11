@@ -1129,7 +1129,7 @@ public class UserDAO {
                             property.put(Constants.description, Utilities.nullToEmpty(rs.getString("description")));
                             String price = rs.getString("price");
                             int nPrice = 0;
-                            if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("USD")) {
+                            if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("SAR")) {
                                 Double dPrice = Double.parseDouble(price);
                                 if (dPrice > 0) {
                                     Double factor = getCurrencyValue(currency, objConn);
@@ -1244,7 +1244,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public String getProperties(String strTid, int categoryId, int nPropertyId, String currency, int nUserId, int nIsSquareMeter, int min, int max, String latitude, String longitude, String strRadius) throws SQLException, Exception {
+    public String getProperties(String strTid, int categoryId, int nPropertyId, String currency, int nUserId, int nIsSquareMeter, int min, int max, String latitude, String longitude, String strRadius, String sortBy, String orderBy) throws SQLException, Exception {
         String propertydetailsquery = ConfigUtil.getProperty("property.details.query", "SELECT ( 3959 * ACOS( COS( RADIANS($(lat)) ) * COS( RADIANS( latitude ) ) * COS( RADIANS( longitude ) - RADIANS($(long)) ) + SIN( RADIANS($(lat)) ) * SIN( RADIANS( latitude ) ) ) ) AS distance,p.* FROM property p ,property_features_mapping pfm WHERE p.id=pfm.property_id ");
         String propertyDetailsById = ConfigUtil.getProperty("property.details.query", "SELECT * FROM property p where id=? ");
 //        String radiusQuery = ConfigUtil.getProperty("radius.query", "( 3959 * ACOS( COS( RADIANS(25) ) * COS( RADIANS( latitude ) ) * COS( RADIANS( longitude ) - RADIANS(55) ) + SIN( RADIANS(25) ) * SIN( RADIANS( latitude ) ) ) ) AS distance FROM property HAVING distance < 100");
@@ -1261,7 +1261,14 @@ public class UserDAO {
             objConn = DBConnection.getInstance().getConnection();
             if (objConn != null) {
                 if (categoryId > 0) {
-                    propertydetailsquery = propertydetailsquery + " AND pfm.category=?";
+                    propertydetailsquery = propertydetailsquery + " AND pfm.category=? ";
+                    if (StringUtils.isNotBlank(sortBy) && StringUtils.isNotBlank(orderBy)) {
+                        if ("house_type".equalsIgnoreCase(sortBy)) {
+                            propertydetailsquery = propertydetailsquery + " and p.house_type=1 ORDER BY p." + sortBy + " " + orderBy;
+                        } else {
+                            propertydetailsquery = propertydetailsquery + " ORDER BY p." + sortBy + " " + orderBy;
+                        }
+                    }
                 } else if (nPropertyId > 0) {
                     propertydetailsquery = propertyDetailsById;
                 }
@@ -1293,7 +1300,7 @@ public class UserDAO {
 
                     String price = rs.getString("price");
                     int nPrice = 0;
-                    if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("USD")) {
+                    if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("SAR")) {
                         Double dPrice = Double.parseDouble(price);
                         if (dPrice > 0) {
                             Double factor = getCurrencyValue(currency, objConn);
@@ -1430,7 +1437,7 @@ public class UserDAO {
                     property.put(Constants.description, Utilities.nullToEmpty(rs.getString("description")));
                     String price = rs.getString("price");
                     int nPrice = 0;
-                    if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("USD")) {
+                    if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("SAR")) {
                         Double dPrice = Double.parseDouble(price);
                         if (dPrice > 0) {
                             Double factor = getCurrencyValue(currency, objConn);
@@ -1548,7 +1555,7 @@ public class UserDAO {
                     property.put(Constants.description, Utilities.nullToEmpty(rs.getString("description")));
                     String price = rs.getString("price");
                     int nPrice = 0;
-                    if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("USD")) {
+                    if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("SAR")) {
                         Double dPrice = Double.parseDouble(price);
                         if (dPrice > 0) {
                             Double factor = getCurrencyValue(currency, objConn);
@@ -2791,14 +2798,29 @@ public class UserDAO {
                 query = query + " where category=? ";
 
                 if (minPrice > 0 && maxPrice > 0) {
-                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("USD")) {
+                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("SAR")) {
                         Double factor = getCurrencyValue(currency, objConn);
                         Double mPrice = (minPrice / factor);
                         minPrice = mPrice.intValue();
                         Double xPrice = (maxPrice / factor);
                         maxPrice = xPrice.intValue();
                     }
-                    query = query + AND + " (price>=" + minPrice + OR + "price<=" + maxPrice + ") ";
+                    query = query + AND + " (price>=" + minPrice + AND + "price<=" + maxPrice + ") ";
+                } else if (maxPrice > 0) {
+                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("SAR")) {
+                        Double factor = getCurrencyValue(currency, objConn);
+                        Double xPrice = (maxPrice / factor);
+                        maxPrice = xPrice.intValue();
+                    }
+                    query = query + AND + " price<=" + maxPrice + " ";
+                } else if (minPrice > 0) {
+                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("SAR")) {
+                        Double factor = getCurrencyValue(currency, objConn);
+                        Double mPrice = (minPrice / factor);
+                        minPrice = mPrice.intValue();
+
+                    }
+                    query = query + AND + " price>=" + minPrice + " ";
                 }
 
                 if (StringUtils.isNotBlank(propertyType)) {
@@ -2854,14 +2876,29 @@ public class UserDAO {
                 query = query + " where category=? ";
 
                 if (minPrice > 0 && maxPrice > 0) {
-                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("USD")) {
+                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("SAR")) {
                         Double factor = getCurrencyValue(currency, objConn);
                         Double mPrice = (minPrice / factor);
                         minPrice = mPrice.intValue();
                         Double xPrice = (maxPrice / factor);
                         maxPrice = xPrice.intValue();
                     }
-                    query = query + AND + " (price>=" + minPrice + OR + "price<=" + maxPrice + ") ";
+                    query = query + AND + " (price>=" + minPrice + AND + "price<=" + maxPrice + ") ";
+                } else if (maxPrice > 0) {
+                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("SAR")) {
+                        Double factor = getCurrencyValue(currency, objConn);
+                        Double xPrice = (maxPrice / factor);
+                        maxPrice = xPrice.intValue();
+                    }
+                    query = query + AND + "price<=" + maxPrice + " ";
+                } else if (minPrice > 0) {
+                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("SAR")) {
+                        Double factor = getCurrencyValue(currency, objConn);
+                        Double mPrice = (minPrice / factor);
+                        minPrice = mPrice.intValue();
+
+                    }
+                    query = query + AND + " (price>=" + minPrice + " ";
                 }
 
                 if (StringUtils.isNotBlank(propertyType)) {
@@ -2906,14 +2943,29 @@ public class UserDAO {
                 query = query + " where category=? ";
 
                 if (minPrice > 0 && maxPrice > 0) {
-                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("USD")) {
+                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("SAR")) {
                         Double factor = getCurrencyValue(currency, objConn);
                         Double mPrice = (minPrice / factor);
                         minPrice = mPrice.intValue();
                         Double xPrice = (maxPrice / factor);
                         maxPrice = xPrice.intValue();
                     }
-                    query = query + AND + " (price>=" + minPrice + OR + "price<=" + maxPrice + ") ";
+                    query = query + AND + " (price>=" + minPrice + AND + "price<=" + maxPrice + ") ";
+                } else if (maxPrice > 0) {
+                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("SAR")) {
+                        Double factor = getCurrencyValue(currency, objConn);
+                        Double xPrice = (maxPrice / factor);
+                        maxPrice = xPrice.intValue();
+                    }
+                    query = query + AND + "price<=" + maxPrice + " ";
+                } else if (minPrice > 0) {
+                    if (StringUtils.isNotBlank(currency) && !currency.equalsIgnoreCase("SAR")) {
+                        Double factor = getCurrencyValue(currency, objConn);
+                        Double mPrice = (minPrice / factor);
+                        minPrice = mPrice.intValue();
+
+                    }
+                    query = query + AND + " (price>=" + minPrice + " ";
                 }
 
                 if (StringUtils.isNotBlank(propertyType)) {
@@ -3012,7 +3064,7 @@ public class UserDAO {
                         property.put(Constants.description, Utilities.nullToEmpty(rs.getString("description")));
                         String price = rs.getString("price");
                         int nPrice = 0;
-                        if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("USD")) {
+                        if ((StringUtils.isNotBlank(currency) && StringUtils.isNotBlank(price)) && !currency.equalsIgnoreCase("SAR")) {
                             Double dPrice = Double.parseDouble(price);
                             if (dPrice > 0) {
                                 Double factor = getCurrencyValue(currency, objConn);

@@ -211,9 +211,9 @@ public class UserService {
         return objUserDAO.getAgentDetails(userId, strTid);
     }
 
-    public String getProperties(String transId, int category, int nPropertyId, int nAgentId, String currency, int nUserId, int nIsSquareMeter, int min, int max, String latitude, String longitude, String strRadius) throws SQLException, Exception {
+    public String getProperties(String transId, int category, int nPropertyId, int nAgentId, String currency, int nUserId, int nIsSquareMeter, int min, int max, String latitude, String longitude, String strRadius,String sortBy,String orderBy) throws SQLException, Exception {
         if (category > 0 || nPropertyId > 0) {
-            return objUserDAO.getProperties(transId, category, nPropertyId, currency, nUserId, nIsSquareMeter, min, max, latitude, longitude, strRadius);
+            return objUserDAO.getProperties(transId, category, nPropertyId, currency, nUserId, nIsSquareMeter, min, max, latitude, longitude, strRadius,sortBy,orderBy);
         } else if (nAgentId > 0) {
             return objUserDAO.getPropertiesByAgentId(nAgentId, transId, currency, nUserId, nIsSquareMeter, min, max, latitude, longitude, strRadius);
         } else {

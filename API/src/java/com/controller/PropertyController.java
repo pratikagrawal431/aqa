@@ -313,10 +313,12 @@ public class PropertyController {
             @RequestParam(value = "latitude", defaultValue = "0") String latitude,
             @RequestParam(value = "longitude", defaultValue = "0") String longitude,
             @RequestParam(value = "radius", defaultValue = "0") String radius,
-            @RequestParam(value = "currency", defaultValue = "USD") String currency) {
+            @RequestParam(value = "sortBy", defaultValue = " created_on ") String sortBy,
+            @RequestParam(value = "orderBy", defaultValue = " desc ") String orderBy,
+            @RequestParam(value = "currency", defaultValue = "SAR") String currency) {
         String strTid = UUID.randomUUID().toString();
         try {
-            String response = objUserService.getProperties(strTid, category, nPropertyId, nAgentId, currency, nUserId, nIsSquareMeter, min, max, latitude, longitude, radius);
+            String response = objUserService.getProperties(strTid, category, nPropertyId, nAgentId, currency, nUserId, nIsSquareMeter, min, max, latitude, longitude, radius,sortBy,orderBy);
             return response;
         } catch (JsonSyntaxException e) {
             logger.error(e);
@@ -422,7 +424,7 @@ public class PropertyController {
             @RequestParam(value = "propertyCategory", defaultValue = "0") int nPropertyCategory,
             @RequestParam(value = "sortBy", defaultValue = " created_on ") String sortBy,
             @RequestParam(value = "orderBy", defaultValue = " desc ") String orderBy,
-            @RequestParam(value = "currency", defaultValue = "USD") String currency,
+            @RequestParam(value = "currency", defaultValue = "SAR") String currency,
             @RequestParam(value = "userId", defaultValue = "0") int nUserId,
             @RequestParam(value = "isSquareMeter", defaultValue = "0") int isSquareMeter,
             @RequestParam(value = "min", defaultValue = "0") int min,

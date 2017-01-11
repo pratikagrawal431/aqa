@@ -418,7 +418,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/getsavedpropertys", method = RequestMethod.GET, produces = {"application/json"})
     public String getSavedPropertys(@RequestParam(value = "userId", defaultValue = "0") int nUserId,
-            @RequestParam(value = "currency", defaultValue = "USD") String currency,
+            @RequestParam(value = "currency", defaultValue = "SAR") String currency,
             HttpSession httpSession) {
         String strTid = UUID.randomUUID().toString();
 
