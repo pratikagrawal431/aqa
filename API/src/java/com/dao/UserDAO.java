@@ -1179,8 +1179,8 @@ public class UserDAO {
                             property.put(Constants.petsAllowed, rs.getInt("pets_allowed"));
                             property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                             property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
-                            property.put(Constants.dateAvailable, rs.getString("date_available")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
-                            property.put(Constants.createdOn, rs.getString("created_on")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
+                            property.put(Constants.dateAvailable, rs.getString("date_available") == null ? "" : Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
+                            property.put(Constants.createdOn, rs.getString("created_on") == null ? "" : Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
                             property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                             property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                             property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
@@ -1352,8 +1352,8 @@ public class UserDAO {
                     property.put(Constants.address, Utilities.nullToEmpty(rs.getString("address")));
                     property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                     property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
-                    property.put(Constants.dateAvailable, rs.getString("date_available")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
-                    property.put(Constants.createdOn, rs.getString("created_on")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
+                    property.put(Constants.dateAvailable, rs.getString("date_available") == null ? "" : Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
+                    property.put(Constants.createdOn, rs.getString("created_on") == null ? "" : Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
                     property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                     property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                     property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
@@ -1481,8 +1481,8 @@ public class UserDAO {
                     property.put(Constants.address, Utilities.nullToEmpty(rs.getString("address")));
                     property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                     property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
-                    property.put(Constants.dateAvailable, rs.getString("date_available")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
-                    property.put(Constants.createdOn, rs.getString("created_on")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
+                    property.put(Constants.dateAvailable, rs.getString("date_available") == null ? "" : Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
+                    property.put(Constants.createdOn, rs.getString("created_on") == null ? "" : Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
                     property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                     property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                     property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
@@ -2812,14 +2812,18 @@ public class UserDAO {
                     query = query + AND + " bath>=" + baths;
                 }
                 if (minsFeetRange > 0 && maxsFeetRange > 0) {
-                    query = query + AND + " (foot_range>=" + minsFeetRange + OR + "foot_range<=" + maxsFeetRange + ") ";
+                    query = query + AND + " (foot_range>=" + minsFeetRange + AND + "foot_range<=" + maxsFeetRange + ") ";
+                } else if (maxsFeetRange > 0) {
+                    query = query + AND + " foot_range<=" + maxsFeetRange + " ";
+                } else if (minsFeetRange > 0) {
+                    query = query + AND + " foot_range>=" + minsFeetRange + " ";
                 }
                 if (lotSize > 0) {
                     query = query + AND + " lot_size>=" + lotSize;
                 }
 
                 if (StringUtils.isNotBlank(fromYear) && StringUtils.isNotBlank(toYear)) {
-                    query = query + AND + " (year>=" + fromYear + OR + "year<=" + toYear + ") ";
+                    query = query + AND + " (year_built>=" + fromYear + OR + "year_built<=" + toYear + ") ";
                 }
                 if (StringUtils.isNotBlank(listingType)) {
                     query = query + AND + " listing_type in (" + listingType + ") ";
@@ -2872,7 +2876,11 @@ public class UserDAO {
                     query = query + AND + " bath>=" + baths;
                 }
                 if (minsFeetRange > 0 && maxsFeetRange > 0) {
-                    query = query + AND + " (foot_range>=" + minsFeetRange + OR + "foot_range<=" + maxsFeetRange + ") ";
+                    query = query + AND + " (foot_range>=" + minsFeetRange + AND + "foot_range<=" + maxsFeetRange + ") ";
+                } else if (maxsFeetRange > 0) {
+                    query = query + AND + " foot_range<=" + maxsFeetRange + " ";
+                } else if (minsFeetRange > 0) {
+                    query = query + AND + " foot_range>=" + minsFeetRange + " ";
                 }
                 if (petsAllowed > 0) {
                     query = query + AND + " pets_allowed>=" + petsAllowed;
@@ -2919,11 +2927,15 @@ public class UserDAO {
                     query = query + AND + " bath>=" + baths;
                 }
                 if (minsFeetRange > 0 && maxsFeetRange > 0) {
-                    query = query + AND + " (foot_range>=" + minsFeetRange + OR + "foot_range<=" + maxsFeetRange + ") ";
+                    query = query + AND + " (foot_range>=" + minsFeetRange + AND + "foot_range<=" + maxsFeetRange + ") ";
+                } else if (maxsFeetRange > 0) {
+                    query = query + AND + " foot_range<=" + maxsFeetRange + " ";
+                } else if (minsFeetRange > 0) {
+                    query = query + AND + " foot_range>=" + minsFeetRange + " ";
                 }
 
                 if (StringUtils.isNotBlank(fromYear) && StringUtils.isNotBlank(toYear)) {
-                    query = query + AND + " (year>=" + fromYear + AND + "year<=" + toYear + ") ";
+                    query = query + AND + " (year_built>=" + fromYear + AND + "year_built<=" + toYear + ") ";
                 }
 
                 if (lotSize > 0) {
@@ -3052,8 +3064,8 @@ public class UserDAO {
                         property.put(Constants.address, Utilities.nullToEmpty(rs.getString("address")));
                         property.put(Constants.neighborhood, Utilities.nullToEmpty(rs.getString("neighborhood")));
                         property.put(Constants.pincode, Utilities.nullToEmpty(rs.getString("pincode")));
-                        property.put(Constants.dateAvailable, rs.getString("date_available")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
-                        property.put(Constants.createdOn, rs.getString("created_on")==null?"":Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
+                        property.put(Constants.dateAvailable, rs.getString("date_available") == null ? "" : Utilities.getDateFromStringRiyadh(rs.getString("date_available")));
+                        property.put(Constants.createdOn, rs.getString("created_on") == null ? "" : Utilities.getDateFromStringRiyadh(rs.getString("created_on")));
                         property.put(Constants.soldOn, rs.getTimestamp("updated_on") + "");
                         property.put(Constants.latitude, Utilities.nullToEmpty(rs.getString("latitude")));
                         property.put(Constants.longitude, Utilities.nullToEmpty(rs.getString("longitude")));
@@ -4171,8 +4183,8 @@ public class UserDAO {
                     objFinalResponse.put("company", rs.getString("company"));
                     objFinalResponse.put("email", rs.getString("email"));
                     objFinalResponse.put("phone", rs.getString("phone"));
-                    objFinalResponse.put("city", getCityId(rs.getString("city"),objConn));
-                    objFinalResponse.put("state", getStateId(rs.getString("state"),objConn));
+                    objFinalResponse.put("city", getCityId(rs.getString("city"), objConn));
+                    objFinalResponse.put("state", getStateId(rs.getString("state"), objConn));
                     objFinalResponse.put("password", AESAlgo.decrypt(rs.getString("password")));
                     objFinalResponse.put("agent_type", rs.getInt("agent_type"));
                     objFinalResponse.put("agent_specialty", rs.getInt("agent_specialty"));
@@ -4342,8 +4354,8 @@ public class UserDAO {
                     objFinalResponse.put("company", rs.getString("company"));
                     objFinalResponse.put("email", rs.getString("email"));
                     objFinalResponse.put("phone", rs.getString("phone"));
-                    objFinalResponse.put("city", getCityId(rs.getString("city"),objConn));
-                    objFinalResponse.put("state", getStateId(rs.getString("state"),objConn));
+                    objFinalResponse.put("city", getCityId(rs.getString("city"), objConn));
+                    objFinalResponse.put("state", getStateId(rs.getString("state"), objConn));
                     objFinalResponse.put("password", AESAlgo.decrypt(rs.getString("password")));
                     objFinalResponse.put("agent_type", rs.getInt("agent_type"));
                     objFinalResponse.put("agent_specialty", rs.getInt("agent_specialty"));
@@ -4372,7 +4384,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public int getStateId(String state,Connection objConn) throws SQLException, Exception {
+    public int getStateId(String state, Connection objConn) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("get.stateid.query", "SELECT * FROM state where state=?");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -4401,7 +4413,7 @@ public class UserDAO {
         return -1;
     }
 
-    public int getCityId(String city , Connection objConn) throws SQLException, Exception {
+    public int getCityId(String city, Connection objConn) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("get.cityid.query", "SELECT * FROM city where city=?");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -4950,10 +4962,10 @@ public class UserDAO {
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
         try {
-            dao.neighborhoodInfo("17.2343","75.2378","19999","school,restaurents","1231sa12321");
-            
+            dao.neighborhoodInfo("17.2343", "75.2378", "19999", "school,restaurents", "1231sa12321");
+
         } catch (Exception e) {
         }
     }
-    
+
 }
