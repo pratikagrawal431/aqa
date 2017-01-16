@@ -1262,13 +1262,7 @@ public class UserDAO {
             if (objConn != null) {
                 if (categoryId > 0) {
                     propertydetailsquery = propertydetailsquery + " AND pfm.category=? ";
-                    if (StringUtils.isNotBlank(sortBy) && StringUtils.isNotBlank(orderBy)) {
-                        if ("house_type".equalsIgnoreCase(sortBy)) {
-                            propertydetailsquery = propertydetailsquery + " and p.house_type=1 ORDER BY p." + sortBy + " " + orderBy;
-                        } else {
-                            propertydetailsquery = propertydetailsquery + " ORDER BY p." + sortBy + " " + orderBy;
-                        }
-                    }
+
                 } else if (nPropertyId > 0) {
                     propertydetailsquery = propertyDetailsById;
                 }
@@ -1278,8 +1272,15 @@ public class UserDAO {
 
                     propertydetailsquery = propertydetailsquery.replaceAll("\\$\\(lat\\)", latitude);
                     propertydetailsquery = propertydetailsquery.replaceAll("\\$\\(long\\)", longitude);
+                    if ("house_type".equalsIgnoreCase(sortBy)) {
+                        propertydetailsquery = propertydetailsquery + " and p.house_type=1 ";
+                    }
                     if (StringUtils.isNotBlank(strRadius) && !"0".equalsIgnoreCase(strRadius)) {
                         propertydetailsquery = propertydetailsquery + " HAVING distance < " + strRadius;
+                    }
+
+                    if (StringUtils.isNotBlank(sortBy) && StringUtils.isNotBlank(orderBy)) {
+                        propertydetailsquery = propertydetailsquery + " ORDER BY p." + sortBy + " " + orderBy;
                     }
                 } catch (Exception e) {
                 }
@@ -2845,7 +2846,7 @@ public class UserDAO {
                 }
 
                 if (StringUtils.isNotBlank(fromYear) && StringUtils.isNotBlank(toYear)) {
-                    query = query + AND + " (year_built>=" + fromYear + OR + "year_built<=" + toYear + ") ";
+                    query = query + AND + " (year_built>=" + fromYear + AND + "year_built<=" + toYear + ") ";
                 }
                 if (StringUtils.isNotBlank(listingType)) {
                     query = query + AND + " listing_type in (" + listingType + ") ";
@@ -2854,6 +2855,9 @@ public class UserDAO {
                 if (StringUtils.isNotBlank(showOnly)) {
                     query = query + AND + " house_type in (" + showOnly + ") ";
 
+                }
+                if (daysInAqarabia > 0) {
+                    query = query + AND + " DATEDIFF(NOW(),created_on)<=" + daysInAqarabia + " ";
                 }
                 if (StringUtils.isNotBlank(keywords)) {
                     query = query + AND + " keywords like '%" + keywords + "%' ";
@@ -2992,6 +2996,10 @@ public class UserDAO {
 
                 if (lotSize > 0) {
                     query = query + AND + " lot_size>=" + lotSize;
+                }
+                
+                if (daysInAqarabia > 0) {
+                    query = query + AND + " DATEDIFF(NOW(),created_on)<=" + daysInAqarabia + " ";
                 }
 
                 if (StringUtils.isNotBlank(keywords)) {
