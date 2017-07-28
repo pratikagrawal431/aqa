@@ -1262,13 +1262,7 @@ public class UserDAO {
             if (objConn != null) {
                 if (categoryId > 0) {
                     propertydetailsquery = propertydetailsquery + " AND pfm.category=? ";
-                    if (StringUtils.isNotBlank(sortBy) && StringUtils.isNotBlank(orderBy)) {
-                        if ("house_type".equalsIgnoreCase(sortBy)) {
-                            propertydetailsquery = propertydetailsquery + " and p.house_type=1 ORDER BY p." + sortBy + " " + orderBy;
-                        } else {
-                            propertydetailsquery = propertydetailsquery + " ORDER BY p." + sortBy + " " + orderBy;
-                        }
-                    }
+
                 } else if (nPropertyId > 0) {
                     propertydetailsquery = propertyDetailsById;
                 }
@@ -1278,8 +1272,15 @@ public class UserDAO {
 
                     propertydetailsquery = propertydetailsquery.replaceAll("\\$\\(lat\\)", latitude);
                     propertydetailsquery = propertydetailsquery.replaceAll("\\$\\(long\\)", longitude);
+                    if ("house_type".equalsIgnoreCase(sortBy)) {
+                        propertydetailsquery = propertydetailsquery + " and p.house_type=1 ";
+                    }
                     if (StringUtils.isNotBlank(strRadius) && !"0".equalsIgnoreCase(strRadius)) {
                         propertydetailsquery = propertydetailsquery + " HAVING distance < " + strRadius;
+                    }
+
+                    if (StringUtils.isNotBlank(sortBy) && StringUtils.isNotBlank(orderBy)) {
+                        propertydetailsquery = propertydetailsquery + " ORDER BY p." + sortBy + " " + orderBy;
                     }
                 } catch (Exception e) {
                 }
@@ -2845,7 +2846,7 @@ public class UserDAO {
                 }
 
                 if (StringUtils.isNotBlank(fromYear) && StringUtils.isNotBlank(toYear)) {
-                    query = query + AND + " (year_built>=" + fromYear + OR + "year_built<=" + toYear + ") ";
+                    query = query + AND + " (year_built>=" + fromYear + AND + "year_built<=" + toYear + ") ";
                 }
                 if (StringUtils.isNotBlank(listingType)) {
                     query = query + AND + " listing_type in (" + listingType + ") ";
@@ -2854,6 +2855,9 @@ public class UserDAO {
                 if (StringUtils.isNotBlank(showOnly)) {
                     query = query + AND + " house_type in (" + showOnly + ") ";
 
+                }
+                if (daysInAqarabia > 0) {
+                    query = query + AND + " DATEDIFF(NOW(),created_on)<=" + daysInAqarabia + " ";
                 }
                 if (StringUtils.isNotBlank(keywords)) {
                     query = query + AND + " keywords like '%" + keywords + "%' ";
@@ -2992,6 +2996,10 @@ public class UserDAO {
 
                 if (lotSize > 0) {
                     query = query + AND + " lot_size>=" + lotSize;
+                }
+
+                if (daysInAqarabia > 0) {
+                    query = query + AND + " DATEDIFF(NOW(),created_on)<=" + daysInAqarabia + " ";
                 }
 
                 if (StringUtils.isNotBlank(keywords)) {
@@ -3668,21 +3676,28 @@ public class UserDAO {
         PreparedStatement pstmt = null;
         Connection objConn = null;
         JSONObject objFinalResponse = new JSONObject();
+        int nShareToAgents = 0;
         try {
+            objConn = DBConnection.getInstance().getConnection();
             if (nAgentId > 0) {
                 query = query + " and ad.id=?";
             } else if (nPropertyId > 0) {
-                query = ConfigUtil.getProperty("agent.details.by.propertyid.query", "SELECT * FROM agent_details ad ,users u WHERE ad.id IN(SELECT agent_id FROM agent_property_mapping WHERE property_id=?) AND ad.user_id=u.id");
+                nShareToAgents = getShareToAgemtsValue(nPropertyId, objConn);
+                if (nShareToAgents == 1) {
+                    query = ConfigUtil.getProperty("agent.details.by.propertyid.share.to.agents.query", "SELECT * FROM agent_details ad ,users u WHERE ad.user_id=u.id");
+                } else {
+                    query = ConfigUtil.getProperty("agent.details.by.propertyid.query", "SELECT * FROM agent_details ad ,users u WHERE ad.id IN(SELECT agent_id FROM agent_property_mapping WHERE property_id=?) AND ad.user_id=u.id");
+                }
             }
+
             JSONObject objRequest = new JSONObject();
             objRequest.put("code", "1000");
             objRequest.put("transid", transId);
-            objConn = DBConnection.getInstance().getConnection();
             if (objConn != null) {
                 pstmt = objConn.prepareStatement(query);
                 if (nAgentId > 0) {
                     pstmt.setInt(1, nAgentId);
-                } else if (nPropertyId > 0) {
+                } else if (nPropertyId > 0 && nShareToAgents == 0) {
                     pstmt.setInt(1, nPropertyId);
                 }
                 rs = pstmt.executeQuery();
@@ -3726,6 +3741,34 @@ public class UserDAO {
             }
         }
         return objFinalResponse.toString();
+    }
+
+    public int getShareToAgemtsValue(int nPropertyId, Connection objConn) throws SQLException, Exception {
+        String query = ConfigUtil.getProperty("get.share.to.agent.value.query", "select share_to_agents from property where id=?");
+
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        int nShareToAgents = 0;
+        try {
+            if (objConn != null) {
+                pstmt = objConn.prepareStatement(query);
+                pstmt.setInt(1, nPropertyId);
+                rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    nShareToAgents = rs.getInt("share_to_agents");
+                }
+            }
+        } catch (SQLException sqle) {
+            logger.error(" Got SQLException while getShareToAgemtsValue" + Utilities.getStackTrace(sqle));
+            throw new SQLException(sqle);
+        } catch (Exception e) {
+            logger.error(" Got Exception while getShareToAgemtsValue" + Utilities.getStackTrace(e));
+            throw new Exception(e);
+        } finally {
+            dbconnection.closeConnection(rs, pstmt, null);
+        }
+        return nShareToAgents;
     }
 
     public int getActiveHomesCountAgainistToAgent(int nAgentId, Connection objConn) throws SQLException, Exception {
