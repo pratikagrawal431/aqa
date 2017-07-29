@@ -43,6 +43,7 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -345,16 +346,6 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public Object index(HttpServletRequest request) {
-
-        ModelAndView model = new ModelAndView();
-        HttpSession session = request.getSession();
-        session.invalidate();
-        model.setViewName("index");
-        return new RedirectView("", true);
-
-    }
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView login() {
@@ -367,16 +358,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public ModelAndView signuppage() {
 
-        ModelAndView model = new ModelAndView();
-//		model.addObject("title", "Spring Security Custom Login Form");
-//		model.addObject("message", "This is protected page!");
-        model.setViewName("signup");
-        return model;
-
-    }
 
     @RequestMapping(value = "/user/validate", method = RequestMethod.GET, produces = {"application/json"})
     public String validate(@RequestParam(value = "token") String token, HttpSession httpSession) {
