@@ -1,7 +1,7 @@
 <%@include file="header.jsp" %>
 
 <div class="container container-topMargin">
-    <h3 class="Draft-heading"> Currency Setting </h1>
+    <h3 class="Draft-heading"> <spring:message code="label.currency.settings" /> </h1>
         <hr>
         <div id="ctl00_cph_divWorkAreaContent" style="overflow: hidden;" ></div>
         <div id="tt" style="width:auto;height:0!important"
@@ -42,13 +42,13 @@
     }
     function checkchildserviceload() {
         length = $('#tt').datagrid('getRows').length;
-        htmocontent = '<div class="table-responsive" style="padding:30px 20px 20px 20px;">        <table class="table table-bordered table-hover" style="text-align:center;">    <thead>      <tr>        <th style="text-align:center;">Sr.</th>        <th style="text-align:center;">Currency</th>        <th style="text-align:center;">Multiplication Factor</th>      <th style="text-align:center;">Action</th>        </tr>    </thead>    <tbody>';
+        htmocontent = '<div class="table-responsive" style="padding:30px 20px 20px 20px;">        <table class="table table-bordered table-hover" style="text-align:center;">    <thead>      <tr>        <th style="text-align:center;">Sr.</th>        <th style="text-align:center;"><spring:message code="label.currency" /></th>        <th style="text-align:center;"><spring:message code="label.currency.mfactor" /></th>      <th style="text-align:center;"><spring:message code="label.action" /></th>        </tr>    </thead>    <tbody>';
         for (i = 0; i < length; i++) {
             var selectedRow = $('#tt').datagrid('getRows')[i];
             //  alert(selectedRow.propertyTax);
 
             htmocontent = htmocontent + '<tr>        <td>'+selectedRow.id+'</td>        \n\
-<td>'+selectedRow.currency+'</td>        <td>'+selectedRow.multiplication_factor+'</td><td><input class="Update-btn" onclick="callcurrencysettings(' + selectedRow.id + ')" type="button" value="Update details"></td>        </tr>';
+<td>'+selectedRow.currency+'</td>        <td>'+selectedRow.multiplication_factor+'</td><td><input class="Update-btn" onclick="callcurrencysettings(' + selectedRow.id + ')" type="button" value="<spring:message code="label.currency.update.details" />"></td>        </tr>';
         }
         htmocontent = htmocontent + '    </tbody>  </table>        </div><!--table-responsive-->';
 $("#ctl00_cph_divWorkAreaContent").html(htmocontent);

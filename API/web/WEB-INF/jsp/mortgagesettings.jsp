@@ -7,17 +7,17 @@
 
             <div class="tab-content">
                 <div class="tab-pane active" id="a">
-                    <h3 class="tab-heading">Mortgage Details</h3>
+                    <h3 class="tab-heading"><spring:message code="label.mortgage.settings.details" /></h3>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price">
-                                <label class="label">Property Tax<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.mortgage.settings.property.tax" /><sup>*</sup></label>
                                 <input type="text" class="input-text" id="property_tax" name="property_tax" value="" autocomplete="off">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price">
-                                <label class="label">Insurence Tax<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.mortgage.settings.insurencetax" /><sup>*</sup></label>
                                 <input type="text" class="input-text" id="insurence_tax" name="insurence_tax" value="" autocomplete="off">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -26,14 +26,14 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    No Of Years<sup>*</sup>
+                                    <spring:message code="label.mortgage.settings.noof.years" /><sup>*</sup>
                                 </label>
                                 <input type="text" class="input-text1" id="no_of_years" name="no_of_years" value="">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Rate Of Interest<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.mortgage.settings.rateof.intrest" /><sup>*</sup></label>
                                 <input type="text" class="input-text numbersOnly"  maxlength="13" id="rate_of_interest" name="rate_of_interest" value="" autocomplete="off">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -41,7 +41,7 @@
 
                     <div class="row">
                         <div class="col-sm-3 top-buffer3">
-                            <input type="submit" class="signupbutton" id="mortgagesettings" value="Update">
+                            <input type="submit" class="signupbutton" id="mortgagesettings" value="<spring:message code="label.update" />">
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
 

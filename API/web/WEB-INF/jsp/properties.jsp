@@ -78,49 +78,49 @@
     <div class="Registration-tab">
         <div class="wrap tabbable tabs-left my-nav">
             <ul class="nav nav-tabs nav-Bottom-broder">
-                <li class="active" id="1"><a href="#a" class="1" data-toggle="tab">Location</a></li>
-                <li id="2"><a  href="#b" data-toggle="tab">Contact Info </a></li>
-                <li id="3"><a class="3" href="#c" data-toggle="tab">Basic Details</a></li>
-                <li id="4"><a href="#d" data-toggle="tab">Description</a></li>
-                <li id="5"><a href="#e" data-toggle="tab">Photos & Media</a></li>                            
-                <li id="6"><a href="#f" data-toggle="tab">Review</a></li>
+                <li class="active" id="1"><a href="#a" class="1" data-toggle="tab"><spring:message code="label.property.location" /></a></li>
+                <li id="2"><a  href="#b" data-toggle="tab"><spring:message code="label.property.contact.info" /> </a></li>
+                <li id="3"><a class="3" href="#c" data-toggle="tab"><spring:message code="label.property.basic.details" /></a></li>
+                <li id="4"><a href="#d" data-toggle="tab"><spring:message code="label.property.description" /></a></li>
+                <li id="5"><a href="#e" data-toggle="tab"><spring:message code="label.property.photos.media" /></a></li>                            
+                <li id="6"><a href="#f" data-toggle="tab"><spring:message code="label.property.review" /></a></li>
             </ul>
 			
 		    <div class="tab-content">
                 <div id="a" class="tab-pane fade in active contactinfo0">
-				<div class="tab-name1"><h2>Location</h2></div>
-                    <h3 class="tab-heading ">Property Location</h3>
+				<div class="tab-name1"><h2><spring:message code="label.property.location" /></h2></div>
+                    <h3 class="tab-heading "><spring:message code="label.property.plocation" /></h3>
 
                     <div class="row">
                         <div class="col-xm-12 col-md-6 locationform">
                             <form>
                                 <div class="group price">
-                                    <input id="geocomplete" type="text" placeholder="Type in an address" value="" />
+                                    <input id="geocomplete" type="text" placeholder="<spring:message code="label.property.type.address" />" value="" />
                                     <!--<input id="find" type="button" value="find" />-->
                                 </div><!--group price-->
-                                <h3 class="Postlet-heading">Postlet Category</h3>
+                                <h3 class="Postlet-heading"><spring:message code="label.property.postlet.category" /></h3>
                                 <div class="group price">
-                                    <label class="label">Address<sup>*</sup></label>
+                                    <label class="label"><spring:message code="label.property.address" /><sup>*</sup></label>
 									<input type="text" class="input-text" id="formatted_address" name="formatted_address" value="" autocomplete="off">
                                 </div><!--group price-->
                                 <div class="group price">
-                                    <label class="label top-buffer">Unit/Floor/Building</label>
+                                    <label class="label top-buffer"><spring:message code="label.property.unit.floor" /></label>
                                     <input type="text" class="input-text" id="propertyUnit" name="" value="" autocomplete="off">
                                 </div><!--group price-->
                                 <div class="group price">
-                                    <label class="label top-buffer">City<sup>*</sup></label>
+                                    <label class="label top-buffer"><spring:message code="label.property.city" /><sup>*</sup></label>
                                     <input type="text" class="input-text" id="city" name="locality" value="" autocomplete="off">
                                 </div><!--group price-->
                                 <div class="group price">
-                                    <label class="label top-buffer">State<sup>*</sup></label>
+                                    <label class="label top-buffer"><spring:message code="label.property.state" /><sup>*</sup></label>
                                     <input type="text" class="input-text" id="administrative_area_level_1" name="administrative_area_level_1" value="" autocomplete="off">
                                 </div><!--group price-->
                                 <div class="group price">
-                                    <label class="label top-buffer">Country<sup>*</sup></label>
+                                    <label class="label top-buffer"><spring:message code="label.property.country" /><sup>*</sup></label>
                                     <input type="text" class="input-text" id="country" name="country" value="" autocomplete="off">
                                 </div><!--group price-->
                                 <div class="group price">
-                                    <label class="label top-buffer">Zip Code<sup>*</sup></label>
+                                    <label class="label top-buffer"><spring:message code="label.property.zipcode" /><sup>*</sup></label>
                                     <input type="text" class="input-text" maxlength="12" id="postal_code" name="postal_code" value="" autocomplete="off">
                                 </div><!--group price-->
 								
@@ -128,13 +128,13 @@
                                     <div class="col-sm-5 radiorent" style="margin-left:20px;box-sizing:border-box;">
 									<div style="float:left; margin-top:18px;">
 									
-                                        <input type="radio" id="forSale" checked="true" name="category"  value="1"/><label for="checkbox2"><span><span></span></span>For Sale</label>
+                                        <input type="radio" id="forSale" checked="true" name="category"  value="1"/><label for="checkbox2"><span><span></span></span><spring:message code="label.property.forsale" /></label>
                                     </div>
 									</div><!--col-sm-6-->
 									
                                     <div class="col-sm-5 radiorent">
 									<div style="float:left; margin-top:18px;">
-                                        <input type="radio" id="forRent" name="category" value="2"/> <label for="checkbox1"><span><span></span></span>For Rent</label>
+                                        <input type="radio" id="forRent" name="category" value="2"/> <label for="checkbox1"><span><span></span></span><spring:message code="label.property.forrent" /></label>
 									</div>
                                     </div><!--col-sm-6-->
 								</div><!--row-->
@@ -144,10 +144,10 @@
                                 <input name="lng" id="longitude" type="hidden" value="">
                                 <div class="row but">
                                     <div class="col-xs-12 col-sm-5 top-buffer">
-                                        <input type="button" class="signupbutton" id="location" value="Submit"/>
+                                        <input type="button" class="signupbutton" id="location" value="<spring:message code="label.property.submit" />"/>
                                     </div><!--col-xm-12 col-sm-6-->
                                     <div class="col-xs-12 col-sm-5 top-buffer">
-                                        <input type="button" class="signupbutton" id="Clear" value="Clear"/>
+                                        <input type="button" class="signupbutton" id="Clear" value="<spring:message code="label.clear" />"/>
                                     </div><!--col-xm-12 col-sm-6-->
                                 </div><!--row-->
                             </form>
@@ -161,8 +161,8 @@
 	<!--Location tab ends --> 
 	
                 <div class="tab-pane contactinfo1" id="b">
-				<div class="tab-name2"><h2>Contact Info</h2></div>
-                    <h3 class="tab-heading">Contact Information</h3>
+				<div class="tab-name2"><h2><spring:message code="label.property.contact.info" /></h2></div>
+                    <h3 class="tab-heading"><spring:message code="label.property.contact.information" /></h3>
 				<div class="row ">
                  <div class="col-xm-12  col-sm-12  col-md-12 contactform">	
                     <div class="row">
@@ -181,7 +181,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="group price top-buffer2">
-                                <label class="label">Name<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.property.name" /><sup>*</sup></label>
                                 <input type="text" class="input-text" id="name" name="name" value="">
                             </div><!--group price-->
 
@@ -190,7 +190,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="group price top-buffer2">
-                                <label class="label">Company<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.property.company" /><sup>*</sup></label>
                                 <input type="text" class="input-text" id="company" name="company" value="">
                             </div><!--group price-->
 
@@ -199,7 +199,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="group price top-buffer2">
-                                <label class="label">Email Address<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.property.email" /><sup>*</sup></label>
                                 <input type="text" class="input-text1"   id="email" name="email" value="">
                                 <div style="float:left; margin-top:18px;">
                                     <!--<input id="showEmail" type="checkbox" name="checkbox"><label for="checkboxEmail"><span><span></span></span> Hide email address on Aqarabia </label>-->
@@ -211,20 +211,20 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div class="group price top-buffer2">
-                                <label class="label">Country code<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.property.country.code" /><sup>*</sup></label>
                                 <input type="text" class="input-text numbersOnly"  maxlength="3" id="countrycode" name="countrycode" value="">
                             </div><!--group price-->
                         </div>
 						<div class="col-md-2">
                             <div class="group price top-buffer2">
-                                <label class="label">Area code<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.property.area.code" /><sup>*</sup></label>
                                 <input type="text" class="input-text numbersOnly"  maxlength="3" id="areacode" name="areacode" value="">
                             </div><!--group price-->
                         </div>
 						<div class="row" style="margin-left:0;margin-right:0px;">
 							<div class="col-md-3">
 								<div class="group price top-buffer2">
-								<label class="label">Phone Number<sup>*</sup></label>
+								<label class="label"><spring:message code="label.property.phone.number" /><sup>*</sup></label>
 								   <input type="text" class="input-text numbersOnly"  maxlength="10" id="number" name="number" value="">
 								</div>
 							</div>
@@ -252,20 +252,20 @@
                         <div class="col-sm-12">
 
                              <div class="withother" style="float:left; margin-top:18px;">
-                                <input id="share_to_agents" type="checkbox" name="checkbox"><label for="checkboxphone"><span><span></span></span> Interested in collaborating with other brokers </label>
+                                <input id="share_to_agents" type="checkbox" name="checkbox"><label for="checkboxphone"><span><span></span></span> <spring:message code="label.property.intrested.broker" /> </label>
                             </div><!--inline style-->
 
                         </div><!--col-sm-6--><div class="col-sm-12">
 
                             <div  class="withother" id="commissiondiv" style="float:left; margin-top:18px;display:none">
-                                <input id="commission" type="checkbox" name="checkbox"><label for="checkboxphone"><span><span></span></span> "50/50" commission split </label>
+                                <input id="commission" type="checkbox" name="checkbox"><label for="checkboxphone"><span><span></span></span> <spring:message code="label.property.intrested.commission" /> </label>
                             </div><!--inline style-->
 
                         </div><!--col-sm-6-->
                     </div><!--row-->
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
-                            <input type="button" class="signupbutton top-buffer3" id="contactinfo" value="Save & Continue">     
+                            <input type="button" class="signupbutton top-buffer3" id="contactinfo" value="<spring:message code="label.property.save.continue" />">     
                         </div><!--col-sm-6-->
                     </div><!--row-->
 					</div><!--row-->
@@ -276,14 +276,14 @@
 	<!--Contact info tab ends -->
 				
 <div class="tab-pane contactinfo2" id="c">
-<div class="tab-name2"><h2>Basic Details</h2></div>
-<h3 class="tab-heading" ><p id="rentdet">Rental Details</p></h3>
+<div class="tab-name2"><h2><spring:message code="label.property.basic.details" /></h2></div>
+<h3 class="tab-heading" ><p id="rentdet"><spring:message code="label.property.rental.details" /></p></h3>
                     
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Price (SAR)<sup>*</sup>
+                                    <spring:message code="label.property.price.in.sar" /><sup>*</sup>
                                 </label>
                                 <!--<span class="note">per month</span>-->
                                 <input type="text" class="input-text" id="price" name="price" value="" autocomplete="off">
@@ -292,7 +292,7 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label" for="price">
-                                    Date Available<sup>*</sup>
+                                    <spring:message code="label.property.dateavailable" /><sup>*</sup>
                                 </label>
                                 <input id="datepicker" name="dateAvailable" readonly="true" class="input-text input-calendar">
                             </div> <!--group price-->
@@ -302,11 +302,11 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Property Type<sup>*</sup>
+                                    <spring:message code="label.property.type" /><sup>*</sup>
                                 </label>
                                 <div class="Property-select">
                                     <select id="propertyType" name="propertyType">
-                                        <option value="">-- Select Type --</option>
+                                        <option value=""><spring:message code="label.property.select.type" /></option>
                                         <!--<option value="1">Apartment</option>-->
                                         <!--<option value="2">Condo</option>-->
                                     </select>
@@ -317,11 +317,11 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Listing Type<sup>*</sup>
+                                    <spring:message code="label.property.listing.type" /><sup>*</sup>
                                 </label>
                                 <div class="Property-select">
                                     <select id="listingType" name="listingType">
-                                        <option value="">-- Select Type --</option>
+                                        <option value=""><spring:message code="label.property.select.type" /></option>
 <!--                                        <option value="1">Resale</option>
                                         <option value="2">New Construction</option>
                                         <option value="3">Foreclosure</option>-->
@@ -334,11 +334,11 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Bedrooms
+                                    <spring:message code="label.property.beds" />
                                 </label>
                                 <div class="Property-select">
                                     <select id="beds" name="beds">
-                                        <option value="0">-- Select Beds --</option>
+                                        <option value="0"><spring:message code="label.property.select.beds" /></option>
                                         <option value="1">1 Bed</option>
                                         <option value="2">2 Beds</option>
                                         <option value="3">3 Beds</option>
@@ -351,11 +351,11 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2" style="float:left; margin-top:20px;">
                                 <label class="label">
-                                    Bathrooms
+                                    <spring:message code="label.property.baths" />
                                 </label>
                                 <div class="Property-select">
                                     <select id="baths" name="baths">
-                                        <option value="0">-- Select Baths --</option>
+                                        <option value="0"><spring:message code="label.property.select.baths" /></option>
                                         <option value="1">1 Bath</option>	
                                         <option value="2">2 Bath</option>
                                         <option value="3">3 Bath</option>
@@ -369,30 +369,30 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Square Feet<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.property.square.feet" /><sup>*</sup></label>
                                 <input type="text" class="input-text numbersOnly" id="squareFeet" name="squareFeet" value="">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Unit Floor</label>
+                                <label class="label"><spring:message code="label.property.unit.floor" /></label>
                                 <!--<input type="text" class="input-text numbersOnly" id="unitFloor" name="unitFloor" value="">-->
 
                                 <input type="text" class="input-text numbersOnly" maxlength="3" style="width:80%;" id="unitFloor" name="unitFloor">
-                                <span style="margin-left:0px;">Floor</span>
+                                <span style="margin-left:0px;"><spring:message code="label.property.floor" /></span>
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                     </div><!--row-->
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Year Built<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.property.year.built" /><sup>*</sup></label>
                                 <input type="text" class="input-text numbersOnly" id="yearBuilt" name="yearBuilt" value="">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Developer</label>
+                                <label class="label"><spring:message code="label.property.developer" /></label>
                                 <input type="text" class="input-text" id="developer" name="developer" value="">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -402,11 +402,11 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Parking Spaces
+                                    <spring:message code="label.property.parking" />
                                 </label>
                                 <div class="Property-select">
                                     <select id="parkingSpaces" name="parkingSpaces">
-                                        <option value="0">-- Select --</option>
+                                        <option value="0"><spring:message code="label.select" /></option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -417,11 +417,11 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2" style="float:left; margin-top:20px;">
                                 <label class="label">
-                                    Parking Type 
+                                    <spring:message code="label.property.parking.type" />
                                 </label>
                                 <div class="Property-select">
                                     <select id="parkingType" name="parkingType">
-                                        <option value="0"  selected="">-- Select --</option>
+                                        <option value="0"  selected=""><spring:message code="label.select" /></option>
                                         <option value="garage">Garage</option>
                                         <option value="covered">Carport</option>
                                         <option value="uncovered">Off street</option>
@@ -435,7 +435,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
                             <div class="bdetails" style="float:left; margin-top:18px;">
-                                <input id="furnished" type="checkbox" name="furnished" value=""><label for="checkbox3"><span><span></span></span>Furnished</label>
+                                <input id="furnished" type="checkbox" name="furnished" value=""><label for="checkbox3"><span><span></span></span><spring:message code="label.property.furnished" /></label>
                             </div><!--inline-Style-->  
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
@@ -446,7 +446,7 @@
                         <div class="col-xs-12 col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Pet Policy<sup>*</sup>
+                                    <spring:message code="label.property.pet.policy" /><sup>*</sup>
                                 </label>
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -457,17 +457,17 @@
                     <div class="row bdetails">
                         <div class="col-xs-12 col-sm-3">
                             <div style="float:left; margin-top:18px;">
-                                <input id="checkbox5" type="checkbox" name="petsAllowed"  value="0"><label for="checkbox5"><span><span></span></span>No Pet Allowed</label>
+                                <input id="checkbox5" type="checkbox" name="petsAllowed"  value="0"><label for="checkbox5"><span><span></span></span><spring:message code="label.property.pets.notallowed" /></label>
                             </div><!--inline-Style-->  
                         </div><!--col-sm-6-->
                          <div class="col-xs-6 col-sm-3">
                             <div style="float:left; margin-top:18px;">
-                                <input id="checkbox6" type="checkbox" name="petsAllowed" value="1"><label for="checkbox6"><span><span></span></span>Dogs Ok</label>
+                                <input id="checkbox6" type="checkbox" name="petsAllowed" value="1"><label for="checkbox6"><span><span></span></span><spring:message code="label.property.pets.dogsok" /></label>
                             </div><!--inline-Style--> 
                         </div><!--col-sm-6-->
                         <div class="col-xs-6 col-sm-3">
                             <div style="float:left; margin-top:18px;">
-                                <input id="checkbox7" type="checkbox" name="petsAllowed"  value="2"><label for="checkbox7"><span><span></span></span>Cats Ok</label>
+                                <input id="checkbox7" type="checkbox" name="petsAllowed"  value="2"><label for="checkbox7"><span><span></span></span><spring:message code="label.property.pets.catsok" /></label>
                             </div><!--inline-Style--> 
                         </div><!--col-sm-6-->
                     </div><!--row-->
@@ -477,7 +477,7 @@
                         <div class="col-xs-12 col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Laundry
+                                    <spring:message code="label.property.laundry" />
                                 </label>
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -486,17 +486,17 @@
                     <div class="row bdetails1" >
                         <div class="col-xs-12 col-sm-3  ">
                             <div style="float:left; margin-top:18px;">
-                                <input id="checkbox8" type="radio" name="laundry" checked="true" value="0"><label for="checkbox8"><span><span></span></span>None</label>
+                                <input id="checkbox8" type="radio" name="laundry" checked="true" value="0"><label for="checkbox8"><span><span></span></span><spring:message code="label.property.laundry.none" /></label>
                             </div><!--inline-Style-->  
                         </div><!--col-sm-6-->
                         <div class="col-xs-6 col-sm-3  ">
                             <div style="float:left; margin-top:18px;">
-                                <input id="checkbox9" type="radio" name="laundry" value="1"><label for="checkbox9"><span><span></span></span>In Unit</label>
+                                <input id="checkbox9" type="radio" name="laundry" value="1"><label for="checkbox9"><span><span></span></span><spring:message code="label.property.laundry.inunit" /></label>
                             </div><!--inline-Style--> 
                         </div><!--col-sm-6-->
                         <div class="col-xs-6 col-sm-3 ">
                             <div style="float:left; margin-top:18px;" style="margin-left:-2em;">
-                                <input id="checkbox10" type="radio" name="laundry" value="2"><label for="checkbox10"><span><span></span></span>Shared</label>
+                                <input id="checkbox10" type="radio" name="laundry" value="2"><label for="checkbox10"><span><span></span></span><spring:message code="label.property.laundry.shared" /></label>
                             </div><!--inline-Style--> 
                         </div><!--col-sm-6-->
                     </div><!--row-->
@@ -505,7 +505,7 @@
                             <div class="group price top-buffer2">
                                 <label class="label">
 
-                                    Property Category
+                                    <spring:message code="label.property.category" />
                                 </label>
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -514,17 +514,17 @@
                     <div id="propertyCategory" class="row bdetails1">
                         <div class="col-xs-12 col-sm-3">
                             <div style="float:left; margin-top:18px;">
-                                <input id="checkbox8" type="checkbox" name="propertycat" value="1"><label for="checkbox8"><span><span></span></span>New listings</label>
+                                <input id="checkbox8" type="checkbox" name="propertycat" value="1"><label for="checkbox8"><span><span></span></span><spring:message code="label.property.newlistings" /></label>
                             </div><!--inline-Style-->  
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div style="float:left; margin-top:18px;">
-                                <input id="checkbox8" type="checkbox" name="propertycat" value="2"><label for="checkbox8"><span><span></span></span>Upgraded homes</label>
+                                <input id="checkbox8" type="checkbox" name="propertycat" value="2"><label for="checkbox8"><span><span></span></span><spring:message code="label.property.upgradedhomes" /></label>
                             </div><!--inline-Style-->  
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div style="float:left; margin-top:18px;width:260px">
-                                <input id="checkbox8" type="checkbox" name="propertycat" value="3"><label for="checkbox8"><span><span></span></span>Discover homes with Pools</label>
+                                <input id="checkbox8" type="checkbox" name="propertycat" value="3"><label for="checkbox8"><span><span></span></span><spring:message code="label.property.discover" /></label>
                             </div><!--inline-Style-->  
                         </div>
 
@@ -541,18 +541,18 @@
                     <div class="row bdetails1">
                         <div class="col-xs-12 col-sm-3">
                             <div style="float:left; margin-top:18px;">
-                                <input id="checkbox8" type="checkbox" name="propertycat" value="4"><label for="checkbox8"><span><span></span></span>Safe Areas</label>
+                                <input id="checkbox8" type="checkbox" name="propertycat" value="4"><label for="checkbox8"><span><span></span></span><spring:message code="label.property.safeareas" /></label>
                             </div><!--inline-Style-->  
                         </div> 
                         <div class="col-xs-12 col-sm-3">
                             <div style="float:left; margin-top:18px;">
-                                <input id="checkbox8" type="checkbox" name="propertycat" value="5"><label for="checkbox8"><span><span></span></span>Branded residences</label>
+                                <input id="checkbox8" type="checkbox" name="propertycat" value="5"><label for="checkbox8"><span><span></span></span><spring:message code="label.property.branded" /></label>
                             </div><!--inline-Style-->  
                         </div>
 
                         <div class="col-xs-12 col-sm-3">
                             <div style="float:left; margin-top:18px;width:260px ">
-                                <input id="checkbox8" type="checkbox" name="propertycat" value="6"><label for="checkbox8"><span><span></span></span>Signature Collections: Luxury Homes</label>
+                                <input id="checkbox8" type="checkbox" name="propertycat" value="6"><label for="checkbox8"><span><span></span></span><spring:message code="label.property.signature" /></label>
                             </div><!--inline-Style-->  
                         </div>
                         <!--                        <div class="col-sm-3">
@@ -566,7 +566,7 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Crime Info
+                                   <spring:message code="label.property.crimeinfo" />
                                 </label>
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -591,7 +591,7 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Flood
+                                    <spring:message code="label.property.flood" />
                                 </label>
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -617,7 +617,7 @@
                             <div class="group price top-buffer2">
                                 <label class="label">
 
-                                    Seismic
+                                    <spring:message code="label.property.seismic" />
                                 </label>
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -640,7 +640,7 @@
 
                     <div class="row">
                         <div class=" col-xs-12 col-sm-3 top-buffer3">
-                            <input type="button" class="signupbutton" id="basicdetails" value="Save & Continue">     
+                            <input type="button" class="signupbutton" id="basicdetails" value="<spring:message code="label.property.save.continue" />">     
                         </div><!--col-sm-3-->
                     </div><!--row-->
 					
@@ -649,12 +649,12 @@
 	<!--Basic details tab ends -->
 				
                 <div class="tab-pane contactinfo3" id="d">
-				<div  class="tab-name1"><h2>Description</h2></div>
-                    <h3 class="tab-heading">Property Description</h3>
+				<div  class="tab-name1"><h2><spring:message code="label.property.description" /></h2></div>
+                    <h3 class="tab-heading"><spring:message code="label.property.pdescription" /></h3>
                      <div class="row bdetails2">
                         <div class="col-xs-12 col-sm-12 " style="padding-left:0px;">
                             <div class="group price top-buffer2">
-                                <label class="label">Property Title<sup>*</sup></label><span class="note">Limit 120 characters</span>
+                                <label class="label"><spring:message code="label.property.details" /><sup>*</sup></label><span class="note"><spring:message code="label.property.limit" /></span>
                                 <input type="text" class="input-text" placeholder="" maxlength="120"  id="property_name" name="property_name" value="">
                             </div><!--group price-->
                         </div><!--col-sm-12-->
@@ -662,7 +662,7 @@
                     <div class="row bdetails2">
                         <div class="col-xs-12 col-sm-12" style="padding-left:0px;">
                             <div class="group price top-buffer2">
-                                <label class="label">Property Description</label>
+                                <label class="label"><spring:message code="label.property.pdescription" /></label>
                                 <textarea class="input-text1"id="property_desc" name="property_desc" rows="3"></textarea>
                             </div><!--group price-->
                         </div><!--col-sm-12-->
@@ -677,7 +677,7 @@
                                                 </div>row-->
                     <div class="row bdetails2">
                         <div class="col-xs-12 col-sm-4 top-buffer2" style="padding-left:0px;">
-                            <input type="button" class="signupbutton top-buffer3" id="propertydetails" value="Save & Continue">
+                            <input type="button" class="signupbutton top-buffer3" id="propertydetails" value="<spring:message code="label.property.save.continue" />">
 
                         </div><!--col-sm-6-->
                     </div><!--row-->
@@ -688,11 +688,11 @@
 				
 				
     <div class="tab-pane contactinfo3" id="e">
-				<div class="tab-name3"><h2>Photos & Media</h2></div>
-                    <h3 class="tab-heading">Photos</h3>
+				<div class="tab-name3"><h2><spring:message code="label.property.photos.media" /></h2></div>
+                    <h3 class="tab-heading"><spring:message code="label.property.photos" /></h3>
 					<div class="col-xs-12 col-sm-12" style="padding-left:0px;">
 					<div class="group price-text top-buffer2">
-                    <h6>You can upload an unlimited number of photos to your Postlet. Choose the image <br>files you want by clicking on the button below. If you prefer, you may <br>also drag your photos onto the dropzone below.</h6>
+                    <h6><spring:message code="label.property.photos.description" /></h6>
                     <form id="imageupload" method="post" action="save" enctype="multipart/form-data" style="width:100%;">
 					
                         <div class="row bdetails03">
@@ -727,7 +727,7 @@
 	<!--Photo tab ends -->			
 				
                 <div class="tab-pane contactinfo3" id="f">
-<div class="tab-name3"><h2>Review</h2></div>
+<div class="tab-name3"><h2><spring:message code="label.property.review" /></h2></div>
                     <div class="row">
                         <div class="col-sm-6 top-buffer3">
                             <div id="carousel" class="carousel slide" data-ride="carousel">
@@ -744,7 +744,7 @@
 
                     <div class="row">
                         <div class="col-sm-10 top-buffer3">
-                            <h3 class="tab-heading">Property Details</h3>
+                            <h3 class="tab-heading"><spring:message code="label.property.details" /></h3>
                         </div><!--col-sm-10-->
                         <div class="col-sm-2 top-buffer3">
                             <!--<span class="glyphicon glyphicon-edit editProperty "></span>-->
@@ -752,75 +752,75 @@
                     </div><!--row-->
                     <div class="row review1">
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading" id="rentbyid1">Rent</p> 
+                            <p class="Details-heading" id="rentbyid1"><spring:message code="label.property.rent" /></p> 
                             <p id="price1">--</p>    
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Date Available</p> 
+                            <p class="Details-heading"><spring:message code="label.property.dateavailable" /></p> 
                             <p id="datepicker1">--</p>
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Property Type</p> 
+                            <p class="Details-heading"><spring:message code="label.property.type" /></p> 
                             <p id="propertyType1">--</p>
                         </div><!--col-sm-10-->
                     </div><!--row-->
                     <div class="row review1">
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Bedrooms</p> 
+                            <p class="Details-heading"><spring:message code="label.property.beds" /></p> 
                             <p id="beds1">--</p>    
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Bathrooms</p> 
+                            <p class="Details-heading"><spring:message code="label.property.baths" /></p> 
                             <p id="baths1">--</p>
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Square Feet</p> 
+                            <p class="Details-heading"><spring:message code="label.property.square.feet" /></p> 
                             <p id="squareFeet1">--</p>
                         </div><!--col-sm-10-->
                     </div><!--row-->
                     <div class="row review1">
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Unit Floor</p> 
+                            <p class="Details-heading"><spring:message code="label.property.unit.floor" /></p> 
                             <p id="unitFloor1">--</p>    
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Year Built</p> 
+                            <p class="Details-heading"><spring:message code="label.property.year.built" /></p> 
                             <p id="yearBuilt1">--</p>
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Furnished</p> 
+                            <p class="Details-heading"><spring:message code="label.property.furnished" /></p> 
                             <p id="Furnished1">--</p>
                         </div><!--col-sm-10-->
                     </div><!--row-->
                     <div class="row review1">
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Pet Policy</p> 
+                            <p class="Details-heading"><spring:message code="label.property.pet.policy" /></p> 
                             <p id="petPolicy1">--</p>    
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Parking Spaces</p> 
+                            <p class="Details-heading"><spring:message code="label.property.parking" /></p> 
                             <p id="parkingSpaces1">--</p>
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Parking Type</p> 
+                            <p class="Details-heading"><spring:message code="label.property.parking.type" /></p> 
                             <p id="parkingType1">--</p>
                         </div><!--col-sm-10-->
                     </div><!--row--> 
 					<div class="row review1">
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Laundry</p> 
+                            <p class="Details-heading"><spring:message code="label.property.laundry" /></p> 
                             <p id="Laundry1">--</p>    
                         </div><!--col-sm-10--><div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Listing Type</p> 
+                            <p class="Details-heading"><spring:message code="label.property.listing.type" /></p> 
                             <p id="listingType1">--</p>    
                         </div><!--col-sm-10--><div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Developer</p> 
+                            <p class="Details-heading"><spring:message code="label.property.developer" /></p> 
                             <p id="Developer1">--</p>    
                         </div><!--col-sm-10-->
                     </div><!--row-->
                     <div class="row">
                         <div class="col-sm-10 top-buffer3">
-                            <h3 class="tab-heading">Property Description</h3>
+                            <h3 class="tab-heading"><spring:message code="label.property.pdescription" /></h3>
                         </div><!--col-sm-10-->
                         <div class="col-sm-2 top-buffer3">
                             <!--<span class="glyphicon glyphicon-edit editProperty "></span>-->
@@ -828,20 +828,20 @@
                     </div><!--row-->
                     <div class="row review1">
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Property Title</p> 
+                            <p class="Details-heading"><spring:message code="label.property.title" /></p> 
                             <p id="property_name1">--</p>    
                         </div><!--col-sm-10-->
                     </div><!--row-->
                     <div class="row review1">
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Property Description</p> 
+                            <p class="Details-heading"><spring:message code="label.property.pdescription" /></p> 
                             <p id="property_desc1">--</p>    
                         </div><!--col-sm-10-->
                     </div><!--row-->
 
                     <div class="row">
                         <div class="col-sm-10 top-buffer3">
-                            <h3 class="tab-heading">Contact Information</h3>
+                            <h3 class="tab-heading"><spring:message code="label.property.contact.information" /></h3>
                         </div><!--col-sm-10-->
                         <div class="col-sm-2 top-buffer3">
                             <!--<span class="glyphicon glyphicon-edit editProperty "></span>-->
@@ -849,27 +849,27 @@
                     </div><!--row-->
                     <div class="row review1">
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Name</p> 
+                            <p class="Details-heading"><spring:message code="label.property.name" /></p> 
                             <p id="name1">--</p>    
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Company</p> 
+                            <p class="Details-heading"><spring:message code="label.property.company" /></p> 
                             <p id="company1">--</p>
                         </div>
                     </div><!--row-->
                     <div class="row review1">
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Phone</p> 
+                            <p class="Details-heading"><spring:message code="label.property.phone" /></p> 
                             <p id="phone1">--</p>    
                         </div><!--col-sm-10-->
                         <div class="col-sm-4 top-buffer2">
-                            <p class="Details-heading">Email Address</p> 
+                            <p class="Details-heading"><spring:message code="label.property.email" /></p> 
                             <p id="email1">--</p>
                         </div>
                     </div><!--row-->
                     <div class="row">
                         <div class=" col-xm-12 col-sm-3 top-buffer3 reviewbut">
-                            <input type="button" class="signupbutton" id="activateproperty" value="Activate Property">
+                            <input type="button" class="signupbutton" id="activateproperty" value="<spring:message code="label.property.activate.property" />">
                         </div><!--col-sm-6-->
                         <!--                                <div class="col-sm-4 top-buffer3">
                                                             <input type="button" class="clear-button" value="Customize Property">

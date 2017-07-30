@@ -13,7 +13,7 @@
         <meta name="author" content="">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Aqarabia admin</title>
+        <title><spring:message code="label.title" /></title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <!-- jQuery library -->
@@ -83,23 +83,23 @@
                                     <li><a href="userprofile?id=${useradmin.agentId}">Profile</a></li>
                                     </c:if>
                                     <c:if test="${useradmin.userType eq 3}">
-                                    <li><a href="profile">Profile</a></li>
+                                    <li><a href="profile"><spring:message code="label.header.profile" /></a></li>
                                     </c:if>                                
-                                <li><a href="logout">Logout</a></li>
+                                <li><a href="logout"><spring:message code="label.header.logout" /></a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="home">List Properties &nbsp;|</a></li>
-                        <li><a href="showproperty">Add Property &nbsp;|</a></li>
+                        <li><a href="home"><spring:message code="label.header.list.properties" /> &nbsp;|</a></li>
+                        <li><a href="showproperty"><spring:message code="label.header.add.property" /> &nbsp;|</a></li>
                         <c:if test="${useradmin.userType eq 3}">
-                            <li><a href="agentlist">List Agents &nbsp;|</a></li>
-                            <li><a href="agentdetails">Add Agent &nbsp;|</a></li>
-                            <li><a href="homewortlist">Home Worth &nbsp;|</a></li>
-                            <li><a href="mortgagelist">Mortgage List &nbsp;|</a></li>
-                            <li><a href="mortgagedetails">Mortgage Settings &nbsp;|</a></li>
-                            <li><a href="currenysettingdet">Currency Settings</a></li></c:if>
-                         <li><a href="requestproperty">&nbsp;|&nbsp; Requested Property Info</a></li>
+                            <li><a href="agentlist"><spring:message code="label.header.list.agents" /> &nbsp;|</a></li>
+                            <li><a href="agentdetails"><spring:message code="label.header.add.agent" /> &nbsp;|</a></li>
+                            <li><a href="homewortlist"><spring:message code="label.header.home.worth" /> &nbsp;|</a></li>
+                            <li><a href="mortgagelist"><spring:message code="label.header.mortagage.list" /> &nbsp;|</a></li>
+                            <li><a href="mortgagedetails"><spring:message code="label.header.mortagage.settings" /> &nbsp;|</a></li>
+                            <li><a href="currenysettingdet"><spring:message code="label.header.currency.settings" /></a></li></c:if>
+                         <li><a href="requestproperty">&nbsp;|&nbsp; <spring:message code="label.header.property.info" /></a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>

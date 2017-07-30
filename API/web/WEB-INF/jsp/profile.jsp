@@ -14,39 +14,39 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="group price">
-                                    <label class="label">Name</label>
+                                    <label class="label"><spring:message code="label.profile.name" /></label>
                                     <input type="text" class="input-text" id="name" name="name" value="${useradmin.firstname}" autocomplete="off">
                                 </div><!--group price-->
                             </div><!--col-sm-6-->
                             <div class="col-sm-6">
                                 <div class="group price">
                                     <label class="label">
-                                        Email Address<sup>*</sup>
+                                        <spring:message code="label.profile.email" /><sup>*</sup>
                                     </label>
-                                    <input type="text" class="input-text1" id="email" name="email" value="${useradmin.email}" placeholder="bahekar.deepak@gmail.com">
+                                    <input type="text" class="input-text1" id="email" name="email" value="${useradmin.email}" placeholder="<spring:message code="label.profile.email.address" />">
                                 </div><!--group price-->
                             </div><!--col-sm-6-->
                         </div><!--row-->
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="group price top-buffer2">
-                                    <label class="label">Phone</label>
+                                    <label class="label"><spring:message code="label.profile.phone" /></label>
                                     <input type="text" class="input-text" id="phone" name="phone" value="${useradmin.phone}" autocomplete="off">
                                 </div><!--group price-->
                             </div><!--col-sm-6-->
                             <div class="col-sm-6">
                                 <div class="group price top-buffer2">
                                     <label class="label">
-                                        City
+                                        <spring:message code="label.profile.city" />
                                     </label>
-                                    <input type="text" class="input-text" id="city" name="city" value="${useradmin.city}" placeholder="bahekar.deepak@gmail.com">
+                                    <input type="text" class="input-text" id="city" name="city" value="${useradmin.city}" placeholder="">
                                 </div><!--group price-->
                             </div><!--col-sm-6-->
                         </div><!--row-->
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="group price top-buffer2">
-                                    <label class="label">State</label>
+                                    <label class="label"><spring:message code="label.profile.state" /></label>
                                     <div class="Property-select">
                                         <select id="state" name="state">
                                             <option value="">-- Select One --</option>
@@ -59,9 +59,9 @@
                             </div><!--col-sm-6-->
                             <div class="col-sm-6">
                                 <div class="group price top-buffer2">
-                                    <label class="label">Your Profile Photo</label>
+                                    <label class="label"><spring:message code="label.profile.pphoto" /></label>
                                     <label for="custom-file-upload" class="filupp filupp-ProfilePic">
-                                        <span class="filupp-file-name js-value">Choose File</span><span class="glyphicon folderIcon pull-right glyphicon-folder-open"></span>
+                                        <span class="filupp-file-name js-value"><spring:message code="label.profile.choose.file" /></span><span class="glyphicon folderIcon pull-right glyphicon-folder-open"></span>
                                         <input type="file" name="profilephoto" value="1" id="custom-file-upload">
                                     </label>
                                 </div><!--group price-->
@@ -95,8 +95,8 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="group price top-buffer3">
-                                    <label class="label">Change Your Password</label>
-                                    <h6>Ignore these fields if you do not wish to change your password.</h6>
+                                    <label class="label"><spring:message code="label.profile.change.pwd" /></label>
+                                    <h6><spring:message code="label.profile.change.pwd.text" /></h6>
                                 </div><!--group price--> 
 
                             </div><!--col-sm-12-->
@@ -104,13 +104,13 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="group price top-buffer2">
-                                    <label class="label">Old Password</label>
+                                    <label class="label"><spring:message code="label.profile.old.pwd" /></label>
                                     <input type="password" class="input-text1" id="oldpassword" name="oldpassword" value="" placeholder="">
                                 </div><!--group price-->
                             </div><!--col-sm-6-->
                             <div class="col-sm-6">
                                 <div class="group price top-buffer2">
-                                    <label class="label">New Password</label>
+                                    <label class="label"><spring:message code="label.profile.new.pwd" /></label>
                                     <input type="password" class="input-text1" id="password" name="password" value="">
                                 </div><!--group price-->
                             </div><!--col-sm-6-->
@@ -118,7 +118,7 @@
 
                         <div class="row">
                             <div class="col-sm-3 top-buffer3">
-                                <input type="submit" class="signupbutton" id="profileupdate" value="Update">
+                                <input type="submit" class="signupbutton" id="profileupdate" value="<spring:message code="label.update" />">
                             </div><!--col-sm-6-->
                             <div class="col-sm-6">
 

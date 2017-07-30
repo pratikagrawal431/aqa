@@ -12,19 +12,19 @@
                 <div class="tab-pane active" id="a">
                     <div class="row"><!--Extra row for responsive starts -->				
                     <div class="col-sm-6">
-					<h3 class="tab-heading">Agent Details</h3>
+					<h3 class="tab-heading"><spring:message code="label.agent.details" /></h3>
                </div>
 			   </div> 
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price">
-                                <label class="label">Name<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.agent.name" /><sup>*</sup></label>
                                 <input type="text" class="input-text" id="name" name="name" value="" autocomplete="off">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price">
-                                <label class="label">Company Name<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.agent.company.name" /><sup>*</sup></label>
                                 <input type="text" class="input-text" id="companyname" name="companyname" value="" autocomplete="off">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -33,14 +33,14 @@
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    Email Address<sup>*</sup>
+                                    <spring:message code="label.agent.email" /><sup>*</sup>
                                 </label>
                                 <input type="text" class="input-text1" id="email" name="email" value="">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Phone<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.agent.phone" /><sup>*</sup></label>
                                 <input type="text" class="input-text numbersOnly"  maxlength="13" id="phone" name="phone" value="" autocomplete="off">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -49,10 +49,10 @@
                         
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">State</label>
+                                <label class="label"><spring:message code="label.agent.state" /></label>
                                 <div class="Property-select">
                                     <select id="state" name="state">
-                                        <option value="">-- Select One --</option>
+                                        <option value=""><spring:message code="label.select.one" /> </option>
 <!--                                        <option value="Alabama">Alabama</option>
                                         <option value="Alaska">Alaska</option>
                                         <option value="Arizona">Arizona</option>
@@ -63,10 +63,10 @@
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">City*</label>
+                                <label class="label"><spring:message code="label.agent.city" />*</label>
                                 <div class="Property-select">
                                     <select id="city" name="city">
-                                        <option value="">-- Select One --</option>
+                                        <option value=""><spring:message code="label.select.one" /></option>
 <!--                                        <option value="Alabama">Alabama</option>
                                         <option value="Alaska">Alaska</option>
                                         <option value="Arizona">Arizona</option>
@@ -79,12 +79,12 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Password<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.agent.password" /><sup>*</sup></label>
                                 <input type="text" class="input-text1" id="password" name="password" value="">
                             </div><!--group price-->
                         </div><!--col-sm-6--> <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Agent Type<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.agent.type" /><sup>*</sup></label>
                                 <div class="Property-select">
                                     <select id="agenttype" name="agenttype" >
                                         <option value="">I am a...</option>
@@ -109,7 +109,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Agent Specialty<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.agent.specialty" /><sup>*</sup></label>
                                 <div class="Property-select">
                                     <select id="agentspecialty" name="agentspecialty" >
                                         <option value="">-- Select Specialty --</option>
@@ -132,7 +132,7 @@
                         </div><!--col-sm-6--> 
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Languages<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.agent.languages" /><sup>*</sup></label>
                                 <div class="Property-select">
                                     <select id="language" name="language">
                                         <option value="">-- Select Language --</option>
@@ -151,7 +151,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Property Expertise<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.agent.property.expertise" /><sup>*</sup></label>
                                 <div class="Property-select">
                                     <select id="propertyExpertise" name="propertyExpertise">
                                         <option value="">-- Select Property Expertise --</option>
@@ -167,7 +167,7 @@
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Certifications</label>
+                                <label class="label"><spring:message code="label.agent.certifications" /></label>
                                 <div class="Property-select">
                                     <select id="certification" name="certification">
                                         <option value="">-- Select Certification --</option>
@@ -195,7 +195,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Keywords</label>
+                                <label class="label"><spring:message code="label.agent.keywords" /></label>
                                 <div class="Property-select">
                                     <input type="text" class="input-text" id="keywords" name="keywords" value="" autocomplete="">
                                 </div><!--Property-select-->
@@ -204,7 +204,7 @@
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">About</label>
+                                <label class="label"><spring:message code="label.agent.about" /></label>
                                 <div >
                                     <textarea  class="input-text1" id="about" name="about" value="" autocomplete=""></textarea>
                                 </div><!--Property-select-->
@@ -215,7 +215,7 @@
 
                         <div class="col-sm-6">
                             <div class="group price top-buffer2">
-                                <label class="label">Profile Photo</label>
+                                <label class="label"><spring:message code="label.agent.photo" /></label>
                                 <!--<label for="custom-file-upload" class="filupp filupp-ProfilePic">-->
                                 <!--<span class="filupp-file-name js-value">Choose File</span><span class="glyphicon folderIcon pull-right glyphicon-folder-open"></span>-->
                                 <!--<input type="file" name="file"  id="custom-file-upload">-->
@@ -233,7 +233,7 @@
 
                 <div class="row">
                     <div class="col-md-3 col-sm-6 top-buffer3">
-                        <input type="submit" class="signupbutton" id="agentdetails" value="Save">
+                        <input type="submit" class="signupbutton" id="agentdetails" value="<spring:message code="label.save" />">
                     </div><!--col-sm-6-->
                     <div class="col-sm-6">
 

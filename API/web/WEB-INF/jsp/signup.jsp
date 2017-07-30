@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +12,7 @@
         <meta name="author" content="">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Aqarabia admin</title>
+        <title><spring:message code="label.title" /></title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <!-- jQuery library -->
@@ -50,35 +52,35 @@
                                 <div class="wrap">
                                     <div class="col-sm-6 col-sm-height wrap" style="padding:0px;"> 
                                         <div class="signup-get-bg">
-                                            <h1 class="Get">Get your free Agent Profile</h1>
-                                            <div class="get-icon-1"> Help clients find you in our Find an Agent directory </div>
-                                            <div class="get-icon-2"> Showcase your experience with client reviews </div>
-                                            <div class="get-icon-3"> Showcase your experience with client reviews </div>
+                                            <h1 class="Get"><spring:message code="label.h1" /></h1>
+                                            <div class="get-icon-1"> <spring:message code="label.h1.div1" /> </div>
+                                            <div class="get-icon-2"> <spring:message code="label.h1.div2" /> </div>
+                                            <div class="get-icon-3"> <spring:message code="label.h1.div3" /> </div>
                                         </div><!--signup-form-bg-->
                                     </div><!--col-sm-6-->
                                     <div class="col-sm-6 col-sm-height wrap" style="padding:0px;">
                                         <div class="signup-form-bg">
-                                            <h1 class="signup-heading">Create your FREE account<br><span class="signup-heading2">(All fields are required)</span></h1>
+                                            <h1 class="signup-heading"><spring:message code="label.create.account" /><br><span class="signup-heading2"><spring:message code="label.create.account.mandatory" /></span></h1>
                                             <form>
-                                                <input type="text" placeholder="Name" name="firstname" id="firstname"/>
-                                                <input type="Email" placeholder="Email" name="email" id="email"/>
-                                                <input type="Password" placeholder="Password" name="password" id="password"/>
-                                                <input type="Password" placeholder="Confirm Password" name="confirmpassword" id="confirmpassword"/>
-                                                <input type="phone" placeholder="Phone" class="numbersOnly" name="phone" id="phone"/>
-                                                <input type="text" placeholder="Location" name="city" id="city"/>
+                                                <input type="text" placeholder=<spring:message code="label.signup.name" /> name="firstname" id="firstname"/>
+                                                <input type="Email" placeholder=<spring:message code="label.signup.email" /> name="email" id="email"/>
+                                                <input type="Password" placeholder=<spring:message code="label.signup.password" /> name="password" id="password"/>
+                                                <input type="Password" placeholder="<spring:message code="label.signup.confirm.password" />" name="confirmpassword" id="confirmpassword"/>
+                                                <input type="phone" placeholder=<spring:message code="label.signup.phone" /> class="numbersOnly" name="phone" id="phone"/>
+                                                <input type="text" placeholder=<spring:message code="label.signup.location" /> name="city" id="city"/>
                                                 <div class="select-style">
                                                     <select id="services" name="services" >
-                                                        <option value="">I am a...</option>
-                                                        <option value="1">Agent</option>
-                                                        <option value="2">Broker</option>
-                                                        <option value="3">Managing Broker</option>
-                                                        <option value="4">Mortgage Broker Or Lender</option>
+                                                            <option value=""><spring:message code="label.signup.i.am.a" /></option>
+                                                        <option value="1"><spring:message code="label.signup.agent" /></option>
+                                                        <option value="2"><spring:message code="label.signup.broker" /></option>
+                                                        <option value="3"><spring:message code="label.signup.managing.broker" /></option>
+                                                        <option value="4"><spring:message code="label.signup.mortagage.or.lender" /></option>
                                                     </select>
                                                 </div><!--select-style-->
 
-                                                <input type="button" class="signupbutton" name="SignUp" value="Sign up"  id="SignUp"/>
-                                                <h1 class="sending">By sending, you agree to Aqarabia <a href="#" class="signup-termslink">Terms of Use</a> and <a href="#" class="signup-termslink">Privacy Policy</a>. </h1>
-                                                <h1 class="AlreadysignIn">Already a member? <a href="index" class="AlreadysignInLink">Sign In</a></h1>
+                                                <input type="button" class="signupbutton" name="SignUp" value="<spring:message code="label.signup" />"  id="SignUp"/>
+                                                <h1 class="sending"><spring:message code="label.signup.terms.and.condition.1" /> <a href="#" class="signup-termslink"><spring:message code="label.signup.terms.and.condition.2" /></a> and <a href="#" class="signup-termslink"><spring:message code="label.signup.privacy" /></a>. </h1>
+                                                <h1 class="AlreadysignIn"><spring:message code="label.signup.already.member" /> <a href="index" class="AlreadysignInLink"><spring:message code="label.signup.signin" /></a></h1>
                                             </form>
                                         </div><!--signup-form-bg-->
                                     </div><!--col-sm-6-->
@@ -111,8 +113,7 @@
                 var filter = /[0-9 -()+]+$/;
                 if (filter.test(txtPhone)) {
                     return true;
-                }
-                else {
+                } else {
                     return false;
                 }
             }
@@ -133,7 +134,7 @@
                     $("#phone").removeClass("input-error");
                     $("#city").removeClass("input-error");
                     $("#services").removeClass("input-error");
-                    
+
                 });
                 $("#SignUp").click(function () {
                     var signupjson = {};

@@ -1,7 +1,7 @@
 <%@include file="header.jsp" %>
 
 <div class="container container-topMargin">
-    <h3 class="Draft-heading"> Home Worth </h1>
+    <h3 class="Draft-heading"> <spring:message code="label.homeworth" /> </h1>
     <div style="margin-left: 800px;margin-top: 20px;" class="row"><input style="padding: 5px;margin-left: -15px;" type="text" id="homeworth" placeholder="Search"/></div>
     <hr>
         
@@ -55,7 +55,7 @@
                     text = "Contacted";
                 }
 
-                anchorArray = anchorArray + "<div class='col-sm-3 text-center'><a  href='#'><input type='button' data-toggle='collapse' data-target='#demo"+rowIndex+"' class='btn-edit' value='Check Details' /></a></div>";
+                anchorArray = anchorArray + "<div class='col-sm-3 text-center'><a  href='#'><input type='button' data-toggle='collapse' data-target='#demo"+rowIndex+"' class='btn-edit' value='<spring:message code="label.homeworth.checkdetails" />' /></a></div>";
                 anchorArray = anchorArray + "</div><hr>";
                 anchorArray = anchorArray + "<div class='row'>";
     anchorArray = anchorArray + "<div class='col-sm-12'>";

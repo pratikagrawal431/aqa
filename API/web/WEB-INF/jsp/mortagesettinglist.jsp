@@ -1,7 +1,7 @@
 <%@include file="header.jsp" %>
 
 <div class="container container-topMargin">
-    <h3 class="Draft-heading"> Mortgage Setting </h1>
+    <h3 class="Draft-heading"> <spring:message code="label.mortgage.settings" /> </h1>
         <hr>
         <div id="ctl00_cph_divWorkAreaContent" style="overflow: hidden;" ></div>
         <div id="tt" style="width:auto;height:0!important"
@@ -27,7 +27,7 @@
 
             if (rowData.rateOfIntrest != undefined) {
                 if (rowIndex == 0) {
-                    $("#ctl00_cph_divWorkAreaContent").html('<div class="table-responsive" style="padding:30px 20px 20px 20px;"><table class="table table-bordered table-hover" style="text-align:center;">    <thead>      <tr>        <th style="text-align:center;">PropertyTax</th>        <th style="text-align:center;">Years</th>        <th style="text-align:center;">Interest</th>        <th style="text-align:center;">InsurenceTax</th>        <th style="text-align:center;">Update</th>        </tr>    </thead>    <tbody>');
+                    $("#ctl00_cph_divWorkAreaContent").html('<div class="table-responsive" style="padding:30px 20px 20px 20px;"><table class="table table-bordered table-hover" style="text-align:center;">    <thead>      <tr>        <th style="text-align:center;"><spring:message code="label.mortgage.settings.ptax" /></th>        <th style="text-align:center;"><spring:message code="label.mortgage.settings.years" /></th>        <th style="text-align:center;"><spring:message code="label.mortgage.settings.intrest" /></th>        <th style="text-align:center;"><spring:message code="label.mortgage.settings.insurence.tax" /></th>        <th style="text-align:center;"><spring:message code="label.update" /></th>        </tr>    </thead>    <tbody>');
                 }
 
                 var anchorArray = "";
@@ -47,7 +47,7 @@
                 anchorArray = anchorArray + "<td>" + rowData.no_of_years + "</td>";
                 anchorArray = anchorArray + "<td>" + rowData.rateOfIntrest + "</td>";
                 anchorArray = anchorArray + "<td>" + rowData.insurenceTax + "</td>";
-                anchorArray = anchorArray + '<td><input class="Update-btn" onclick="callmortgagesettings(' + rowData.id + ')" type="button" value="Update details"></td>';
+                anchorArray = anchorArray + '<td><input class="Update-btn" onclick="callmortgagesettings(' + rowData.id + ')" type="button" value="<spring:message code="label.mortgage.settings.update.details" />"></td>';
                 anchorArray = anchorArray + "</tr>";
 //                 alert(rowIndex);
                 if (rowIndex == $('#tt').datagrid('getRows').length - 1) {
@@ -81,13 +81,13 @@
     }
     function checkchildserviceload() {
         length = $('#tt').datagrid('getRows').length;
-        htmocontent = '<div class="table-responsive" style="padding:30px 20px 20px 20px;">        <table class="table table-bordered table-hover" style="text-align:center;">    <thead>      <tr>        <th style="text-align:center;">PropertyTax</th>        <th style="text-align:center;">Years</th>        <th style="text-align:center;">Interest</th>        <th style="text-align:center;">InsurenceTax</th>        <th style="text-align:center;">Action</th>        </tr>    </thead>    <tbody>';
+        htmocontent = '<div class="table-responsive" style="padding:30px 20px 20px 20px;">        <table class="table table-bordered table-hover" style="text-align:center;">    <thead>      <tr>        <th style="text-align:center;"><spring:message code="label.mortgage.settings.ptax" /></th>        <th style="text-align:center;"><spring:message code="label.mortgage.settings.years" /></th>        <th style="text-align:center;"><spring:message code="label.mortgage.settings.intrest" /></th>        <th style="text-align:center;"><spring:message code="label.mortgage.settings.insurence.tax" /></th>        <th style="text-align:center;"><spring:message code="label.action" /></th>        </tr>    </thead>    <tbody>';
         for (i = 0; i < length; i++) {
             var selectedRow = $('#tt').datagrid('getRows')[i];
             //  alert(selectedRow.propertyTax);
 
             htmocontent = htmocontent + '<tr>        <td>'+selectedRow.propertyTax+'</td>        \n\
-<td>'+selectedRow.no_of_years+'</td>        <td>'+selectedRow.rateOfIntrest+'</td>        <td>'+selectedRow.insurenceTax+'</td>        <td><input class="Update-btn" onclick="callmortgagesettings(' + selectedRow.id + ')" type="button" value="Update details"></td>        </tr>';
+<td>'+selectedRow.no_of_years+'</td>        <td>'+selectedRow.rateOfIntrest+'</td>        <td>'+selectedRow.insurenceTax+'</td>        <td><input class="Update-btn" onclick="callmortgagesettings(' + selectedRow.id + ')" type="button" value="<spring:message code="label.mortgage.settings.update.details" />"></td>        </tr>';
         }
         htmocontent = htmocontent + '    </tbody>  </table>        </div><!--table-responsive-->';
 $("#ctl00_cph_divWorkAreaContent").html(htmocontent);

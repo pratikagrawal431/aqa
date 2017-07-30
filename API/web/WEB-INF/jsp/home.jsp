@@ -3,12 +3,12 @@
     agent_id = getParameterByName("agent_id");
 </script>
 <div class="container container-topMargin">
-    <h3 class="Draft-heading"> Property Listings </h1>
+    <h3 class="Draft-heading"> <spring:message code="label.home.property.listings" /> </h1>
         <hr>
         <div style="display:none;margin-left:400px" class="signup-heading" id="ctl00_cph_divMsg">
 
             &nbsp;
-            <span id="ctl00_cph_lblMsg">No Records Found</span></div>
+            <span id="ctl00_cph_lblMsg"><spring:message code="label.home.norecords.found" /></span></div>
 
         <div id="ctl00_cph_divWorkAreaContent"  style="overflow: hidden" ></div>
         <div id="tt" style="width:auto;height:0!important"

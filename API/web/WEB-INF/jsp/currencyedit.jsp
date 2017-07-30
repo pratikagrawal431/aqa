@@ -7,17 +7,17 @@
 
             <div class="tab-content">
                 <div class="tab-pane active" id="a">
-                    <h3 class="tab-heading">Currency Details</h3>
+                    <h3 class="tab-heading"><spring:message code="label.currency.details" /></h3>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="group price">
-                                <label class="label">Currency<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.currency" /><sup>*</sup></label>
                                 <input type="text" class="input-text" id="currency" name="currency" value="" autocomplete="off">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
                             <div class="group price">
-                                <label class="label">Multiplication Factor<sup>*</sup></label>
+                                <label class="label"><spring:message code="label.currency.mfactor" /><sup>*</sup></label>
                                 <input type="text" class="input-text" id="mul_fact" name="mul_fact" value="" autocomplete="off">
                             </div><!--group price-->
                         </div><!--col-sm-6-->
@@ -25,7 +25,7 @@
                    
                       <div class="row">
                         <div class="col-sm-3 top-buffer3">
-                            <input type="submit" class="signupbutton" id="mortgagesettings" value="Update">
+                            <input type="submit" class="signupbutton" id="mortgagesettings" value="<spring:message code="label.update" />">
                         </div><!--col-sm-6-->
                         <div class="col-sm-6">
 
