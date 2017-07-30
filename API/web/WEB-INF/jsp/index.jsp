@@ -51,22 +51,22 @@
                                 <div class="wrap">
                                     <div class="col-sm-6 wrap" style="padding:0px;"> 
                                         <div class="signup-get-bg">
-                                            <h1 class="Get">Get your free Agent Profile</h1>
-                                            <div class="get-icon-1"> Help clients find you in our Find an Agent directory </div>
-                                            <div class="get-icon-2"> Showcase your experience with client reviews </div>
-                                            <div class="get-icon-3"> Showcase your experience with client reviews </div>
+                                            <h1 class="Get"><spring:message code="label.h1" /></h1>
+                                            <div class="get-icon-1"> <spring:message code="label.h1.div1" /> </div>
+                                            <div class="get-icon-2"> <spring:message code="label.h1.div2" /> </div>
+                                            <div class="get-icon-3"> <spring:message code="label.h1.div3" /> </div>
                                         </div><!--signup-form-bg-->
                                     </div><!--col-sm-6-->
                                     <div class="col-sm-6 wrap" style="padding:0px;">
                                         <div class="signup-form-bg">
-                                            <h1 class="signup-heading">Create your FREE account<br><span class="signup-heading2">(All fields are required)</span></h1>
+                                            <h1 class="signup-heading"><spring:message code="label.create.account" /><br><span class="signup-heading2"><spring:message code="label.create.account.mandatory" /></span></h1>
                                             <form>
 
-                                                <input type="Email" id="username" name="username" class="easyui-textbox"  data-options="required:true" placeholder="Email"/>
-                                                <input type="Password" id="password" name="password" placeholder="Password"/>
+                                                <input type="Email" id="username" name="username" class="easyui-textbox"  data-options="required:true" placeholder="<spring:message code="label.email" />"/>
+                                                <input type="Password" id="password" name="password" placeholder="<spring:message code="label.password" />"/>
 
-                                                <input  type="button" class="signupbutton" name="sigin" value="Login"  id="sigin"/>
-                                                <h1 class="AlreadysignIn">Don't have an account yet? <a href="javascript:callsignup();" class="AlreadysignInLink">Sign Up</a></h1>
+                                                <input  type="button" class="signupbutton" name="sigin" value=<spring:message code="label.login.button" />  id="sigin"/>
+                                                <h1 class="AlreadysignIn"><spring:message code="label.issignup.text" /> <a href="signup" class="AlreadysignInLink"><spring:message code="label.signup" /></a></h1>
                                             </form>
                                         </div><!--signup-form-bg-->
                                     </div><!--col-sm-6-->
@@ -134,7 +134,7 @@
 
                     loginjson['userId'] = username;
                     loginjson['password'] = password;
-                    var login = JSON.stringify(loginjson);                  
+                    var login = JSON.stringify(loginjson);
                     $.ajax({
                         url: "user/adminsignin",
                         type: "POST",
@@ -161,19 +161,6 @@
                     });
                 }
             });
-            function callsignup(){
-                language=getParameterByName("language");
-                if(language.length==0){
-                    language="ar";
-                }
-                 window.location = "signup?language="+language;
-            }
-                      function getParameterByName(name) {
-                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                        results = regex.exec(location.search);
-                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-            }
         </script>
     </body>
 
