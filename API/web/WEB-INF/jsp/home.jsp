@@ -37,14 +37,14 @@
                     $("#ctl00_cph_divWorkAreaContent").html("");
                 }
                 var category = rowData.category;
-                categorytext = "For Rent";
+                categorytext = "<spring:message code="label.property.forrent" />";
 
                 if (category == 1) {
-                    categorytext = "For Sale"
+                    categorytext = "<spring:message code="label.property.forsale" />"
                 } else if (category == 2) {
-                    categorytext = "For Rent"
+                    categorytext = "<spring:message code="label.property.forrent" />"
                 } else {
-                    categorytext = "Sold"
+                    categorytext = "<spring:message code="label.property.sold" />"
                 }
 
                 var anchorArray = "";
@@ -65,12 +65,12 @@
                 } else {
                     imagelink = "images/property-default-800x600.jpg"
                 }
-                propertystatus = "Draft";
+                propertystatus = "<spring:message code="label.property.draft" />";
                 if (status == 2) {
-                    propertystatus = "Active";
+                    propertystatus = "<spring:message code="label.property.active" />";
                 }
                 if (status == 3) {
-                    propertystatus = "Deactivated";
+                    propertystatus = "<spring:message code="label.property.deactivated" />";
                 }
                 //console.log(rowData);
                 share_to_agents = rowData.share_to_agents;
@@ -78,41 +78,41 @@
                 anchorArray = anchorArray + "<div class='col-sm-9 img-content'>";
                 anchorArray = anchorArray + "<div class='proimg'><img src='" + imagelink + "' width='120' height='100' /></div>";
                              anchorArray = anchorArray + "<div class='pdetails'>";
-                anchorArray = anchorArray + "<a class='Draft-name' title='" + rowData.address + "' href='showproperty?id=" + id + "'>Property Title:" + rowData.name + "</a>";
+                anchorArray = anchorArray + "<a class='Draft-name' title='" + rowData.address + "' href='showproperty?id=" + id + "'><spring:message code="label.property.title" />:" + rowData.name + "</a>";
                 anchorArray = anchorArray + "<p class='Draft-for'> " + rowData.address + " <br />";
                 anchorArray = anchorArray + "$" + rowData.price + " " + categorytext + "</p>";
                 if (agents != "") {
     <c:if test="${useradmin.userType eq 3}">
                     if (agent_id == '') {
-                        anchorArray = anchorArray + "<p class='Draft-for'<b> Assign To: </b>" + agents + "</p>";
+                        anchorArray = anchorArray + "<p class='Draft-for'<b> <spring:message code="label.property.assaignto" />: </b>" + agents + "</p>";
                     }
     </c:if>
                 }
-                anchorArray = anchorArray + "<p class='Draft-for'<b> Property Status: </b>" + propertystatus + "</p>";
+                anchorArray = anchorArray + "<p class='Draft-for'<b> <spring:message code="label.property.status" />: </b>" + propertystatus + "</p>";
 
                 anchorArray = anchorArray + "</div></div>";
                 anchorArray = anchorArray + "<div class='col-sm-3 text-center probut'>";
                 if (status == 1 || status == 3) {
-                    anchorArray = anchorArray + " <a href='showproperty?id=" + id + "'><input type='button' class='btn-edit' value='Edit' /></a> ";
+                    anchorArray = anchorArray + " <a href='showproperty?id=" + id + "'><input type='button' class='btn-edit' value='<spring:message code="label.edit" />' /></a> ";
                 }
                 if (status == 1 || status == 3) {
-                    anchorArray = anchorArray + " <a href='#' onclick='activateProperty(" + id + ")'><input type='button' class='btn-edit' value='Activate' /></a>";
+                    anchorArray = anchorArray + " <a href='#' onclick='activateProperty(" + id + ")'><input type='button' class='btn-edit' value='<spring:message code="label.property.activate" />' /></a>";
                 } else if (status == 2) {
-                    anchorArray = anchorArray + " <a href='#' onclick='deactivateProperty(" + id + ")'><input type='button' class='btn-edit' value='Deactivate' /></a>";
+                    anchorArray = anchorArray + " <a href='#' onclick='deactivateProperty(" + id + ")'><input type='button' class='btn-edit' value='<spring:message code="label.property.deactivate" />' /></a>";
 //                    anchorArray = anchorArray + "/<a href='#' class='edit-teg'>Activated</a>";
                 }
 
                 if (status == 1) {
-                    anchorArray = anchorArray + " <a href='#' onclick='deleteProperty(" + id + ")'><input type='button' class='btn-edit' value='Delete' /></a>";
+                    anchorArray = anchorArray + " <a href='#' onclick='deleteProperty(" + id + ")'><input type='button' class='btn-edit' value='<spring:message code="label.delete" />' /></a>";
 //                    anchorArray = anchorArray + "/<a href='#' class='edit-teg'>Activated</a>";
                 }
                 if (agent_id != '') {
-                    anchorArray = anchorArray + " <a href='#' onclick='deassignProperty(" + agent_id + "," + id + ")'><input type='button' class='btn-edit' value='DeAssign' /></a>";
+                    anchorArray = anchorArray + " <a href='#' onclick='deassignProperty(" + agent_id + "," + id + ")'><input type='button' class='btn-edit' value='<spring:message code="label.property.deassaign" />' /></a>";
                 }
                 //  alert(share_to_agents);
     <c:if test="${useradmin.userType eq 3}">
                 if (share_to_agents == 0)
-                    anchorArray = anchorArray + " <a href='#myModal' onclick='javascript:getPropertyId(" + id + ")' type='button' data-toggle='modal' data-target='#myModal'><input type='button' class='btn-edit' value='Assign To Agent' /></a>";
+                    anchorArray = anchorArray + " <a href='#myModal' onclick='javascript:getPropertyId(" + id + ")' type='button' data-toggle='modal' data-target='#myModal'><input type='button' class='btn-edit' value='<spring:message code="label.property.assaign.to.agent" />' /></a>";
     </c:if>
 
                 anchorArray = anchorArray + "</div></div><hr>";
@@ -135,7 +135,7 @@
                 code = data.response.code;
                 if (code == 0) {
 //                       swal("Success", "Property Acticated Successfully", "success")
-                    swal({title: "Success", text: "Property Deassign Successfully", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "OK", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
+                    swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.home.deassaign.success" />", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "<spring:message code="label.ok" />", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
                         if (isConfirm) {
                             window.location = 'home?agent_id=' + agent_id;
                         }
@@ -143,11 +143,11 @@
                     //    swal({title: "Success", text: "Property Acticated Successfully", imageUrl: "resources/images/thumbs-up.jpg"});
 //                    window.location = 'home';
                 } else {
-                    sweetAlert("Update Failed...", "Property Deassign Failed", "error");
+                    sweetAlert("<spring:message code="label.home.update.failed" />", "<spring:message code="label.home.deassaign.failed" />", "error");
                 }
 
             }, error: function (request, status, error) {
-                sweetAlert("Update Failed...", "Property Deassign Failed", "error");
+                sweetAlert("<spring:message code="label.home.update.failed" />", "<spring:message code="label.home.deassaign.failed" />", "error");
             }
         });
     }
@@ -209,7 +209,7 @@
                     code = data.response.code;
                     if (code == 0) {
 //                       swal("Success", "Property Acticated Successfully", "success")
-                        swal({title: "Success", text: "PROPERTY ASSIGNED SUCCESSFULLY TO AGENT", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "OK", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
+                        swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.home.assaigned.to.agent.success" />", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "<spring:message code="label.ok" />", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
                             if (isConfirm) {
                                 window.location = 'home';
                             }
@@ -217,13 +217,13 @@
                         //    swal({title: "Success", text: "Property Acticated Successfully", imageUrl: "resources/images/thumbs-up.jpg"});
 //                    window.location = 'home';
                     } else if (code == 137) {
-                        sweetAlert("Update Failed...", "Property already assign to agent", "error");
+                        sweetAlert("<spring:message code="label.home.update.failed" />", "<spring:message code="label.home.property.already.assaign" />", "error");
                     } else {
-                        sweetAlert("Update Failed...", "Property Update Failed", "error");
+                        sweetAlert("<spring:message code="label.home.update.failed" />", "<spring:message code="label.home.property.update.failed" />", "error");
                     }
 
                 }, error: function (request, status, error) {
-                    sweetAlert("Update Failed...", "Property Update Failed", "error");
+                    sweetAlert("<spring:message code="label.home.update.failed" />", "<spring:message code="label.home.property.update.failed" />", "error");
                 }
             });
         });
@@ -238,7 +238,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Agent List</h4>
+                <h4 class="modal-title"><spring:message code="label.agent.list" /></h4>
             </div>
             <div class="modal-body">
                 <select id="agentId" multiple="multiple" style="width:100%; padding:10px;">
@@ -247,7 +247,7 @@
             </div>
             <input type="hidden" id="property_id" value=""/>
             <div class="modal-footer">
-                <button type="button" id="assigntoproperty" class="btn btn-default" value=""  data-dismiss="modal">OK</button>
+                <button type="button" id="assigntoproperty" class="btn btn-default" value=""  data-dismiss="modal"><spring:message code="label.ok" /></button>
             </div>
         </div>
 

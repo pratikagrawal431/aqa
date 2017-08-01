@@ -164,7 +164,7 @@
             function deactivateProperty(id) {
 
 
-                swal({title: "Are you sure?", text: "You want to Deactivated Property!", type: "warning", showCancelButton: true, confirmButtonColor: "#DD6B55", confirmButtonText: "Yes!", closeOnConfirm: false}, function () {
+                swal({title: "<spring:message code="label.property.are.you.sure" />", text: "<spring:message code="label.property.you.want.deactivate" />", type: "warning", showCancelButton: true, confirmButtonColor: "#DD6B55", confirmButtonText: "Yes!", closeOnConfirm: false}, function () {
                     $.ajax({
                         url: "deactivateproperty?id=" + id,
                         type: "GET",

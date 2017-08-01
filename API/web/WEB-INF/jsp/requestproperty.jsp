@@ -1,7 +1,7 @@
 <%@include file="header.jsp" %>
 
         <div class="container container-topMargin">
-            <h3 class="Draft-heading"><spring:message code="label.currency" />Requested Property Info </h1>
+            <h3 class="Draft-heading"><spring:message code="label.header.property.info" /> </h1>
                 <hr>
                 <div id="ctl00_cph_divWorkAreaContent" style="overflow: hidden;" ></div>
                 <div id="tt" style="width:auto;height:0!important"

@@ -169,11 +169,11 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="group price top-buffer2">
                                 <label class="label">
-                                    <p id="rentbyid"> For Sale<sup>*</sup></p>
+                                    <p id="rentbyid"> <spring:message code="label.property.forsale" /><sup>*</sup></p>
                                 </label><br><br>
-                                <input id="radio1" type="radio" class="contacttype" name="contacttype" value="1"><label for="radio1"><span><span></span></span>Management Company / Broker</label> <br>
-                                <input id="radio2" type="radio" class="contacttype" name="contacttype" value="2"><label for="radio2"><span><span></span></span>Owner</label><br>
-                                <input id="radio3" type="radio" class="contacttype" name="contacttype" value="3"><label for="radio3"><span><span></span></span>Tenant</label>
+                                <input id="radio1" type="radio" class="contacttype" name="contacttype" value="1"><label for="radio1"><span><span></span></span><spring:message code="label.property.mgmt.broker" /></label> <br>
+                                <input id="radio2" type="radio" class="contacttype" name="contacttype" value="2"><label for="radio2"><span><span></span></span><spring:message code="label.property.owner" /></label><br>
+                                <input id="radio3" type="radio" class="contacttype" name="contacttype" value="3"><label for="radio3"><span><span></span></span><spring:message code="label.property.tenant" /></label>
                             </div><!--group price-->
 
                         </div><!--col-sm-6-->
@@ -339,11 +339,11 @@
                                 <div class="Property-select">
                                     <select id="beds" name="beds">
                                         <option value="0"><spring:message code="label.property.select.beds" /></option>
-                                        <option value="1">1 Bed</option>
-                                        <option value="2">2 Beds</option>
-                                        <option value="3">3 Beds</option>
-                                        <option value="4">4 Beds</option>
-                                        <option value="5">5 Beds</option>
+                                        <option value="1"><spring:message code="label.property.1bed" /></option>
+                                        <option value="2"><spring:message code="label.property.2bed" /></option>
+                                        <option value="3"><spring:message code="label.property.3bed" /></option>
+                                        <option value="4"><spring:message code="label.property.4bed" /></option>
+                                        <option value="5"><spring:message code="label.property.5bed" /></option>
                                     </select>
                                 </div><!--Property-select-->
                             </div><!--group price-->
@@ -356,11 +356,11 @@
                                 <div class="Property-select">
                                     <select id="baths" name="baths">
                                         <option value="0"><spring:message code="label.property.select.baths" /></option>
-                                        <option value="1">1 Bath</option>	
-                                        <option value="2">2 Bath</option>
-                                        <option value="3">3 Bath</option>
-                                        <option value="4">4 Bath</option>
-                                        <option value="5">5 Bath</option>
+                                        <option value="1"><spring:message code="label.property.1bath" /></option>	
+                                        <option value="2"><spring:message code="label.property.2bath" /></option>
+                                        <option value="3"><spring:message code="label.property.3bath" /></option>
+                                        <option value="4"><spring:message code="label.property.4bath" /></option>
+                                        <option value="5"><spring:message code="label.property.5bath" /></option>
                                     </select>
                                 </div><!--Property-select-->
                             </div><!--group price-->
@@ -422,10 +422,10 @@
                                 <div class="Property-select">
                                     <select id="parkingType" name="parkingType">
                                         <option value="0"  selected=""><spring:message code="label.select" /></option>
-                                        <option value="garage">Garage</option>
-                                        <option value="covered">Carport</option>
-                                        <option value="uncovered">Off street</option>
-                                        <option value="other">Other</option>
+                                        <option value="garage"><spring:message code="label.property.garage" /></option>
+                                        <option value="covered"><spring:message code="label.property.car.port" /></option>
+                                        <option value="uncovered"><spring:message code="label.property.off.street" /></option>
+                                        <option value="other"><spring:message code="label.property.other" /></option>
                                     </select>
                                 </div><!--Property-select-->
                             </div><!--group price-->
@@ -1800,13 +1800,13 @@ loadjson(response.propertie,response.objPropertyType,response.objListingType);
 
                 if (obj.category == 2) {
                     
-                    $("#rentbyid").html("For Rent <sup>*</sup>");
+                    $("#rentbyid").html("<spring:message code="label.property.forrent" /> <sup>*</sup>");
                      
                 } if (obj.category == 1) {
                     
                     
-                      $("#rentdet").html("Sale Details <sup></sup>");
-                       $("#rentbyid1").html("Sale");
+                      $("#rentdet").html("<spring:message code="label.property.sale.details" /> <sup></sup>");
+                       $("#rentbyid1").html("<spring:message code="label.property.sale" />");
                       
                 }
                 $("input[name=category]").val([obj.category]);
