@@ -66,7 +66,7 @@
                                                 <input type="Password" id="password" name="password" placeholder="<spring:message code="label.password" />"/>
 
                                                 <input  type="button" class="signupbutton" name="sigin" value=<spring:message code="label.login.button" />  id="sigin"/>
-                                                <h1 class="AlreadysignIn"><spring:message code="label.issignup.text" /> <a href="signup" class="AlreadysignInLink"><spring:message code="label.signup" /></a></h1>
+                                                <h1 class="AlreadysignIn"><spring:message code="label.issignup.text" /> <a href="javascript:callsignup();" class="AlreadysignInLink"><spring:message code="label.signup" /></a></h1>
                                                <h1 class="AlreadysignIn">Select Language <a href="index?language=en" class="AlreadysignInLink">English</a>/<a href="index?language=ar" class="AlreadysignInLink">Arabic</a></h1>
 
                                             </form>
@@ -165,6 +165,13 @@
                     });
                 }
             });
+               function callsignup(){
+                language=getParameterByName("language");
+                if(language.length==0){
+                    language="en";
+                }
+                 window.location = "signup?language="+language;
+            }
                     function getParameterByName(name) {
                 name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
                 var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
