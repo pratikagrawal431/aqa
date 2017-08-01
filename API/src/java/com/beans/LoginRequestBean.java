@@ -14,7 +14,7 @@ public class LoginRequestBean {
     private String userId;
     private String password;
     private int logintype;
-
+private String language;
     public String getUserId() {
         return userId;
     }
@@ -29,6 +29,20 @@ public class LoginRequestBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the language
+     */
+    public String getLanguage() {
+        return language;
+    }
+
+    /**
+     * @param language the language to set
+     */
+    public void setLanguage(String language) {
+        this.language = language;
     }
     
 }

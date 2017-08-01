@@ -67,9 +67,12 @@
 
                                                 <input  type="button" class="signupbutton" name="sigin" value=<spring:message code="label.login.button" />  id="sigin"/>
                                                 <h1 class="AlreadysignIn"><spring:message code="label.issignup.text" /> <a href="signup" class="AlreadysignInLink"><spring:message code="label.signup" /></a></h1>
+                                               <h1 class="AlreadysignIn">Select Language <a href="index?language=en" class="AlreadysignInLink">English</a>/<a href="index?language=ar" class="AlreadysignInLink">Arabic</a></h1>
+
                                             </form>
                                         </div><!--signup-form-bg-->
                                     </div><!--col-sm-6-->
+                                    
                                 </div><!--</div>-->    
                     
                         </div>
@@ -131,9 +134,10 @@
                     if(iserror){
                         return;
                     }
-
+                    language=getParameterByName("language");
                     loginjson['userId'] = username;
                     loginjson['password'] = password;
+                     loginjson['language'] = getParameterByName("language");
                     var login = JSON.stringify(loginjson);
                     $.ajax({
                         url: "user/adminsignin",
@@ -161,6 +165,12 @@
                     });
                 }
             });
+                    function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
         </script>
     </body>
 

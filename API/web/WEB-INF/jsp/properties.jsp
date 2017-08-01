@@ -1112,7 +1112,7 @@
                 type: "POST",
                 data: locationjson,
                 dataType: "json",
-                contentType: "application/json",
+                contentType: "application/json; charset=utf-8",
                 success: function (data)
                 {
 
@@ -1165,7 +1165,7 @@
                 type: "POST",
                 data: propertyjson,
                 dataType: "json",
-                contentType: "application/json",
+                contentType: "application/json; charset=utf-8",
                 success: function (data)
                 {
 
@@ -1198,7 +1198,7 @@
                 type: "POST",
                 data: propertydet,
                 dataType: "json",
-                contentType: "application/json",
+               contentType: "application/json; charset=utf-8",
                 success: function (data)
                 {
 
@@ -1363,7 +1363,7 @@
                 type: "POST",
                 data: propertybasicdetails,
                 dataType: "json",
-                contentType: "application/json",
+                contentType: "application/json; charset=utf-8",
                 success: function (data)
                 {
 
@@ -1488,7 +1488,7 @@
                 type: "POST",
                 data: contactinfo,
                 dataType: "json",
-                contentType: "application/json",
+               contentType: "application/json; charset=utf-8",
                 success: function (data)
                 {
 
@@ -1603,7 +1603,7 @@
                 }
             },
             uploadFile: {
-                url: "user/save?id=" + $("#id").val(),
+                url: "user/save?id=" + getParameterByName("id"),
                 data: {},
                 type: 'POST',
                 enctype: 'multipart/form-data',
@@ -1730,9 +1730,28 @@
         });
 
     }
-    json=${propertie};
-    loadjson(json);
-    function loadjson(propertie) {
+    // alert("${propertie}");
+//    string foo = Encoding.ASCII.GetString('${propertie}');
+//     alert(foo);
+//    json=bin2string('${propertie}');
+  
+   
+getPropertyId();
+    function getPropertyId() {
+      id=getParameterByName("id");
+        $.ajax({
+            url: "showpropertyResult?id="+id,
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (response)
+            {
+//alert(response.propertie);
+loadjson(response.propertie,response.objPropertyType,response.objListingType);
+            }
+        });
+    }
+    function loadjson(propertie,objPropertyType,objListingType) {
         if (propertie != "") {
 
             try {
@@ -1758,7 +1777,7 @@
                 var map = $("#geocomplete").geocomplete("map")
                 var center = new google.maps.LatLng(obj.latitude, obj.longitude);
                 map.setCenter(center);
-                $("#id").val(obj.id);
+                      $("#id").val(obj.id);
                 // alert(obj.address);
                 $("#formatted_address").val(obj.address);
                 $("#geocomplete").val(obj.address);
@@ -1797,7 +1816,7 @@
                     ptype = obj.propertyType;
 
                     $("#propertyType").val(ptype);
-                    objProperty = $.parseJSON('${objPropertyType}');
+                    objProperty = $.parseJSON(objPropertyType);
 
                    <!-- $("#propertyType1").text(objProperty.response.propertyTypes[ptype].name);-->
                      $.each(objProperty.response.propertyTypes, function (idx, rec) {
@@ -1815,7 +1834,7 @@
 
                     $("#listingType").val(ltype);
                     
-                    objProperty = $.parseJSON('${objListingType}');
+                    objProperty = $.parseJSON(objListingType);
                     
                      $.each(objProperty.response.listingTypes, function (idx, rec) {
                          //alert(rec.id);

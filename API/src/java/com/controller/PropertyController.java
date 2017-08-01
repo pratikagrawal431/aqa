@@ -26,6 +26,7 @@ import static com.common.ResponseCodes.ServiceErrorCodes.LATITUDE_AND_LONGITUDE_
 import com.common.Utilities;
 import com.google.gson.JsonSyntaxException;
 import com.service.UserService;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -63,28 +65,57 @@ public class PropertyController {
     public Object showproperty(@RequestParam(value = "id", required = false) String id, HttpServletRequest httpreq) {
         String transId = UUID.randomUUID().toString();
         ModelAndView model = new ModelAndView();
+//        try {
+//            System.out.println("id*********" + id);
+//            int category = 1;
+//            if (StringUtils.isNotBlank(id)) {
+//                JSONObject objResponse = objUserService.getPropertie(id, id);
+//                System.out.println("res*****" + objResponse);
+//                model.addObject("propertie", objResponse.toString().getBytes("UTF-8"));
+//                category = (objResponse.getInt("category"));
+//            }
+//
+//            String objPropertyType = objUserService.getPropertyTypes(category, transId);
+//            String objListingType = objUserService.getListingTypes(category, transId);
+//            model.addObject("objPropertyType", objPropertyType);
+//            model.addObject("objListingType", objListingType);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        model.setViewName("properties");
+        return model;
+
+    }
+
+      @RequestMapping(value = "/showpropertyResult",  method = {RequestMethod.GET, RequestMethod.POST},produces = {"application/json"})
+    public @ResponseBody
+    byte[] showpropertyResult(@RequestParam(value = "id", required = false) String id, HttpServletRequest httpreq) throws UnsupportedEncodingException {
+        String transId = UUID.randomUUID().toString();
+        JSONObject model = new JSONObject();
         try {
             System.out.println("id*********" + id);
             int category = 1;
             if (StringUtils.isNotBlank(id)) {
                 JSONObject objResponse = objUserService.getPropertie(id, id);
                 System.out.println("res*****" + objResponse);
-                model.addObject("propertie", objResponse.toString());
+                model.put("propertie", objResponse.toString());
                 category = (objResponse.getInt("category"));
             }
 
             String objPropertyType = objUserService.getPropertyTypes(category, transId);
             String objListingType = objUserService.getListingTypes(category, transId);
-            model.addObject("objPropertyType", objPropertyType);
-            model.addObject("objListingType", objListingType);
+            model.put("objPropertyType", objPropertyType);
+            model.put("objListingType", objListingType);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        model.setViewName("properties");
-        return model;
+       
+        return model.toString().getBytes("UTF-8");
 
     }
+
 
     @RequestMapping(value = "/getPropertyTypesAdmin", method = RequestMethod.GET)
     public String getPropertyTypesAdmin(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat) {
@@ -236,7 +267,7 @@ public class PropertyController {
 
     }
 
-    @RequestMapping(value = "/createproperty", method = RequestMethod.POST, consumes = {"application/xml", "application/json"}, produces = {"application/json"})
+    @RequestMapping(value = "/createproperty", method = RequestMethod.POST)
     public String createproperty(@RequestBody String strJSON, HttpSession httpSession) {
         PropertyBean objProperty = null;
         String strResponse = null;
@@ -330,8 +361,9 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/propertyslist", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
-    public String propertyslist(@RequestParam("page") int page,
-            @RequestParam("rows") int endIndex, HttpSession httpSession, @RequestParam(value = "agent_id", required = false) String agent_id) {
+    public @ResponseBody
+    byte[] propertyslist(@RequestParam("page") int page,
+            @RequestParam("rows") int endIndex, HttpSession httpSession, @RequestParam(value = "agent_id", required = false) String agent_id) throws UnsupportedEncodingException {
         String strTid = UUID.randomUUID().toString();
         String strResult = null;
         try {
@@ -356,13 +388,13 @@ public class PropertyController {
             json.put("page", page);
             json.put("records", obj.length());
             json.put("rows", obj);
-            return json.toString();
+           return json.toString().getBytes("UTF-8");
         } catch (JsonSyntaxException e) {
             logger.error(e);
-            return Utilities.prepareReponse(INVALID_JSON.getCode(), INVALID_JSON.DESC(), strTid);
+            return Utilities.prepareReponse(INVALID_JSON.getCode(), INVALID_JSON.DESC(), strTid).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(e);
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid).getBytes("UTF-8");
         }
     }
 

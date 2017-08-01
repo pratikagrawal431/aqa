@@ -39,6 +39,7 @@ import com.service.UserService;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.servlet.ServletContext;
@@ -49,14 +50,20 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.LocaleEditor;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.util.WebUtils;
 
 @RestController
 public class UserController {
@@ -241,6 +248,7 @@ public class UserController {
 
         return strResponse;
     }
+
     @RequestMapping(value = "/updatemortgageinfo", method = RequestMethod.POST, produces = {"application/json"})
     public String agentUpdate(@RequestBody String strJSON, HttpSession httpSession, @RequestParam(value = "id") String id) {
         MortgageSettings mortgageSettings = null;
@@ -248,11 +256,11 @@ public class UserController {
         String transId = UUID.randomUUID().toString();
         try {
             mortgageSettings = Utilities.fromJson(strJSON, MortgageSettings.class);
-           
-            int nUpdated = objUserService.mortgageSettings(mortgageSettings,id);
+
+            int nUpdated = objUserService.mortgageSettings(mortgageSettings, id);
             if (nUpdated >= 1) {
                 return Utilities.prepareReponse(SUCCESS.getCode(), SUCCESS.DESC(), transId);
-            }else{
+            } else {
                 return Utilities.prepareReponse(MORTGAGE_INFO_UPDATE_FAILED.getCode(), MORTGAGE_INFO_UPDATE_FAILED.DESC(), transId);
             }
         } catch (JsonSyntaxException je) {
@@ -269,11 +277,11 @@ public class UserController {
         String transId = UUID.randomUUID().toString();
         try {
             mortgageSettings = Utilities.fromJson(strJSON, CurrencyBean.class);
-           
-            int nUpdated = objUserService.currencySettings(mortgageSettings,id);
+
+            int nUpdated = objUserService.currencySettings(mortgageSettings, id);
             if (nUpdated >= 1) {
                 return Utilities.prepareReponse(SUCCESS.getCode(), SUCCESS.DESC(), transId);
-            }else{
+            } else {
                 return Utilities.prepareReponse(MORTGAGE_INFO_UPDATE_FAILED.getCode(), MORTGAGE_INFO_UPDATE_FAILED.DESC(), transId);
             }
         } catch (JsonSyntaxException je) {
@@ -295,12 +303,25 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/adminsignin", method = RequestMethod.POST, consumes = {"application/xml", "application/json"}, produces = {"application/json"})
-    public String adminSignin(@RequestBody LoginRequestBean requestBean, HttpSession httpSession) {
+    public String adminSignin(@RequestBody LoginRequestBean requestBean, HttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {
         String transId = UUID.randomUUID().toString();
         User strResponse = objUserService.adminLoginDetails(requestBean, transId);
         if (strResponse != null && strResponse.getErrorMessage().contains("SUCCESS")) {
             httpSession.setAttribute("token", transId);
             httpSession.setAttribute("useradmin", strResponse);
+            if (StringUtils.isBlank(requestBean.getLanguage())) {
+                requestBean.setLanguage("en");
+            }
+            httpSession.setAttribute("language", requestBean.getLanguage());
+            LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+            localeResolver.setLocale(request, response, new Locale(requestBean.getLanguage()));
+            Locale locale = new Locale(requestBean.getLanguage());
+            WebUtils.setSessionAttribute(request, SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
+            LocaleResolver localeResolver1 = RequestContextUtils.getLocaleResolver(request);
+            LocaleEditor localeEditor = new LocaleEditor();
+            localeEditor.setAsText(requestBean.getLanguage());
+            localeResolver1.setLocale(request, response, (Locale) localeEditor.getValue());
+
         }
         return strResponse.getErrorMessage();
     }
@@ -346,7 +367,6 @@ public class UserController {
 
     }
 
-
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView login() {
 
@@ -357,8 +377,6 @@ public class UserController {
         return model;
 
     }
-
-
 
     @RequestMapping(value = "/user/validate", method = RequestMethod.GET, produces = {"application/json"})
     public String validate(@RequestParam(value = "token") String token, HttpSession httpSession) {
@@ -375,7 +393,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/saveproperty", method = RequestMethod.POST, produces = {"application/json"})
-    public String saveProperty(@RequestParam(value = "userId", defaultValue = "0") int nUserId, 
+    public String saveProperty(@RequestParam(value = "userId", defaultValue = "0") int nUserId,
             @RequestParam(value = "propertyId", defaultValue = "0") int nPropertyId,
             @RequestParam(value = "status", defaultValue = "1") int nStatus,
             HttpSession httpSession) {
@@ -389,7 +407,7 @@ public class UserController {
         }
         String strRes = "";
         try {
-            strRes = objUserService.saveProperty(nUserId, nPropertyId, strTid,nStatus);
+            strRes = objUserService.saveProperty(nUserId, nPropertyId, strTid, nStatus);
         } catch (Exception e) {
             logger.error(" [saveProperty] " + Utilities.getStackTrace(e));
             return Utilities.prepareReponse(USER_PROPERTY_SAVE_FAILED.getCode(), USER_PROPERTY_SAVE_FAILED.DESC(), strTid);

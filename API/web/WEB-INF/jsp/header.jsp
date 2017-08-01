@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+   <%@ page contentType="text/html;charset=UTF-8" %>
     <%@ page  isELIgnored="false" %> 
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -37,7 +37,7 @@
         <!--        <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/demo.css">-->
         <!--        <script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.min.js"></script>-->
         <script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
-        <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places&amp;language=${language}"></script>
         <script src="resources/js/jquery.geocomplete.js"></script>
         <!--        <script src="resources/js/ajaxfileupload.js"></script>-->
 
