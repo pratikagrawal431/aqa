@@ -88,7 +88,7 @@ public class PropertyController {
 
     }
 
-      @RequestMapping(value = "/showpropertyResult",  method = {RequestMethod.GET, RequestMethod.POST},produces = {"application/json"})
+    @RequestMapping(value = "/showpropertyResult", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
     public @ResponseBody
     byte[] showpropertyResult(@RequestParam(value = "id", required = false) String id, HttpServletRequest httpreq) throws UnsupportedEncodingException {
         String transId = UUID.randomUUID().toString();
@@ -111,11 +111,10 @@ public class PropertyController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
+
         return model.toString().getBytes("UTF-8");
 
     }
-
 
     @RequestMapping(value = "/getPropertyTypesAdmin", method = RequestMethod.GET)
     public String getPropertyTypesAdmin(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat) {
@@ -133,17 +132,17 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/getListingTypes", method = RequestMethod.GET)
-    public String getListingTypes(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat) {
+    public byte[] getListingTypes(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat) {
         String transId = UUID.randomUUID().toString();
         String objListingType = null;
         try {
             objListingType = objUserService.getListingTypes(nCat, transId);
+            return objListingType.getBytes("UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return objListingType;
-
+        return null;
     }
 
     @RequestMapping(value = "/getstates", method = RequestMethod.GET)
@@ -334,7 +333,7 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/property/getpropertyslist", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
-    public String getProperties(@RequestParam(value = "category", defaultValue = "0") int category,
+    public byte[] getProperties(@RequestParam(value = "category", defaultValue = "0") int category,
             @RequestParam(value = "propertyId", defaultValue = "0") int nPropertyId,
             @RequestParam(value = "agentId", defaultValue = "0") int nAgentId,
             @RequestParam(value = "userId", defaultValue = "0") int nUserId,
@@ -349,14 +348,14 @@ public class PropertyController {
             @RequestParam(value = "currency", defaultValue = "SAR") String currency) {
         String strTid = UUID.randomUUID().toString();
         try {
-            String response = objUserService.getProperties(strTid, category, nPropertyId, nAgentId, currency, nUserId, nIsSquareMeter, min, max, latitude, longitude, radius,sortBy,orderBy);
-            return response;
+            String response = objUserService.getProperties(strTid, category, nPropertyId, nAgentId, currency, nUserId, nIsSquareMeter, min, max, latitude, longitude, radius, sortBy, orderBy);
+            return response.getBytes("UTF-8");
         } catch (JsonSyntaxException e) {
             logger.error(e);
-            return Utilities.prepareReponse(INVALID_JSON.getCode(), INVALID_JSON.DESC(), strTid);
+            return Utilities.prepareReponseByte(INVALID_JSON.getCode(), INVALID_JSON.DESC(), strTid);
         } catch (Exception e) {
             logger.error(e);
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
         }
     }
 
@@ -388,7 +387,7 @@ public class PropertyController {
             json.put("page", page);
             json.put("records", obj.length());
             json.put("rows", obj);
-           return json.toString().getBytes("UTF-8");
+            return json.toString().getBytes("UTF-8");
         } catch (JsonSyntaxException e) {
             logger.error(e);
             return Utilities.prepareReponse(INVALID_JSON.getCode(), INVALID_JSON.DESC(), strTid).getBytes("UTF-8");
@@ -435,7 +434,7 @@ public class PropertyController {
      * @return
      */
     @RequestMapping(value = "/property/search", method = RequestMethod.GET, produces = {"application/json"})
-    public String propertySearch(@RequestParam(value = "minPrice", defaultValue = "0") int minPrice,
+    public byte[] propertySearch(@RequestParam(value = "minPrice", defaultValue = "0") int minPrice,
             @RequestParam(value = "maxPrice", defaultValue = "0") int maxPrice,
             @RequestParam(value = "propertyType", defaultValue = "") String propertyType,
             @RequestParam(value = "category", defaultValue = "0") int category,
@@ -472,97 +471,97 @@ public class PropertyController {
 
             if (nPropertyCategory < 0 || (category <= 0 && category > 3)) {
                 logger.error("Invalid property category =>" + category);
-                return Utilities.prepareReponse(INVALID_PROPERTY_CATEGORY.getCode(), INVALID_PROPERTY_CATEGORY.DESC(), transId);
+                return Utilities.prepareReponseByte(INVALID_PROPERTY_CATEGORY.getCode(), INVALID_PROPERTY_CATEGORY.DESC(), transId);
             }
 
-            return objUserService.propertySearch(minPrice, maxPrice, propertyType, category, beds, baths, minsFeetRange, maxsFeetRange, petsAllowed, keywords, lotSize, fromYear, toYear, daysInAqarabia, listingType, showOnly, mls, soldInMonths, sortBy, orderBy, nPropertyCategory, transId, currency, nUserId, isSquareMeter, min, max, latitude, longitude, strRadius, xParams, eminitieKeywords);
+            return objUserService.propertySearch(minPrice, maxPrice, propertyType, category, beds, baths, minsFeetRange, maxsFeetRange, petsAllowed, keywords, lotSize, fromYear, toYear, daysInAqarabia, listingType, showOnly, mls, soldInMonths, sortBy, orderBy, nPropertyCategory, transId, currency, nUserId, isSquareMeter, min, max, latitude, longitude, strRadius, xParams, eminitieKeywords).getBytes("UTF-8");
 
         } catch (SQLException sqle) {
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         } catch (Exception e) {
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         }
     }
 
     @RequestMapping(value = "/property/getpropertytypes", method = RequestMethod.GET, produces = {"application/json"})
-    public String getPropertyTypes(@RequestParam(value = "category", defaultValue = "1") int nCategory, HttpSession httpSession) {
+    public byte[] getPropertyTypes(@RequestParam(value = "category", defaultValue = "1") int nCategory, HttpSession httpSession) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getPropertyTypes(nCategory, strTid);
+            return objUserService.getPropertyTypes(nCategory, strTid).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
-        return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+        return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
     }
 
     @RequestMapping(value = "/property/getpropertyCategory", method = RequestMethod.GET, produces = {"application/json"})
-    public String getpropertyCategory(HttpSession httpSession) {
+    public byte[] getpropertyCategory(HttpSession httpSession) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getpropertyCategory(strTid);
+            return objUserService.getpropertyCategory(strTid).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
-        return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+        return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
     }
 
     @RequestMapping(value = "/property/getpropertyexpertises", method = RequestMethod.GET, produces = {"application/json"})
-    public String getPropertyExpertise(HttpSession httpSession) {
+    public byte[] getPropertyExpertise(HttpSession httpSession) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getPropertyExpertise(strTid);
+            return objUserService.getPropertyExpertise(strTid).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
-        return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+        return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
     }
 
     @RequestMapping(value = "/agent/getcertifications", method = RequestMethod.GET, produces = {"application/json"})
-    public String getAgentCertifications(HttpSession httpSession) {
+    public byte[] getAgentCertifications(HttpSession httpSession) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getAgentCertifications(strTid);
+            return objUserService.getAgentCertifications(strTid).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
-        return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+        return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
     }
 
     @RequestMapping(value = "/agent/getagenttypes", method = RequestMethod.GET, produces = {"application/json"})
-    public String getAgetntTypes(HttpSession httpSession) {
+    public byte[] getAgetntTypes(HttpSession httpSession) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getAgentTypes(strTid);
+            return objUserService.getAgentTypes(strTid).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
-        return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+        return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
     }
 
     @RequestMapping(value = "/agent/getagentspeciality", method = RequestMethod.GET, produces = {"application/json"})
-    public String getAgentSpeciality(HttpSession httpSession) {
+    public byte[] getAgentSpeciality(HttpSession httpSession) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getAgentSpeciality(strTid);
+            return objUserService.getAgentSpeciality(strTid).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
-        return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+        return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
     }
 
     @RequestMapping(value = "/agent/getlanguages", method = RequestMethod.GET, produces = {"application/json"})
-    public String getAgentLanguages(HttpSession httpSession) {
+    public byte[] getAgentLanguages(HttpSession httpSession) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getAgentLanguages(strTid);
+            return objUserService.getAgentLanguages(strTid).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
-        return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+        return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
     }
 
     @RequestMapping(value = "/agent/search", method = RequestMethod.GET, produces = {"application/json"})
-    public String agentSearch(@RequestParam(value = "minPrice", defaultValue = "0") int minPrice,
+    public byte[] agentSearch(@RequestParam(value = "minPrice", defaultValue = "0") int minPrice,
             @RequestParam(value = "maxPrice", defaultValue = "0") int maxPrice,
             @RequestParam(value = "location", defaultValue = "") String location,
             @RequestParam(value = "agentType", defaultValue = "0") int agentType,
@@ -576,29 +575,29 @@ public class PropertyController {
         try {
             if (agentType <= 0) {
                 logger.error("Invalid agentType =>" + agentType);
-                return Utilities.prepareReponse(INVALID_AGENT_TYPE.getCode(), INVALID_AGENT_TYPE.DESC(), transId);
+                return Utilities.prepareReponseByte(INVALID_AGENT_TYPE.getCode(), INVALID_AGENT_TYPE.DESC(), transId);
             }
 
-            return objUserService.agentSearch(minPrice, maxPrice, location, agentType, keywords, propertyExpertize, agentSpecialty, languages, transId);
+            return objUserService.agentSearch(minPrice, maxPrice, location, agentType, keywords, propertyExpertize, agentSpecialty, languages, transId).getBytes("UTF-8");
 
         } catch (SQLException sqle) {
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         } catch (Exception e) {
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         }
     }
 
     @RequestMapping(value = "/agent/agentdetails", method = RequestMethod.GET, produces = {"application/json"})
-    public String agentSearch(@RequestParam(value = "agentId", defaultValue = "0") int nAgentId,
+    public byte[] agentSearch(@RequestParam(value = "agentId", defaultValue = "0") int nAgentId,
             @RequestParam(value = "propertyId", defaultValue = "0") int nPropertyId) {
 
         String transId = UUID.randomUUID().toString();
         try {
-            return objUserService.agentList(transId, nAgentId, nPropertyId);
+            return objUserService.agentList(transId, nAgentId, nPropertyId).getBytes("UTF-8");
         } catch (SQLException sqle) {
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         } catch (Exception e) {
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         }
     }
 
@@ -868,17 +867,17 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/property/getpropertyscategories", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
-    public String getPropertyCategories(@RequestParam(value = "category", defaultValue = "0") int category) {
+    public byte[] getPropertyCategories(@RequestParam(value = "category", defaultValue = "0") int category) {
         String strTid = UUID.randomUUID().toString();
         try {
             String response = objUserService.getPropertyCategories(strTid);
-            return response;
+            return response.getBytes("UTF-8");
         } catch (JsonSyntaxException e) {
             logger.error(e);
-            return Utilities.prepareReponse(INVALID_JSON.getCode(), INVALID_JSON.DESC(), strTid);
+            return Utilities.prepareReponseByte(INVALID_JSON.getCode(), INVALID_JSON.DESC(), strTid);
         } catch (Exception e) {
             logger.error(e);
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), strTid);
         }
     }
 
@@ -969,20 +968,20 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/agent/agentlist", method = RequestMethod.GET, produces = {"application/json"})
-    public String agentlistAdmin() {
+    public byte[] agentlistAdmin() {
 
         String transId = UUID.randomUUID().toString();
         try {
-            return objUserService.getAgentlist(transId).toString();
+            return objUserService.getAgentlist(transId).toString().getBytes("UTF-8");
         } catch (SQLException sqle) {
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         } catch (Exception e) {
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         }
     }
 
     @RequestMapping(value = "/property/neighborhoodinfo", method = RequestMethod.GET, produces = {"application/json"})
-    public String propertyNeighborhoodInfo(
+    public byte[] propertyNeighborhoodInfo(
             @RequestParam(value = "latitude", defaultValue = "") String latitude,
             @RequestParam(value = "longitude", defaultValue = "") String longitude,
             @RequestParam(value = "keywords", defaultValue = "") String keywords,
@@ -990,14 +989,14 @@ public class PropertyController {
         String transId = UUID.randomUUID().toString();
         try {
             if (StringUtils.isBlank(latitude) || StringUtils.isBlank(longitude)) {
-                return Utilities.prepareReponse(LATITUDE_AND_LONGITUDE_IS_MANDATORY.getCode(), LATITUDE_AND_LONGITUDE_IS_MANDATORY.DESC(), transId);
+                return Utilities.prepareReponseByte(LATITUDE_AND_LONGITUDE_IS_MANDATORY.getCode(), LATITUDE_AND_LONGITUDE_IS_MANDATORY.DESC(), transId);
             }
             if (StringUtils.isBlank(nRadius) || "0".equalsIgnoreCase(nRadius)) {
-                return Utilities.prepareReponse(INVALID_RADIUS.getCode(), INVALID_RADIUS.DESC(), transId);
+                return Utilities.prepareReponseByte(INVALID_RADIUS.getCode(), INVALID_RADIUS.DESC(), transId);
             }
-            return objUserService.getNeighborhoodInfo(latitude, longitude, nRadius, keywords, transId);
+            return objUserService.getNeighborhoodInfo(latitude, longitude, nRadius, keywords, transId).getBytes("UTF-8");
         } catch (Exception e) {
-            return Utilities.prepareReponse(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
+            return Utilities.prepareReponseByte(GENERIC_ERROR.getCode(), GENERIC_ERROR.DESC(), transId);
         }
     }
 

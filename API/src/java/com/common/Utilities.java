@@ -161,6 +161,14 @@ public class Utilities {
     public static String prepareReponse(String strCode, String strDesc, String strTid) {
         return new StringBuilder("{\"response\":{\"code\":\"").append(strCode).append("\",\"description\":\"").append(strDesc).append("\",\"transid\":\"").append(strTid).append("\"}}").toString();
     }
+    public static byte[] prepareReponseByte(String strCode, String strDesc, String strTid) {
+        try {
+            return new StringBuilder("{\"response\":{\"code\":\"").append(strCode).append("\",\"description\":\"").append(strDesc).append("\",\"transid\":\"").append(strTid).append("\"}}").toString().getBytes("UTF-8");
+            
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
     public static String prepareReponse(String strCode, String strDesc, String strTid, int nUserId) {
         if (nUserId > 0) {
