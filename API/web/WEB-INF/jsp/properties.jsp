@@ -965,9 +965,9 @@
             $.post('rating.php', {rate: $(this).val()}, function (d) {
                 if (d > 0)
                 {
-                    alert('You already rated');
+                    alert('<spring:message code="label.property.already.rated" />');
                 } else {
-                    alert('Thanks For Rating');
+                    alert('<spring:message code="label.property.thansks.for.rating" />');
                 }
             });
             $(this).attr("checked");
@@ -1120,7 +1120,7 @@
                     if (code > 0) {
                         id = data.id;
                         $("#id").val(id);
-                        swal({title: "Success", text: "Property Updated Successfully", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "OK", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
+                        swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.property.update.successfully" />", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "<spring:message code="label.ok" />", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
                             if (isConfirm) {
                                 window.location = 'showproperty?tab=b&id=' + id;
                             }
@@ -1173,7 +1173,7 @@
                     if (code > 0) {
                         id = data.id;
                         $("#id").val(id);
-                        swal({title: "Success", text: "Property Updated Successfully", imageUrl: "resources/images/thumbs-up.jpg"});
+                        swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.property.update.successfully" />", imageUrl: "resources/images/thumbs-up.jpg"});
                         loadjson(data);
                     }
                 }
@@ -1209,7 +1209,7 @@
                         //   swal({title: "Success", text: "Property Updated Successfully", imageUrl: "resources/images/thumbs-up.jpg"});
 
                         //       loadjson(data);
-                        swal({title: "Success", text: "Property Updated Successfully", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "OK", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
+                        swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.property.update.successfully" />", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "<spring:message code="label.ok" />", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
                             if (isConfirm) {
                                 window.location = 'showproperty?tab=e&id=' + id;
                             }
@@ -1372,7 +1372,7 @@
                         id = data.id;
                         // swal({title: "Success", text: "Property Updated Successfully", imageUrl: "resources/images/thumbs-up.jpg"});
                         //loadjson(data);
-                        swal({title: "Success", text: "Property Updated Successfully", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "OK", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
+                        swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.property.update.successfully" />", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "<spring:message code="label.ok" />", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
                             if (isConfirm) {
                                 window.location = 'showproperty?tab=d&id=' + id;
                             }
@@ -1444,11 +1444,11 @@
                 return;
             }
             if (!validateEmail(email)) {
-                sweetAlert("Oops...", "Invalid Email Id", "error");
+                sweetAlert("<spring:message code="label.oops" />", "<spring:message code="label.property.invalid.email" />", "error");
                 return;
             }
             if (!validatePhone(phone)) {
-                sweetAlert("Oops...", "Invalid Phone Number", "error");
+                sweetAlert("<spring:message code="label.oops" />", "<spring:message code="label.property.invalid.phone.number" />", "error");
                 return;
             }
             contactinfodetails['contacttype'] = contacttype;
@@ -1495,7 +1495,7 @@
                     code = data.id;
                     if (code > 0) {
                         id = data.id;
-                        swal({title: "Success", text: "Property Updated Successfully", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "OK", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
+                        swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.property.update.successfully" />", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "<spring:message code="label.ok" />", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
                             if (isConfirm) {
                                 window.location = 'showproperty?tab=c&id=' + id;
                             }
@@ -1544,7 +1544,7 @@
             limit: null,
             maxSize: null,
             extensions: null,
-            changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3>Drag&Drop files here</h3> <span style="display:inline-block; margin: 15px 0">or</span></div><a class="jFiler-input-choose-btn blue">Browse Files</a></div></div>',
+            changeInput: '<div class="jFiler-input-dragDrop"><div class="jFiler-input-inner"><div class="jFiler-input-icon"><i class="icon-jfi-cloud-up-o"></i></div><div class="jFiler-input-text"><h3><spring:message code="label.drag.drop.files" /></h3> <span style="display:inline-block; margin: 15px 0"><spring:message code="label.or" /></span></div><a class="jFiler-input-choose-btn blue"><spring:message code="label.browse.files" /></a></div></div>',
             showThumbs: false,
             appendTo: null,
             theme: "dragdropbox",
@@ -1658,14 +1658,14 @@
             onEmpty: function () {
             },
             captions: {
-                button: "Choose Files",
-                feedback: "Choose files To Upload",
-                feedback2: "files were chosen",
-                drop: "Drop file here to Upload",
-                removeConfirmation: "Are you sure you want to remove this file?",
+                button: "<spring:message code="label.property.choose.files" />Choose Files",
+                feedback: "<spring:message code="label.property.choose.files.to.upload" />Choose files To Upload",
+                feedback2: "<spring:message code="label.property.files.choosen" />files were chosen",
+                drop: "<spring:message code="label.property.drop.files.here" />Drop file here to Upload",
+                removeConfirmation: "<spring:message code="label.property.want.remove.files" />Are you sure you want to remove this file?",
                 errors: {
                     filesLimit: "Only {{fi-limit}} files are allowed to be uploaded.",
-                    filesType: "Only Images are allowed to be uploaded.",
+                    filesType: "<spring:message code="label.property.image.only.allowed" />Only Images are allowed to be uploaded.",
                     filesSize: "{{fi-name}} is too large! Please upload file up to {{fi-maxSize}} MB.",
                     filesSizeAll: "Files you've choosed are too large! Please upload files up to {{fi-maxSize}} MB."
                 }
@@ -1713,7 +1713,7 @@
                 code = data.response.code;
                 if (code == 0) {
 //                       swal("Success", "Property Acticated Successfully", "success")
-                    swal({title: "Success", text: "Image Deleted Successfully", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "OK", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
+                    swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.property.image.delete.success" />", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "OK", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
                         if (isConfirm) {
                             window.location = 'showproperty?tab=e&id=' + pId;
                         }
@@ -1721,11 +1721,11 @@
                     //    swal({title: "Success", text: "Property Acticated Successfully", imageUrl: "resources/images/thumbs-up.jpg"});
 //                    window.location = 'home';
                 } else {
-                    sweetAlert("Update Failed...", "Image Deletion Failed", "error");
+                    sweetAlert("<spring:message code="label.property.update.failed" />", "<spring:message code="label.property.image.delete.failed" />", "error");
                 }
 
             }, error: function (request, status, error) {
-                sweetAlert("Update Failed...", "Image Deletion Failed", "error");
+                sweetAlert("<spring:message code="label.property.update.failed" />", "<spring:message code="label.property.image.delete.failed" />", "error");
             }
         });
 
@@ -1905,7 +1905,7 @@ loadjson(response.propertie,response.objPropertyType,response.objListingType);
 
                 if (furnished == 1) {
                     $('#furnished').prop('checked', true);
-                    $("#Furnished1").text("Yes");
+                    $("#Furnished1").text("<spring:message code="label.yes" />");
                 }
 
                 // laundry= obj.laundry;
@@ -1918,13 +1918,13 @@ loadjson(response.propertie,response.objPropertyType,response.objListingType);
 //                    $("input[name=petsAllowed][value='" + 2 + "']").prop("checked", true);
 //                }
                 if (petsAllowed == 0) {
-                    $("#petPolicy1").text("No Pet Allowed");
+                    $("#petPolicy1").text("<spring:message code="label.property.pets.notallowed" />");
                 } else if (petsAllowed == 1) {
-                    $("#petPolicy1").text("Dogs Ok");
+                    $("#petPolicy1").text("<spring:message code="label.property.pets.dogsok" />");
                 } else if (petsAllowed == 2) {
-                    $("#petPolicy1").text("Cats Ok");
+                    $("#petPolicy1").text("<spring:message code="label.property.pets.catsok" />");
                 }else {
-                    $("#petPolicy1").text("None");
+                    $("#petPolicy1").text("<spring:message code="label.none" />");
                 }
                 $("input[name=laundry][value='" + obj.laundry + "']").prop("checked", true);
                 if (obj.laundry == 0) {

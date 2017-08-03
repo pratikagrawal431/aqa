@@ -4,13 +4,13 @@
         <div class="Registration-tab">
             <div class="wrap tabbable tabs-left">
                 <ul class="nav nav-tabs nav-Bottom-broder">
-                    <li class="active"><a href="#a" data-toggle="tab">Profile</a></li>
+                    <li class="active"><a href="#a" data-toggle="tab"><spring:message code="label.profile" /></a></li>
                     <!--<li><a href="#b" data-toggle="tab">Setting</a></li>-->
                 </ul>
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="a">
-                        <h3 class="tab-heading">Profile</h3>
+                        <h3 class="tab-heading"><spring:message code="label.profile" /></h3>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="group price">
@@ -149,7 +149,7 @@
         email = $('#email').val();
         if (email != '') {
             if (!validateEmail(email)) {
-                sweetAlert("Oops...", "Invalid email address", "error");
+                sweetAlert("<spring:message code="label.oops" />", "<spring:message code="label.profile.invalid.email" />", "error");
                 return false;
             }
         }
@@ -175,15 +175,15 @@
 //alert(password);
 //alert(oldPassword);
             if (!(password == oldPassword)) {
-                sweetAlert("Oops...", "Old Password is Wrong..Please Enter Correct password...", "error");
+                sweetAlert("<spring:message code="label.oops" />", "<spring:message code="label.profile.old.pwd.iswrong" />", "error");
                 return false;
             }
             if ((newPassword == '')) {
-                sweetAlert("Oops...", "New Password should not be empty...", "error");
+                sweetAlert("<spring:message code="label.oops" />", "<spring:message code="label.profile.new.pwd.notempty" />", "error");
                 return false;
             }
             if ((newPassword == oldPassword)) {
-                sweetAlert("Oops...", "Old Password and New Password should not be same...", "error");
+                sweetAlert("<spring:message code="label.oops" />", "<spring:message code="label.profile.old.new.pwd.shouldsame" />", "error");
                 return false;
             }
         }

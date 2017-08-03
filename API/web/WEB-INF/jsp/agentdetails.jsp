@@ -135,13 +135,13 @@
                                 <label class="label"><spring:message code="label.agent.languages" /><sup>*</sup></label>
                                 <div class="Property-select">
                                     <select id="language" name="language">
-                                        <option value="">-- Select Language --</option>
-                                        <option value="2">English</option>
-                                        <option value="3">Arabic</option>
-                                        <option value="4">Spanish</option>
-                                        <option value="5">French</option>
-                                        <option value="6">Mandarin</option>
-                                        <option value="7">Russian</option>
+                                        <option value=""><spring:message code="label.agent.select.languages" /></option>
+                                        <option value="2"><spring:message code="label.agent.select.english" /></option>
+                                        <option value="3"><spring:message code="label.agent.select.arabic" /></option>
+                                        <option value="4"><spring:message code="label.agent.select.spanish" /></option>
+                                        <option value="5"><spring:message code="label.agent.select.french" /></option>
+                                        <option value="6"><spring:message code="label.agent.select.mandarin" /></option>
+                                        <option value="7"><spring:message code="label.agent.select.russian" /></option>
                                     </select>
                                 </div><!--Property-select-->
                             </div><!--group price-->
@@ -154,13 +154,13 @@
                                 <label class="label"><spring:message code="label.agent.property.expertise" /><sup>*</sup></label>
                                 <div class="Property-select">
                                     <select id="propertyExpertise" name="propertyExpertise">
-                                        <option value="">-- Select Property Expertise --</option>
-                                        <option value="2">Single-family home</option>
-                                        <option value="3">Condo / townhouse</option>
-                                        <option value="4">Multi-family home</option>
-                                        <option value="5">Residential rental</option>
-                                        <option value="6">TIC</option>
-                                        <option value="7">Co-op</option>
+                                        <option value=""><spring:message code="label.agent.select.prop.expertise" /></option>
+                                        <option value="2"><spring:message code="label.agent.select.single.home" /></option>
+                                        <option value="3"><spring:message code="label.agent.select.condo.town" /></option>
+                                        <option value="4"><spring:message code="label.agent.select.multi.home" /></option>
+                                        <option value="5"><spring:message code="label.agent.select.residential.rental" /></option>
+                                        <option value="6"><spring:message code="label.agent.select.tic" /></option>
+                                        <option value="7"><spring:message code="label.agent.select.co.op" /></option>
                                     </select>
                                 </div><!--Property-select-->
                             </div><!--group price-->
@@ -170,23 +170,23 @@
                                 <label class="label"><spring:message code="label.agent.certifications" /></label>
                                 <div class="Property-select">
                                     <select id="certification" name="certification">
-                                        <option value="">-- Select Certification --</option>
-                                        <option value="1">SRES</option>
-                                        <option value="2">GRI</option>
-                                        <option value="3">ABR</option>
-                                        <option value="4">SFR</option>
-                                        <option value="5">GREEN</option>
-                                        <option value="6">CRB</option>
-                                        <option value="7">CPM</option>
-                                        <option value="8">CRS</option>
-                                        <option value="9">ALC</option>
-                                        <option value="10">CCO</option>
-                                        <option value="11">CIPS</option>
-                                        <option value="12">e-PRO</option>
-                                        <option value="13">BPOR</option>
-                                        <option value="14">PMN</option>
-                                        <option value="15">CCIM</option>
-                                        <option value="16">ABRM</option>
+                                        <option value=""><spring:message code="label.agent.select.certifications" /></option>
+                                        <option value="1"><spring:message code="label.agent.select.certifications.sres" /></option>
+                                        <option value="2"><spring:message code="label.agent.select.certifications.gri" /></option>
+                                        <option value="3"><spring:message code="label.agent.select.certifications.abr" /></option>
+                                        <option value="4"><spring:message code="label.agent.select.certifications.sfr" /></option>
+                                        <option value="5"><spring:message code="label.agent.select.certifications.green" /></option>
+                                        <option value="6"><spring:message code="label.agent.select.certifications.crb" /></option>
+                                        <option value="7"><spring:message code="label.agent.select.certifications.cpm" /></option>
+                                        <option value="8"><spring:message code="label.agent.select.certifications.crs" /></option>
+                                        <option value="9"><spring:message code="label.agent.select.certifications.alc" /></option>
+                                        <option value="10"><spring:message code="label.agent.select.certifications.cco" /></option>
+                                        <option value="11"><spring:message code="label.agent.select.certifications.cips" /></option>
+                                        <option value="12"><spring:message code="label.agent.select.certifications.e-pro" /></option>
+                                        <option value="13"><spring:message code="label.agent.select.certifications.bpor" /></option>
+                                        <option value="14"><spring:message code="label.agent.select.certifications.pmn" /></option>
+                                        <option value="15"><spring:message code="label.agent.select.certifications.ccim" /></option>
+                                        <option value="16"><spring:message code="label.agent.select.certifications.abrm" /></option>
                                     </select>
                                 </div><!--Property-select-->
                             </div><!--group price-->

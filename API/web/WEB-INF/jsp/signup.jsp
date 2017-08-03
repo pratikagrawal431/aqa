@@ -209,11 +209,11 @@
                         return;
                     }
                     if (!validateEmail(email)) {
-                        sweetAlert("Oops...", "Invalid Email Id", "error");
+                        sweetAlert("<spring:message code="label.oops" />", "<spring:message code="label.signup.invalid.email" />", "error");
                         return;
                     }
                     if (!validatePhone(phone)) {
-                        sweetAlert("Oops...", "Invalid Phone Number", "error");
+                        sweetAlert("<spring:message code="label.oops" />", "<spring:message code="label.signup.invalid.phone" />", "error");
                         return;
                     }
                     if (confirmpassword == '') {
@@ -224,7 +224,7 @@
                     }
 
                     if (!(password === confirmpassword)) {
-                        sweetAlert('Oops...', 'Password and Confirm Password shoud be same', 'error');
+                        sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.signup.pwd.same" />', 'error');
                     }
                     var login = JSON.stringify(signupjson);
 
@@ -259,20 +259,20 @@
                                         if (code == 0) {
                                             window.location = "home";
                                         } else if (code == 108) {
-                                            sweetAlert('Oops...', 'Invalid UserId!', 'error');
+                                            sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.signup.invalid.userid" />', 'error');
 
                                         } else if (code == 109) {
-                                            sweetAlert('Oops...', 'Invalid Password!', 'error');
+                                            sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.signup.invalid.pwd" />', 'error');
 
                                         } else {
-                                            sweetAlert('Oops...', 'Something went wrong!', 'error');
+                                            sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.signup.something.wrong" />', 'error');
                                         }
                                     }
                                 });
                             } else if (code == 100) {
-                                sweetAlert('Oops...', 'User Already Exists', 'error');
+                                sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.signup.user.exists" />', 'error');
                             } else {
-                                sweetAlert('Oops...', 'Something went wrong!', 'error');
+                                sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.signup.something.wrong" />', 'error');
                             }
                         }
                     });

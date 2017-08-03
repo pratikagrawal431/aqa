@@ -39,9 +39,9 @@
                 anchorArray = anchorArray + "<div style='float:left; width:30%; text-align:center;'>"+id+"</div>";
                 anchorArray = anchorArray + "<div style='float:left; width:69%;'>";
                 anchorArray = anchorArray + "<a class='Draft-name' title='" + rowData.email + "' href='#'>" + rowData.email + "</a>";
-                anchorArray = anchorArray + "<p class='Draft-for'> <b>userId:</b> " + rowData.userId + "<br />";
-                anchorArray = anchorArray + "<b>Mobile:</b> " + rowData.mobile + "</p>";
-                anchorArray = anchorArray + "<b>Date:</b> " + rowData.datetime + "</p>";
+                anchorArray = anchorArray + "<p class='Draft-for'> <b><spring:message code="label.request.property.userid" />:</b> " + rowData.userId + "<br />";
+                anchorArray = anchorArray + "<b><spring:message code="label.request.property.mobile" /></b> " + rowData.mobile + "</p>";
+                anchorArray = anchorArray + "<b><spring:message code="label.request.property.date" />:</b> " + rowData.datetime + "</p>";
                 anchorArray = anchorArray + "</div></div>";
                 anchorArray = anchorArray + "<div class='col-sm-3 text-center'><a href='showproperty?id=" + rowData.propertyId + "'><input type='button' class='btn-edit' value='<spring:message code="label.view.details" />' /></a> </div>";
                 anchorArray = anchorArray + "</div><hr>";

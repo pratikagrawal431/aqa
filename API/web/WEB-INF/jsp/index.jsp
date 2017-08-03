@@ -153,13 +153,13 @@
                             if (code == 0) {
                                 window.location = "home";
                             } else if (code == 108) {
-                                sweetAlert('Oops...', 'Invalid UserId!', 'error');
+                                sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.index.invalid.userid" />', 'error');
 
                             } else if (code == 109) {
-                                sweetAlert('Oops...', 'Invalid Password!', 'error');
+                                    sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.index.invalid.password" />', 'error');
 
                             } else {
-                                sweetAlert('Oops...', 'Something went wrong!', 'error');
+                                sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.index.something.wrong" />', 'error');
                             }
                         }
                     });

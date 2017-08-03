@@ -142,13 +142,13 @@
                 code = data.response.code;
                 //alert(code);
                 if (code == 0) {
-                    swal({title: "Success", text: "Mortgageinfo Updated Successfully", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "OK", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
+                    swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.mortgage.update.success" />", imageUrl: "resources/images/thumbs-up.jpg", showCancelButton: false, confirmButtonText: "<spring:message code="label.ok" />", closeOnConfirm: false, closeOnCancel: false}, function (isConfirm) {
                         if (isConfirm) {
                             window.location = 'mortgagedetails';
                         }
                     });
                 } else {
-                    sweetAlert('Oops...', 'Mortgageinfo update Failed!', 'error');
+                    sweetAlert('<spring:message code="label.oops" />', '<spring:message code="label.mortgage.update.failed" />', 'error');
                 }
             }
         });

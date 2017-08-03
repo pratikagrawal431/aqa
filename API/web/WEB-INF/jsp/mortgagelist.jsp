@@ -55,7 +55,7 @@
         anchorArray = anchorArray + "<div id='demo"+rowIndex+"' class='collapse' style='padding:0px 75px; background:#efefef; border:1px solid #dbdbdb;'>";
         anchorArray = anchorArray + "<div class='row'>";
                 anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
-                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><b>Mobile</b></span> ";
+                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><b><spring:message code="label.mortgageinfo.mobile" /></b></span> ";
                 anchorArray = anchorArray + "</div><!--col-sm-6-->";
                 anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
                     anchorArray = anchorArray + "<span id='email'><b>"+rowData.mobile+"</b></span>";
@@ -63,7 +63,7 @@
             anchorArray = anchorArray + "</div><!--row-->";
         anchorArray = anchorArray + "<div class='row'>";
                 anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
-                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><b>Type</b></span> ";
+                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><b><spring:message code="label.mortgageinfo.type" /></b></span> ";
                 anchorArray = anchorArray + "</div><!--col-sm-6-->";
                 anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
                     anchorArray = anchorArray + "<span id='email'><b>"+rowData.type+"</b></span>";
@@ -111,7 +111,7 @@
     $('#tt').datagrid({
         view: cardview, onLoadSuccess: function (data) {
             if ($('#tt').datagrid('getRows').length == "0") {
-                $("#ctl00_cph_divWorkAreaContent").append("No Records Found");
+                $("#ctl00_cph_divWorkAreaContent").append("<spring:message code="label.norecords.found" />");
             }
 
         }});

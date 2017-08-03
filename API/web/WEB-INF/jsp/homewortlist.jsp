@@ -62,32 +62,32 @@
         anchorArray = anchorArray + "<div id='demo"+rowIndex+"' class='collapse' style='padding:0px 75px; background:#efefef; border:1px solid #dbdbdb;'>";
             anchorArray = anchorArray + "<div class='row'>";
                 anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
-                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'>Name:</span> <span id='name'>"+rowData.name+"</span>";
+                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><spring:message code="label.home.worth.name" />:</span> <span id='name'>"+rowData.name+"</span>";
                 anchorArray = anchorArray + "</div><!--col-sm-6-->";
                 anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
-                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'>Email:</span> <span id='email'>"+rowData.email+"</span>";
-                anchorArray = anchorArray + "</div><!--col-sm-6-->";
-            anchorArray = anchorArray + "</div><!--row-->";
-            anchorArray = anchorArray + "<div class='row'>";
-                anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
-                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'>Address:</span> <span id='address'>"+rowData.address+"</span>";
-                anchorArray = anchorArray + "</div><!--col-sm-6-->";
-                anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
-                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'>Beds:</span> <span id='beds'>"+rowData.beds+"</span>";
+                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><spring:message code="label.home.worth.email" /></span> <span id='email'>"+rowData.email+"</span>";
                 anchorArray = anchorArray + "</div><!--col-sm-6-->";
             anchorArray = anchorArray + "</div><!--row-->";
             anchorArray = anchorArray + "<div class='row'>";
                 anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
-                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'>Bath:</span> <span id='bath'>"+rowData.bath+"</span>";
+                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><spring:message code="label.home.worth.address" />:</span> <span id='address'>"+rowData.address+"</span>";
+                anchorArray = anchorArray + "</div><!--col-sm-6-->";
+                anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
+                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><spring:message code="label.home.worth.beds" />:</span> <span id='beds'>"+rowData.beds+"</span>";
+                anchorArray = anchorArray + "</div><!--col-sm-6-->";
+            anchorArray = anchorArray + "</div><!--row-->";
+            anchorArray = anchorArray + "<div class='row'>";
+                anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
+                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><spring:message code="label.home.worth.baths" />:</span> <span id='bath'>"+rowData.bath+"</span>";
                anchorArray = anchorArray + " </div><!--col-sm-6-->";
                anchorArray = anchorArray + " <div class='col-sm-6' style='padding:5px 0px;'>";
-                   anchorArray = anchorArray + " <span style='color:#4c4c4c;'>Mobile:</span> <span id='mobile'>"+rowData.mobile+"</span>";
+                   anchorArray = anchorArray + " <span style='color:#4c4c4c;'><spring:message code="label.home.worth.mobile" />:</span> <span id='mobile'>"+rowData.mobile+"</span>";
                 anchorArray = anchorArray + "</div><!--col-sm-6-->";
             anchorArray = anchorArray + "</div><!--row-->";
                         anchorArray = anchorArray + "<div class='row'>";
                 anchorArray = anchorArray + "<div class='col-sm-6' style='padding:5px 0px;'>";
                 date1=rowData.createdOn;
-                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'>Request Date:</span> <span id='bath'>"+date1+"</span>";
+                    anchorArray = anchorArray + "<span style='color:#4c4c4c;'><spring:message code="label.home.worth.requestdate" />:</span> <span id='bath'>"+date1+"</span>";
                anchorArray = anchorArray + " </div><!--col-sm-6-->";
             anchorArray = anchorArray + "</div><!--row-->";
         anchorArray = anchorArray + "</div><!--demo-->";
@@ -118,7 +118,7 @@ function search(searchstr){
         url:'homeworth?searchstr='+searchstr,
         view: cardview, onLoadSuccess: function (data) {
             if ($('#tt').datagrid('getRows').length == "0") {
-                $("#ctl00_cph_divWorkAreaContent").append("No Records Found");
+                $("#ctl00_cph_divWorkAreaContent").append("<spring:message code="label.norecords.found" />");
             }
 
         }});

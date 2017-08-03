@@ -57,7 +57,7 @@
             <div class="fluid-container" style="padding-left:20px; padding-right:20px;">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only"><spring:message code="label.header.toggle.navigation" /></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -139,23 +139,23 @@
                         code = data.response.code;
                         if (code == 0) {
 //                       swal("Success", "Property Acticated Successfully", "success")
-                            swal({title: "Success", text: "Property Activated Successfully", imageUrl: "resources/images/thumbs-up.jpg"}, function (isConfirm) {
+                            swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.property.activated.successfully" />", imageUrl: "resources/images/thumbs-up.jpg"}, function (isConfirm) {
                                 if (isConfirm) {
                                     window.location = 'home';
                                 }
                             });
                         } else if (code == 121) {
-                            sweetAlert("Activation Failed...", "Price is mandatory to activate property", "error");
+                            sweetAlert("<spring:message code="label.property.activation.failed" />", "<spring:message code="label.property.price.mand" />Price is mandatory to activate property", "error");
                         } else if (code == 122) {
-                            sweetAlert("Activation Failed...", "Address is mandatory to activate property", "error");
+                            sweetAlert("<spring:message code="label.property.activation.failed" />", "<spring:message code="label.property.address.mand" />Address is mandatory to activate property", "error");
                         } else if (code == 123) {
-                            sweetAlert("Activation Failed...", "Name is mandatory to activate property", "error");
+                            sweetAlert("<spring:message code="label.property.activation.failed" />", "<spring:message code="label.property.name.mand" />Name is mandatory to activate property", "error");
                         } else if (code == 124) {
-                            sweetAlert("Activation Failed...", "Email is mandatory to activate property", "error");
+                            sweetAlert("<spring:message code="label.property.activation.failed" />", "<spring:message code="label.property.email.mand" />Email is mandatory to activate property", "error");
                         } else if (code == 125) {
-                            sweetAlert("Activation Failed...", "Mobile is mandatory to activate property", "error");
+                            sweetAlert("<spring:message code="label.property.activation.failed" />", "<spring:message code="label.property.mobile.mand" />Mobile is mandatory to activate property", "error");
                         } else if (code == 126) {
-                            sweetAlert("Activation Failed...", "Contact details is mandatory to activate property", "error");
+                            sweetAlert("<spring:message code="label.property.activation.failed" />", "<spring:message code="label.property.contact.mand" />Contact details is mandatory to activate property", "error");
                         }
 
                     }
@@ -174,13 +174,13 @@
                         {
                             code = data.response.code;
                             if (code == 0) {
-                                swal({title: "Success", text: "Property Deactivated Successfully", imageUrl: "resources/images/thumbs-up.jpg"}, function (isConfirm) {
+                                swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.property.deactivated.success" />", imageUrl: "resources/images/thumbs-up.jpg"}, function (isConfirm) {
                                     if (isConfirm) {
                                         window.location = 'home';
                                     }
                                 });
                             } else {
-                                sweetAlert("Deactivation Failed...", "", "error");
+                                sweetAlert("<spring:message code="label.property.deactivation.failed" />", "", "error");
                             }
                         }
                     });
@@ -191,7 +191,7 @@
    function deleteProperty(id) {
 
 
-                swal({title: "Are you sure?", text: "You want to Delete Property!", type: "warning", showCancelButton: true, confirmButtonColor: "#DD6B55", confirmButtonText: "Yes!", closeOnConfirm: false}, function () {
+                swal({title: "<spring:message code="label.property.are.you.sure" />", text: "<spring:message code="label.property.want.to.delete" />", type: "warning", showCancelButton: true, confirmButtonColor: "#DD6B55", confirmButtonText: "<spring:message code="label.yes!" />", closeOnConfirm: false}, function () {
                     $.ajax({
                         url: "deleteProperty?id=" + id,
                         type: "GET",
@@ -201,13 +201,13 @@
                         {
                             code = data.response.code;
                             if (code == 0) {
-                                swal({title: "Success", text: "Property Deleted Successfully", imageUrl: "resources/images/thumbs-up.jpg"}, function (isConfirm) {
+                                swal({title: "<spring:message code="label.success" />", text: "<spring:message code="label.property.deleted.successfully" />", imageUrl: "resources/images/thumbs-up.jpg"}, function (isConfirm) {
                                     if (isConfirm) {
                                         window.location = 'home';
                                     }
                                 });
                             } else {
-                                sweetAlert("Deactivation Failed...", "", "error");
+                                sweetAlert("<spring:message code="label.property.deactivation.failed" />", "", "error");
                             }
                         }
                     });
@@ -228,7 +228,7 @@
                     //if the letter is not digit then display error and don't type anything
                     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                         //display error message
-                        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                        $("#errmsg").html("<spring:message code="label.property.digits.only" />").show().fadeOut("slow");
                         return false;
                     }
                 });
