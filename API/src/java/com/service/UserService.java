@@ -221,8 +221,8 @@ public class UserService {
         }
     }
 
-    public String getPropertyCategories(String transId) throws SQLException, Exception {
-        return objUserDAO.getpropertyCategory(transId);
+    public String getPropertyCategories(String transId,String language) throws SQLException, Exception {
+        return objUserDAO.getpropertyCategory(transId,language);
     }
 
     public JSONArray getPropertiesList(String transId, int fromIndex, int endIndex, String agent_id) throws SQLException, Exception {
@@ -333,45 +333,45 @@ public class UserService {
         return objUserDAO.propertySearch(minPrice, maxPrice, propertyType, propertyCategory, beds, baths, minsFeetRange, maxsFeetRange, petsAllowed, keywords, lotSize, fromYear, toYear, daysInAqarabia, listingType, showOnly, mls, soldInMonths, sortBy, orderBy, nPropertyCategory, transId, currency, nUserId, nIsSquareMeter, min, max, latitude, longitude, strRadius, xParams, eminitieKeywords);
     }
 
-    public String getPropertyTypes(int nCategory, String transId) throws SQLException, Exception {
-        return objUserDAO.getPropertyTypes(nCategory, transId);
+    public String getPropertyTypes(int nCategory, String transId,String language) throws SQLException, Exception {
+        return objUserDAO.getPropertyTypes(nCategory, transId, language);
     }
-    public String getListingTypes(int nCategory, String transId) throws SQLException, Exception {
-        return objUserDAO.getListingTypes(nCategory, transId);
+    public String getListingTypes(int nCategory, String transId,String language) throws SQLException, Exception {
+        return objUserDAO.getListingTypes(nCategory, transId, language);
     }
-    public String getStates(String transId) throws SQLException, Exception {
-        return objUserDAO.getStates(transId);
+    public String getStates(String transId,String language) throws SQLException, Exception {
+        return objUserDAO.getStates(transId, language);
     }
-    public String getCity(int nState,String transId) throws SQLException, Exception {
-        return objUserDAO.getCities(nState,transId);
+    public String getCity(int nState,String transId,String language) throws SQLException, Exception {
+        return objUserDAO.getCities(nState,transId, language);
     }
 
     public String getPropertyTypesAdmin(String transId) throws SQLException, Exception {
         return objUserDAO.getPropertyTypesAdmin(transId);
     }
 
-    public String getpropertyCategory(String transId) throws SQLException, Exception {
-        return objUserDAO.getpropertyCategory(transId);
+    public String getpropertyCategory(String transId,String language) throws SQLException, Exception {
+        return objUserDAO.getpropertyCategory(transId, language);
     }
 
-    public String getPropertyExpertise(String transId) throws SQLException, Exception {
-        return objUserDAO.getPropertyExpertise(transId);
+    public String getPropertyExpertise(String transId,String language) throws SQLException, Exception {
+        return objUserDAO.getPropertyExpertise(transId, language);
     }
 
     public String getAgentCertifications(String transId) throws SQLException, Exception {
         return objUserDAO.getAgentCertifications(transId);
     }
 
-    public String getAgentTypes(String transId) throws SQLException, Exception {
-        return objUserDAO.getAgentTypes(transId);
+    public String getAgentTypes(String transId,String language) throws SQLException, Exception {
+        return objUserDAO.getAgentTypes(transId, language);
     }
 
-    public String getAgentSpeciality(String transId) throws SQLException, Exception {
-        return objUserDAO.getAgentSpeciality(transId);
+    public String getAgentSpeciality(String transId,String  language) throws SQLException, Exception {
+        return objUserDAO.getAgentSpeciality(transId,language);
     }
 
-    public String getAgentLanguages(String transId) throws SQLException, Exception {
-        return objUserDAO.getAgentLanguages(transId);
+    public String getAgentLanguages(String transId,String language) throws SQLException, Exception {
+        return objUserDAO.getAgentLanguages(transId, language);
     }
 
     public String agentSearch(int minPrice, int maxPrice, String location, int agentType, String keywords, String propertyExpertise, String agentSpecialty, String languages, String transId) throws SQLException, Exception {

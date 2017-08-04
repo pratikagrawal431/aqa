@@ -90,7 +90,7 @@ public class PropertyController {
 
     @RequestMapping(value = "/showpropertyResult", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
     public @ResponseBody
-    byte[] showpropertyResult(@RequestParam(value = "id", required = false) String id, HttpServletRequest httpreq) throws UnsupportedEncodingException {
+    byte[] showpropertyResult(@RequestParam(value = "id", required = false) String id, @RequestParam(value = "language", defaultValue = "en", required = false) String language, HttpServletRequest httpreq) throws UnsupportedEncodingException {
         String transId = UUID.randomUUID().toString();
         JSONObject model = new JSONObject();
         try {
@@ -103,8 +103,8 @@ public class PropertyController {
                 category = (objResponse.getInt("category"));
             }
 
-            String objPropertyType = objUserService.getPropertyTypes(category, transId);
-            String objListingType = objUserService.getListingTypes(category, transId);
+            String objPropertyType = objUserService.getPropertyTypes(category, transId, language);
+            String objListingType = objUserService.getListingTypes(category, transId, language);
             model.put("objPropertyType", objPropertyType);
             model.put("objListingType", objListingType);
 
@@ -117,11 +117,11 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/getPropertyTypesAdmin", method = RequestMethod.GET)
-    public String getPropertyTypesAdmin(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat) {
+    public String getPropertyTypesAdmin(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String transId = UUID.randomUUID().toString();
         String objPropertyType = null;
         try {
-            objPropertyType = objUserService.getPropertyTypes(nCat, transId);
+            objPropertyType = objUserService.getPropertyTypes(nCat, transId, language);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,11 +132,11 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/getListingTypes", method = RequestMethod.GET)
-    public byte[] getListingTypes(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat) {
+    public byte[] getListingTypes(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String transId = UUID.randomUUID().toString();
         String objListingType = null;
         try {
-            objListingType = objUserService.getListingTypes(nCat, transId);
+            objListingType = objUserService.getListingTypes(nCat, transId, language);
             return objListingType.getBytes("UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,11 +146,11 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/getstates", method = RequestMethod.GET)
-    public String getStates(HttpServletRequest httpreq) {
+    public String getStates(HttpServletRequest httpreq, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String transId = UUID.randomUUID().toString();
         String objStates = null;
         try {
-            objStates = objUserService.getStates(transId);
+            objStates = objUserService.getStates(transId, language);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -160,11 +160,11 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/getcities", method = RequestMethod.GET)
-    public String getCities(HttpServletRequest httpreq, @RequestParam(value = "state", required = false) int nState) {
+    public String getCities(HttpServletRequest httpreq, @RequestParam(value = "state", required = false) int nState, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String transId = UUID.randomUUID().toString();
         String objCities = null;
         try {
-            objCities = objUserService.getCity(nState, transId);
+            objCities = objUserService.getCity(nState, transId, language);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -484,10 +484,10 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/property/getpropertytypes", method = RequestMethod.GET, produces = {"application/json"})
-    public byte[] getPropertyTypes(@RequestParam(value = "category", defaultValue = "1") int nCategory, HttpSession httpSession) {
+    public byte[] getPropertyTypes(@RequestParam(value = "category", defaultValue = "1") int nCategory, @RequestParam(value = "language", defaultValue = "en", required = false) String language, HttpSession httpSession) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getPropertyTypes(nCategory, strTid).getBytes("UTF-8");
+            return objUserService.getPropertyTypes(nCategory, strTid, language).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
@@ -495,10 +495,10 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/property/getpropertyCategory", method = RequestMethod.GET, produces = {"application/json"})
-    public byte[] getpropertyCategory(HttpSession httpSession) {
+    public byte[] getpropertyCategory(HttpSession httpSession, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getpropertyCategory(strTid).getBytes("UTF-8");
+            return objUserService.getpropertyCategory(strTid, language).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
@@ -506,10 +506,10 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/property/getpropertyexpertises", method = RequestMethod.GET, produces = {"application/json"})
-    public byte[] getPropertyExpertise(HttpSession httpSession) {
+    public byte[] getPropertyExpertise(HttpSession httpSession, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getPropertyExpertise(strTid).getBytes("UTF-8");
+            return objUserService.getPropertyExpertise(strTid, language).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
@@ -528,10 +528,10 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/agent/getagenttypes", method = RequestMethod.GET, produces = {"application/json"})
-    public byte[] getAgetntTypes(HttpSession httpSession) {
+    public byte[] getAgetntTypes(HttpSession httpSession, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getAgentTypes(strTid).getBytes("UTF-8");
+            return objUserService.getAgentTypes(strTid, language).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
@@ -539,10 +539,10 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/agent/getagentspeciality", method = RequestMethod.GET, produces = {"application/json"})
-    public byte[] getAgentSpeciality(HttpSession httpSession) {
+    public byte[] getAgentSpeciality(HttpSession httpSession, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getAgentSpeciality(strTid).getBytes("UTF-8");
+            return objUserService.getAgentSpeciality(strTid, language).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
@@ -550,10 +550,10 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/agent/getlanguages", method = RequestMethod.GET, produces = {"application/json"})
-    public byte[] getAgentLanguages(HttpSession httpSession) {
+    public byte[] getAgentLanguages(HttpSession httpSession, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String strTid = UUID.randomUUID().toString();
         try {
-            return objUserService.getAgentLanguages(strTid).getBytes("UTF-8");
+            return objUserService.getAgentLanguages(strTid, language).getBytes("UTF-8");
         } catch (Exception e) {
             logger.error(Utilities.getStackTrace(e));
         }
@@ -867,10 +867,10 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/property/getpropertyscategories", method = {RequestMethod.GET, RequestMethod.POST}, produces = {"application/json"})
-    public byte[] getPropertyCategories(@RequestParam(value = "category", defaultValue = "0") int category) {
+    public byte[] getPropertyCategories(@RequestParam(value = "category", defaultValue = "0") int category, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String strTid = UUID.randomUUID().toString();
         try {
-            String response = objUserService.getPropertyCategories(strTid);
+            String response = objUserService.getPropertyCategories(strTid, language);
             return response.getBytes("UTF-8");
         } catch (JsonSyntaxException e) {
             logger.error(e);

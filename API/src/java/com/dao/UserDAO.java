@@ -3169,7 +3169,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public String getPropertyTypes(int nCategory, String strTid) throws SQLException, Exception {
+    public String getPropertyTypes(int nCategory, String strTid, String language) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("propertytype.details.query", "SELECT * FROM property_type where category=?");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -3189,7 +3189,11 @@ public class UserDAO {
                 while (rs.next()) {
                     JSONObject property = new JSONObject();
                     property.put(Constants.id, rs.getInt("id"));
-                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    if ("ar".equalsIgnoreCase(language)) {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name_ar")));
+                    } else {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    }
                     propertyArray.put(property);
                 }
                 objRequest.put("propertyTypes", propertyArray);
@@ -3210,7 +3214,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public String getListingTypes(int nCategory, String strTid) throws SQLException, Exception {
+    public String getListingTypes(int nCategory, String strTid, String language) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("listingtypes.details.query", "SELECT * FROM listing_type where category=?");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -3230,7 +3234,11 @@ public class UserDAO {
                 while (rs.next()) {
                     JSONObject property = new JSONObject();
                     property.put(Constants.id, rs.getInt("id"));
-                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    if ("ar".equalsIgnoreCase(language)) {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name_ar")));
+                    } else {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    }
                     listingTypeArray.put(property);
                 }
                 objRequest.put("listingTypes", listingTypeArray);
@@ -3251,7 +3259,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public String getStates(String strTid) throws SQLException, Exception {
+    public String getStates(String strTid, String language) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("get.states.query", "SELECT * FROM state");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -3270,7 +3278,11 @@ public class UserDAO {
                 while (rs.next()) {
                     JSONObject property = new JSONObject();
                     property.put(Constants.id, rs.getInt("id"));
-                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("state")));
+                    if ("ar".equalsIgnoreCase(language)) {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("state_ar")));
+                    } else {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("state")));
+                    }
                     statesArray.put(property);
                 }
                 objRequest.put("states", statesArray);
@@ -3291,7 +3303,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public String getCities(int nState, String strTid) throws SQLException, Exception {
+    public String getCities(int nState, String strTid, String language) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("get.states.query", "SELECT * FROM city where state_id=?");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -3311,7 +3323,11 @@ public class UserDAO {
                 while (rs.next()) {
                     JSONObject property = new JSONObject();
                     property.put(Constants.id, rs.getInt("id"));
-                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("city")));
+                    if ("ar".equalsIgnoreCase(language)) {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("city_ar")));
+                    } else {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("city")));
+                    }
                     statesArray.put(property);
                 }
                 objRequest.put("cities", statesArray);
@@ -3372,7 +3388,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public String getPropertyExpertise(String strTid) throws SQLException, Exception {
+    public String getPropertyExpertise(String strTid, String language) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("propertyexpertise.details.query", "SELECT * FROM property_expertise");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -3391,7 +3407,11 @@ public class UserDAO {
                 while (rs.next()) {
                     JSONObject property = new JSONObject();
                     property.put(Constants.id, rs.getInt("id"));
-                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    if ("ar".equalsIgnoreCase(language)) {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name_ar")));
+                    } else {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    }
                     propertyArray.put(property);
                 }
                 objRequest.put("propertyExpertise", propertyArray);
@@ -3452,7 +3472,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public String getAgentTypes(String strTid) throws SQLException, Exception {
+    public String getAgentTypes(String strTid, String language) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("agenttypes.details.query", "SELECT * FROM agent_type");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -3471,7 +3491,11 @@ public class UserDAO {
                 while (rs.next()) {
                     JSONObject property = new JSONObject();
                     property.put(Constants.id, rs.getInt("id"));
-                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    if ("ar".equalsIgnoreCase(language)) {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name_ar")));
+                    } else {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    }
                     propertyArray.put(property);
                 }
                 objRequest.put("agentTypes", propertyArray);
@@ -3492,7 +3516,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public String getAgentSpeciality(String strTid) throws SQLException, Exception {
+    public String getAgentSpeciality(String strTid, String language) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("agent.speciality.details.query", "SELECT * FROM agent_specialty");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -3511,7 +3535,11 @@ public class UserDAO {
                 while (rs.next()) {
                     JSONObject property = new JSONObject();
                     property.put(Constants.id, rs.getInt("id"));
-                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    if ("ar".equalsIgnoreCase(language)) {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name_ar")));
+                    } else {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    }
                     propertyArray.put(property);
                 }
                 objRequest.put("certifications", propertyArray);
@@ -3532,7 +3560,7 @@ public class UserDAO {
         return objFinalResponse.toString();
     }
 
-    public String getAgentLanguages(String strTid) throws SQLException, Exception {
+    public String getAgentLanguages(String strTid, String language) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("agent.languages.details.query", "SELECT * FROM agent_languages");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -3551,7 +3579,11 @@ public class UserDAO {
                 while (rs.next()) {
                     JSONObject property = new JSONObject();
                     property.put(Constants.id, rs.getInt("id"));
-                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("language")));
+                    if ("ar".equalsIgnoreCase(language)) {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("language_ar")));
+                    } else {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("language")));
+                    }
                     propertyArray.put(property);
                 }
                 objRequest.put("languages", propertyArray);
@@ -4494,7 +4526,7 @@ public class UserDAO {
         return -1;
     }
 
-    public String getpropertyCategory(String strTid) throws SQLException, Exception {
+    public String getpropertyCategory(String strTid, String language) throws SQLException, Exception {
         String query = ConfigUtil.getProperty("propertycat.details.query", "SELECT * FROM property_category");
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -4513,7 +4545,11 @@ public class UserDAO {
                 while (rs.next()) {
                     JSONObject property = new JSONObject();
                     property.put(Constants.id, rs.getInt("id"));
-                    property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    if ("ar".equalsIgnoreCase(language)) {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name_ar")));
+                    } else {
+                        property.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                    }
                     propertyArray.put(property);
                 }
                 objRequest.put("propertyCategory", propertyArray);
