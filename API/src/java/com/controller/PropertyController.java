@@ -117,10 +117,13 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/getPropertyTypesAdmin", method = RequestMethod.GET)
-    public String getPropertyTypesAdmin(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
+    public String getPropertyTypesAdmin(HttpSession httpSession,HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String transId = UUID.randomUUID().toString();
         String objPropertyType = null;
         try {
+            if(null!=httpSession.getAttribute("language")){
+                language=(String) httpSession.getAttribute("language");
+            }
             objPropertyType = objUserService.getPropertyTypes(nCat, transId, language);
 
         } catch (Exception e) {
@@ -132,10 +135,13 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/getListingTypes", method = RequestMethod.GET)
-    public byte[] getListingTypes(HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
+    public byte[] getListingTypes(HttpSession httpSession,HttpServletRequest httpreq, @RequestParam(value = "nCat", required = false) int nCat, @RequestParam(value = "language", defaultValue = "en", required = false) String language) {
         String transId = UUID.randomUUID().toString();
         String objListingType = null;
         try {
+            if(null!=httpSession.getAttribute("language")){
+                language=(String) httpSession.getAttribute("language");
+            }
             objListingType = objUserService.getListingTypes(nCat, transId, language);
             return objListingType.getBytes("UTF-8");
         } catch (Exception e) {
