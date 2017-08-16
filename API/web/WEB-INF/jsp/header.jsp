@@ -37,7 +37,7 @@
         <!--        <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/demo.css">-->
         <!--        <script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.min.js"></script>-->
         <script type="text/javascript" src="resources/js/jquery.easyui.min.js"></script>
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBtHZGB7BuAvnIAF_slqUwuMftXNZ5oObc&amp;sensor=false&amp;libraries=places&amp;language=${language}"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAPSRuJ-YoOlw_OezI038_TgkU618dNTyg&amp;sensor=false&amp;libraries=places&amp;language=${language}"></script>
         <script src="resources/js/jquery.geocomplete.js"></script>
         <!--        <script src="resources/js/ajaxfileupload.js"></script>-->
 
