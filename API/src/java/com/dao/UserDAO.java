@@ -1262,7 +1262,7 @@ public class UserDAO {
             if (objConn != null) {
                 if (categoryId > 0) {
                     propertydetailsquery = propertydetailsquery + " AND pfm.category=? ";
-                    if (StringUtils.isNotBlank(sortBy) && StringUtils.isNotBlank(orderBy)) {
+                    if (StringUtils.isNotBlank(sortBy) && StringUtils.isNotBlank(orderBy) && (StringUtils.isNotBlank(strRadius) && ("0".equalsIgnoreCase(strRadius)))) {
                         if ("house_type".equalsIgnoreCase(sortBy)) {
                             propertydetailsquery = propertydetailsquery + " and p.house_type=1 ORDER BY p." + sortBy + " " + orderBy;
                         } else {
@@ -1280,6 +1280,13 @@ public class UserDAO {
                     propertydetailsquery = propertydetailsquery.replaceAll("\\$\\(long\\)", longitude);
                     if (StringUtils.isNotBlank(strRadius) && !"0".equalsIgnoreCase(strRadius)) {
                         propertydetailsquery = propertydetailsquery + " HAVING distance < " + strRadius;
+                        if (StringUtils.isNotBlank(sortBy) && StringUtils.isNotBlank(orderBy)) {
+                            if ("house_type".equalsIgnoreCase(sortBy)) {
+                                propertydetailsquery = propertydetailsquery + " and p.house_type=1";
+                            }
+                            propertydetailsquery = propertydetailsquery + " ORDER BY p." + sortBy + " " + orderBy;
+
+                        }
                     }
                 } catch (Exception e) {
                 }
