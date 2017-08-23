@@ -62,7 +62,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand brand-logo" href="http://devserver2.com/aqarabia/" target="_blank"><img src="resources/images/logo.png"/></a>
+                    <a class="navbar-brand brand-logo" href="home"><img src="resources/images/logo.png"/></a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
 

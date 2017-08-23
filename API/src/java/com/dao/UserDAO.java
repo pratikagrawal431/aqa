@@ -1107,12 +1107,12 @@ public class UserDAO {
                     propertydetailsquery = propertydetailsquery.replaceAll("\\$\\(lat\\)", latitude);
                     propertydetailsquery = propertydetailsquery.replaceAll("\\$\\(long\\)", longitude);
                     if (StringUtils.isNotBlank(strRadius) && !"0".equalsIgnoreCase(strRadius)) {
-                        propertydetailsquery = propertydetailsquery + " HAVING distance < " + strRadius + " limit 5";
+                        propertydetailsquery = propertydetailsquery + " HAVING distance < " + strRadius + " order by p.created_on desc limit 5";
                     } else {
-                        propertydetailsquery = propertydetailsquery + " limit 5";
+                        propertydetailsquery = propertydetailsquery + " order by p.created_on desc limit 5";
                     }
                 } catch (Exception e) {
-                    propertydetailsquery = propertydetailsquery + " limit 5";
+                    propertydetailsquery = propertydetailsquery + " order by p.created_on desc limit 5  ";
                     e.printStackTrace();
                     logger.error("Got Exception while replacing latitude and longitude " + Utilities.getStackTrace(e));
                 }
