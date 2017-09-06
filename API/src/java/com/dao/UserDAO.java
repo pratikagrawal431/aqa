@@ -3711,7 +3711,8 @@ public class UserDAO {
             if (nAgentId > 0) {
                 query = query + " and ad.id=?";
             } else if (nPropertyId > 0) {
-                query = ConfigUtil.getProperty("agent.details.by.propertyid.query", "SELECT * FROM agent_details ad ,users u WHERE ad.id IN(SELECT agent_id FROM agent_property_mapping WHERE property_id=?) AND ad.user_id=u.id");
+//                query = ConfigUtil.getProperty("agent.details.by.propertyid.query", "SELECT * FROM agent_details ad ,users u WHERE ad.id IN(SELECT agent_id FROM agent_property_mapping WHERE property_id=?) AND ad.user_id=u.id");
+                query = ConfigUtil.getProperty("property.contact.details.by.id.query", "SELECT * FROM property_contact_details where property_id=?");
             }
             JSONObject objRequest = new JSONObject();
             objRequest.put("code", "1000");
@@ -3728,25 +3729,49 @@ public class UserDAO {
                 JSONArray agentArray = new JSONArray();
                 while (rs.next()) {
                     JSONObject agent = new JSONObject();
-                    agent.put(Constants.name, Utilities.nullToEmpty(rs.getString("firstname")));
-                    agent.put(Constants.company, Utilities.nullToEmpty(rs.getString("company")));
-                    agent.put(Constants.agentType, rs.getInt("agent_type"));
-                    agent.put(Constants.agentId, rs.getInt("ad.id"));
-                    agent.put(Constants.about, Utilities.nullToEmpty(rs.getString("ad.description")));
-                    agent.put(Constants.recommondation, rs.getInt("ad.recommandations"));
-                    agent.put(Constants.totalreviews, agentReviews(rs.getInt("ad.id"), 1, transId, objConn));
-                    agent.put(Constants.city, Utilities.nullToEmpty(rs.getString("city")));
-                    String profilepic = rs.getString("profile_picture");
-                    if (StringUtils.isNotBlank(profilepic)) {
-                        agent.put(Constants.profilePicture, url + profilepic);
+                    if (nAgentId > 0) {
+                        agent.put(Constants.name, Utilities.nullToEmpty(rs.getString("firstname")));
+                        agent.put(Constants.company, Utilities.nullToEmpty(rs.getString("company")));
+                        agent.put(Constants.agentType, rs.getInt("agent_type"));
+                        agent.put(Constants.agentId, rs.getInt("ad.id"));
+                        agent.put(Constants.about, Utilities.nullToEmpty(rs.getString("ad.description")));
+                        agent.put(Constants.recommondation, rs.getInt("ad.recommandations"));
+                        agent.put(Constants.totalreviews, agentReviews(rs.getInt("ad.id"), 1, transId, objConn));
+                        agent.put(Constants.city, Utilities.nullToEmpty(rs.getString("city")));
+                        String profilepic = rs.getString("profile_picture");
+                        if (StringUtils.isNotBlank(profilepic)) {
+                            agent.put(Constants.profilePicture, url + profilepic);
+                        }
+                        // agent.put(Constants.profilePicture, Utilities.nullToEmpty(rs.getString("profile_picture")));
+                        agent.put(Constants.soldHomes, getSoldHomesCountAgainistToAgent(rs.getInt("ad.id"), objConn));
+                        agent.put(Constants.phone, getAgentPhoneNumber(rs.getInt("ad.id"), objConn));
+                        agent.put(Constants.agentRating, getAgentReview(rs.getInt("ad.id"), objConn));
+                        agent.put(Constants.activeHomes, getActiveHomesCountAgainistToAgent(rs.getInt("ad.id"), objConn));
+                        agent.put(Constants.certifications, rs.getInt("certifications"));
+                        agent.put(Constants.prices, getAgentSoldPropertiesMinAvgPrices(rs.getInt("ad.id")));
+                    } else {
+
+                        agent.put(Constants.name, Utilities.nullToEmpty(rs.getString("name")));
+                        agent.put(Constants.company, Utilities.nullToEmpty(rs.getString("company")));
+                        agent.put(Constants.agentType, 1);
+                        agent.put(Constants.agentId, 109);
+                        agent.put(Constants.about, "");
+                        agent.put(Constants.recommondation, "");
+                        agent.put(Constants.totalreviews, agentReviews(0, 1, transId, objConn));
+                        agent.put(Constants.city, "Dubai");
+//                        String profilepic = rs.getString("profile_picture");
+//                        if (StringUtils.isNotBlank(profilepic)) {
+                            agent.put(Constants.profilePicture, "");
+//                        }
+                        // agent.put(Constants.profilePicture, Utilities.nullToEmpty(rs.getString("profile_picture")));
+                        agent.put(Constants.soldHomes, "");
+                        agent.put(Constants.phone, Utilities.nullToEmpty(rs.getString("mobile")).replace("-", "").trim());
+                        agent.put(Constants.agentRating, "");
+                        agent.put(Constants.activeHomes, "");
+                        agent.put(Constants.certifications,"");
+                        agent.put(Constants.prices, "");
+
                     }
-                    // agent.put(Constants.profilePicture, Utilities.nullToEmpty(rs.getString("profile_picture")));
-                    agent.put(Constants.soldHomes, getSoldHomesCountAgainistToAgent(rs.getInt("ad.id"), objConn));
-                    agent.put(Constants.phone, getAgentPhoneNumber(rs.getInt("ad.id"), objConn));
-                    agent.put(Constants.agentRating, getAgentReview(rs.getInt("ad.id"), objConn));
-                    agent.put(Constants.activeHomes, getActiveHomesCountAgainistToAgent(rs.getInt("ad.id"), objConn));
-                    agent.put(Constants.certifications, rs.getInt("certifications"));
-                    agent.put(Constants.prices, getAgentSoldPropertiesMinAvgPrices(rs.getInt("ad.id")));
                     agentArray.put(agent);
                 }
                 objRequest.put("agents", agentArray);

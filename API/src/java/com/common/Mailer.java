@@ -218,7 +218,7 @@ public class Mailer {
                 multipart = new MimeMultipart();
                 msgBodyPart = new MimeBodyPart();
 
-                msgBodyPart.setContent(strContent, "text/html");
+                msgBodyPart.setContent(strContent, "text/html;charset=UTF-8");
 //            msgBodyPart=getFileBodyPart("c://count.txt");
                 multipart.addBodyPart(msgBodyPart);
                 for (int i = 0; i < attachments.size(); i++) {
